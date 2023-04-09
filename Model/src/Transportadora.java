@@ -88,17 +88,11 @@ public class Transportadora {
                 && Objects.equals(precoBasePequena, other.precoBasePequena)
                 && Objects.equals(precoBaseMedia, other.precoBaseMedia)
                 && Objects.equals(precoBaseGrande, other.precoBaseGrande)
-                && Objects.equals(imposto, other.imposto);
+                && Objects.equals(imposto, other.imposto)
                 && Objects.equals(premium, other.premium);
     }
 
     public Transportadora clone(){
         return new Transportadora(this);
     }
-}
-
-
-
-
-
 }
