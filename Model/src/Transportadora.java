@@ -27,14 +27,19 @@ public class Transportadora {
         this.premium = t.getPremium();
     }
 
-    /* Só posso fazer depois do módulo encomenda estar feito
-    public Double calculaValorTransporte(Encomenda enc, Transportadora t){
-        Double preco;
-        ...
+    public Double calculaValorTransporte(Encomendas enc){
+        Double preco = 0.00;
+        if (enc.getDimensaoEmbalagem().equals("pequena")){
+            preco = precoBasePequena * (1+this.imposto);
+        }
+        if (enc.getDimensaoEmbalagem().equals("media")){
+            preco = precoBaseMedia * (1+this.imposto);
+        }
+        if (enc.getDimensaoEmbalagem().equals("grande")){
+            preco = precoBaseGrande * (1+this.imposto);
+        }
         return preco;
     }
-    */
-
 
 
     //getters e setters
