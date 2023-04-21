@@ -1,4 +1,4 @@
-public class Malas extends Artigos{
+public abstract class Malas extends Artigos{
     private int dimensao;
     private String material;
     private int ano;
@@ -41,4 +41,5 @@ public class Malas extends Artigos{
     public void setAno(int ano) {
         this.ano = ano;
     }
+
 }
