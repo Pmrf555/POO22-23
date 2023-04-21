@@ -6,7 +6,7 @@ public class SapatilhasNormais extends Sapatilhas{
         super(artigos,sapatilhas);
     }
 
-    public double preco(){
+    public Double preco(){
         return getPrecoBase() + (getPrecoBase() / getNumeroUtilizadores() * getEstado()) * (getDesconto() / 100);
     }
 
