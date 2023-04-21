@@ -36,7 +36,7 @@ public class TShirt extends Artigos{
         else setDesconto(0.0);
     }
 
-    public double preco(){
+    public Double preco(){
         return getPrecoBase() * (getDesconto() / 100);
     }
 }
