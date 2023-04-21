@@ -9,7 +9,7 @@ public abstract class Sapatilhas extends Artigos{
     private LocalDateTime dataLancamento;
 
     public Sapatilhas(int numeroUtilizadores, Double estado, String descricao, String marca
-            , int codigoAlfa, Double precoBase, Double correcaoPreco, Double tamanho
+            , Long codigoAlfa, Double precoBase, Double correcaoPreco, Double tamanho
             , Boolean atacadores, String cor, LocalDateTime dataLancamento, Double desconto) {
         super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco,desconto);
         this.tamanho = tamanho;
