@@ -7,7 +7,7 @@ public class SapatilhasPremium extends Sapatilhas{ //nunca tem desconto mas aume
         super(artigos,sapatilhas);
     }
 
-    public double preco(){
+    public Double preco(){
         return super.getPrecoBase() + (10 * LocalDateTime.now().until(super.getDataLancamento(), ChronoUnit.YEARS)); // o 10 foi inventado não sei se é preciso um número especifico
     }
 }
