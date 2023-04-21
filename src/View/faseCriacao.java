@@ -1,5 +1,7 @@
 package View;
 
+import Model.Utilizador;
+
 import java.util.Scanner;
 
 public class faseCriacao {
@@ -14,7 +16,7 @@ public class faseCriacao {
         return scan.nextInt();
     }
 
-    public String inserirFicheiro(){
+    public String inserirFicheiro() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Insira o caminho para o ficheiro a ler:\n");
         return scan.nextLine();
