@@ -11,7 +11,7 @@ public class MalasNormais extends Malas{
         super(art, dimensao, material, ano);
     }
 
-    public double preco(){
+    public Double preco(){
         return getPrecoBase() - (4 * LocalDateTime.now().getYear()-getAno()); //o valor decresce 4 euros por ano, o enunciado não diz nada de jeito aqui
 
     }
