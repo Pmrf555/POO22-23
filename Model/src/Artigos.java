@@ -1,4 +1,4 @@
-public class Artigos {
+public abstract class Artigos {
     private int numeroUtilizadores; //se for 0 é novo, se for maior é usado
     private Double estado; // de 0 a 1 em que 0 é gasta e 1 é como saiu de fábrica
     private String descricao;
@@ -20,6 +20,7 @@ public class Artigos {
         this.desconto = desconto;
     }
 
+    public abstract  Double preco();
     public Double getDesconto() {
         return desconto;
     }
@@ -108,6 +109,11 @@ public class Artigos {
     }
 
     public Artigos clone(){
-        return new Artigos(this);
+        return new Artigos(this) {
+            @Override
+            public Double preco() {
+                return null;
+            }
+        };
     }
 }
