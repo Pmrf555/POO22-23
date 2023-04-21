@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Utilizador {
     private int codigo;
@@ -50,19 +51,19 @@ public class Utilizador {
         this.nif = nif;
     }
     public ArrayList<Artigos> getArtigosParaVenda() {
-        return ArtigosParaVenda;
+        return (ArrayList<Artigos>) ArtigosParaVenda.stream().map(Artigos::clone).collect(Collectors.toList());
     }
     public void setArtigosParaVenda(ArrayList<Artigos> ArtigosParaVenda) {
         this.ArtigosParaVenda = ArtigosParaVenda;
     }
     public ArrayList<Artigos> getArtigosVendidos() {
-        return ArtigosVendidos;
+        return (ArrayList<Artigos>) ArtigosVendidos.stream().map(Artigos::clone).collect(Collectors.toList());
     }
     public void setArtigosVendidos(ArrayList<Artigos> ArtigosVendidos) {
         this.ArtigosVendidos = ArtigosVendidos;
     }
     public ArrayList<Artigos> getArtigosComprados() {
-        return ArtigosComprados;
+        return (ArrayList<Artigos>) ArtigosComprados.stream().map(Artigos::clone).collect(Collectors.toList());
     }
     public void setArtigosComprados(ArrayList<Artigos> ArtigosComprados) {
         this.ArtigosComprados = ArtigosComprados;
@@ -93,9 +94,32 @@ public class Utilizador {
                 Objects.equals(totalVendido, utilizador.totalVendido);
     }
 
+    public Utilizador(Utilizador aux){
+        this.codigo = aux.getCodigo();
+        this.email = aux.getEmail();
+        this.nome = aux.getNome();
+        this.morada = aux.getMorada();
+        this.nif = aux.getNif();
+        ArtigosParaVenda = aux.getArtigosParaVenda();
+        ArtigosVendidos = aux.getArtigosVendidos();
+        ArtigosComprados = aux.getArtigosComprados();
+        this.totalVendido = aux.getTotalVendido();
+    }
+    public Utilizador(int codigo, String email, String nome, String morada, int nif, ArrayList<Artigos> artigosParaVenda
+            , ArrayList<Artigos> artigosVendidos, ArrayList<Artigos> artigosComprados, Double totalVendido) {
+        this.codigo = codigo;
+        this.email = email;
+        this.nome = nome;
+        this.morada = morada;
+        this.nif = nif;
+        ArtigosParaVenda = artigosParaVenda;
+        ArtigosVendidos = artigosVendidos;
+        ArtigosComprados = artigosComprados;
+        this.totalVendido = totalVendido;
+    }
 
     public Utilizador clone(){
-        return new Utilizador(super.clone(),this);
+        return new Utilizador(this);
     }
 
 }
