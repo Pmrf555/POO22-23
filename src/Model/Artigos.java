@@ -22,6 +22,10 @@ public abstract class Artigos {
         this.desconto = desconto;
     }
 
+    public Artigos() {
+
+    }
+
     public abstract  Double preco();
     public Double getDesconto() {
         return desconto;
