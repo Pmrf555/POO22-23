@@ -11,7 +11,7 @@ public class MalasPremium extends Malas{
         this.valorizacao = valorizacao;
     }
 
-    public double preco(){
+    public Double preco(){
         return getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno());
     }
 
