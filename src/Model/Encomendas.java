@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Encomendas{
-
-
     private static int numeroEnc;
     private ArrayList<Artigos> artigos;
     private String dimensaoEmbalagem;
@@ -24,6 +22,20 @@ public class Encomendas{
     public static void setNumeroEnc(int numeroEnc) {
         Encomendas.numeroEnc = numeroEnc;
     }
+
+    public Encomendas(ArrayList<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
+            , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
+        this.artigos = artigos;
+        this.dimensaoEmbalagem = dimensaoEmbalagem;
+        this.precoFinal = precoFinal;
+        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
+        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
+        this.custosExpedicao = custosExpedicao;
+        this.estado = estado;
+        this.dataCriacao = dataCriacao;
+        this.prazoLimite = prazoLimite;
+    }
+
     // Construtor da classe Encomenda
     public Encomendas(String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo, double taxaSatisfacaoServicoUsado, double custosExpedicao) {
         this.artigos = new ArrayList<>();
