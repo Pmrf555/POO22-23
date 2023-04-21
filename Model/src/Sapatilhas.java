@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-public class Sapatilhas extends Artigos{
+public abstract class Sapatilhas extends Artigos{
     private Double tamanho;
     private Boolean atacadores; // atacadores ou atilhos
     private String cor;
@@ -64,6 +64,7 @@ public class Sapatilhas extends Artigos{
         this.dataLancamento = dataLancamento;
     }
 
+
     public boolean equals(Object o){
         if (this == o) return true;
 
@@ -75,7 +76,4 @@ public class Sapatilhas extends Artigos{
                 && this.dataLancamento == art.getDataLancamento());
     }
 
-    public Sapatilhas clone(){
-        return new Sapatilhas(super.clone(),this);
-    }
 }
