@@ -1,15 +1,13 @@
-package Model;
-
 import java.time.LocalDateTime;
 
-public abstract class Sapatilhas extends Artigos{
+public class Sapatilhas extends Artigos{
     private Double tamanho;
     private Boolean atacadores; // atacadores ou atilhos
     private String cor;
     private LocalDateTime dataLancamento;
 
     public Sapatilhas(int numeroUtilizadores, Double estado, String descricao, String marca
-            , Long codigoAlfa, Double precoBase, Double correcaoPreco, Double tamanho
+            , int codigoAlfa, Double precoBase, Double correcaoPreco, Double tamanho
             , Boolean atacadores, String cor, LocalDateTime dataLancamento, Double desconto) {
         super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco,desconto);
         this.tamanho = tamanho;
@@ -66,7 +64,6 @@ public abstract class Sapatilhas extends Artigos{
         this.dataLancamento = dataLancamento;
     }
 
-
     public boolean equals(Object o){
         if (this == o) return true;
 
@@ -78,4 +75,7 @@ public abstract class Sapatilhas extends Artigos{
                 && this.dataLancamento == art.getDataLancamento());
     }
 
+    public Sapatilhas clone(){
+        return new Sapatilhas(super.clone(),this);
+    }
 }

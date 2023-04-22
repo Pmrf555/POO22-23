@@ -1,12 +1,10 @@
-package Model;
-
-public abstract class Malas extends Artigos{
+public class Malas extends Artigos{
     private int dimensao;
     private String material;
     private int ano;
 
     public Malas(int numeroUtilizadores, Double estado, String descricao, String marca
-            , Long codigoAlfa, Double precoBase, Double correcaoPreco, Double desconto, int dimensao, String material, int ano) {
+            , int codigoAlfa, Double precoBase, Double correcaoPreco, Double desconto, int dimensao, String material, int ano) {
         super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, desconto);
         this.dimensao = dimensao;
         this.material = material;
@@ -18,10 +16,6 @@ public abstract class Malas extends Artigos{
         this.dimensao = dimensao;
         this.material = material;
         this.ano = ano;
-    }
-
-    public Malas() {
-        super();
     }
 
     public int getDimensao() {
@@ -47,5 +41,4 @@ public abstract class Malas extends Artigos{
     public void setAno(int ano) {
         this.ano = ano;
     }
-
 }

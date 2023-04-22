@@ -1,17 +1,15 @@
-package Model;
-
-public abstract class Artigos {
+public class Artigos {
     private int numeroUtilizadores; //se for 0 é novo, se for maior é usado
     private Double estado; // de 0 a 1 em que 0 é gasta e 1 é como saiu de fábrica
     private String descricao;
     private String marca;
-    private Long codigoAlfa;
+    private int codigoAlfa;
     private Double precoBase;
     private Double correcaoPreco;
     private Double desconto;
 
     public Artigos(int numeroUtilizadores, Double estado, String descricao, String marca
-            , Long codigoAlfa, Double precoBase, Double correcaoPreco,Double desconto) {
+            , int codigoAlfa, Double precoBase, Double correcaoPreco,Double desconto) {
         this.numeroUtilizadores = numeroUtilizadores;
         this.estado = estado;
         this.descricao = descricao;
@@ -22,11 +20,6 @@ public abstract class Artigos {
         this.desconto = desconto;
     }
 
-    public Artigos() {
-
-    }
-
-    public abstract  Double preco();
     public Double getDesconto() {
         return desconto;
     }
@@ -78,11 +71,11 @@ public abstract class Artigos {
         this.marca = marca;
     }
 
-    public Long getCodigoAlfa() {
+    public int getCodigoAlfa() {
         return codigoAlfa;
     }
 
-    public void setCodigoAlfa(Long codigoAlfa) {
+    public void setCodigoAlfa(int codigoAlfa) {
         this.codigoAlfa = codigoAlfa;
     }
 
@@ -115,11 +108,6 @@ public abstract class Artigos {
     }
 
     public Artigos clone(){
-        return new Artigos(this) {
-            @Override
-            public Double preco() {
-                return null;
-            }
-        };
+        return new Artigos(this);
     }
 }

@@ -1,10 +1,9 @@
-package Model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
-public class Encomendas{
-    private static int numeroEnc;
+public class Encomendas {
+
     private ArrayList<Artigos> artigos;
     private String dimensaoEmbalagem;
     private double precoFinal;
@@ -14,27 +13,6 @@ public class Encomendas{
     private String estado;
     private Date dataCriacao;
     private Date prazoLimite;
-
-    public static int getNumeroEnc() {
-        return numeroEnc;
-    }
-
-    public static void setNumeroEnc(int numeroEnc) {
-        Encomendas.numeroEnc = numeroEnc;
-    }
-
-    public Encomendas(ArrayList<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
-            , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
-        this.artigos = artigos;
-        this.dimensaoEmbalagem = dimensaoEmbalagem;
-        this.precoFinal = precoFinal;
-        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
-        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
-        this.custosExpedicao = custosExpedicao;
-        this.estado = estado;
-        this.dataCriacao = dataCriacao;
-        this.prazoLimite = prazoLimite;
-    }
 
     // Construtor da classe Encomenda
     public Encomendas(String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo, double taxaSatisfacaoServicoUsado, double custosExpedicao) {
@@ -47,8 +25,6 @@ public class Encomendas{
         this.estado = "pendente";
         this.dataCriacao = new Date();
         this.prazoLimite = new Date(dataCriacao.getTime() + (1000 * 60 * 60 * 24 * 7)); // prazo de uma semana
-        Encomendas.numeroEnc = getNumeroEnc();
-        Encomendas.setNumeroEnc(getNumeroEnc()+1);
     }
 
     // Adiciona um artigo à encomenda
@@ -67,7 +43,7 @@ public class Encomendas{
     private void calcularPrecoFinal() {
         precoFinal = 0;
         for (Artigos artigo : artigos) {
-            if (artigo.getNumeroUtilizadores() == 0) { // ser 0 significa q o estado do artigo é novo ? penso que é necessario redefinir a varaivel estado na classe "artigos"
+            if (artigo.getEstado() == 0) { // ser 0 significa q o estado do artigo é novo ? penso que é necessario redefinir a varaivel estado na classe "artigos"
                 precoFinal += taxaSatisfacaoServicoNovo;
             } else {
                 precoFinal += taxaSatisfacaoServicoUsado;
@@ -171,4 +147,3 @@ public class Encomendas{
     }
 
 }
-
