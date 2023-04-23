@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Parser {
+public class Parser implements IParser{
                     //  LEITURA DO FICHEIRO PARA OS MAPAS \\
 
     public void lerFicheiro(Gestor ges,String nomeFicheiro) throws IOException {
@@ -62,7 +62,7 @@ public class Parser {
         arq.close();
     }
 
-    private Utilizador lerUtilizador(Gestor ges,BufferedReader fileArq) throws IOException {
+    public Utilizador lerUtilizador(Gestor ges,BufferedReader fileArq) throws IOException {
         int codigo = Integer.parseInt(fileArq.readLine());
         String email = fileArq.readLine();
         String nome = fileArq.readLine();
@@ -96,7 +96,7 @@ public class Parser {
     }
 
 
-    private Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException {
+    public Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException {
         int numeroArtigos = Integer.parseInt(fileArq.readLine());
         ArrayList<Artigos> aux = new ArrayList<>();
         for(int i = 0;i<numeroArtigos;i++){
@@ -114,7 +114,7 @@ public class Parser {
         return new Encomendas(aux,dimensaoEmbalagem,precoFinal,taxaSatisfacaoServicoNovo,taxaSatisfacaoServicoUsado,custoExpedicao,estado,dataCriacao,prazoLimite);
     }
 
-    private Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException {
+    public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException {
         String nome = fileArq.readLine();
         Double precoBasePequena = Double.parseDouble(fileArq.readLine());
         Double precoBaseMedia = Double.parseDouble(fileArq.readLine());
@@ -126,7 +126,7 @@ public class Parser {
 
 
 
-    private TShirt lerTShirt(BufferedReader fileArq) throws IOException {
+    public TShirt lerTShirt(BufferedReader fileArq) throws IOException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();

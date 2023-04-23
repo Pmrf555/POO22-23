@@ -1,7 +1,0 @@
-public class Parser implements IParser{
-
-    public void parse(IModel model) {
-
-    }
-
-}

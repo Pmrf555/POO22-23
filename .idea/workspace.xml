@@ -4,7 +4,56 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ba6c17c-238c-45b0-b33c-eb5b22ec2069" name="Changes" comment="" />
+    <list default="true" id="8ba6c17c-238c-45b0-b33c-eb5b22ec2069" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Artigos.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Encomendas.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/IInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/IModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/IParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/IView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Input.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/POO22-23/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Malas.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/MalasNormais.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/MalasPremium.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Menu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Model.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Parser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Sapatilhas.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/SapatilhasNormais.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/SapatilhasPremium.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/TShirt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/Transportadora.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/POO22-23/View.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Artigos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Encomendas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IInput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Malas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MalasNormais.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MalasPremium.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Menu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sapatilhas.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SapatilhasNormais.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SapatilhasPremium.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TShirt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Transportadora.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View.java" beforeDir="false" />
+    </list>
+    <list id="a7ef20bc-1e9e-4a97-ad61-c610220d5666" name="Changes by Cliente" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Model/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Parser.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +69,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/Model/Parser.java">
+      <ranges>
+        <range start1="9" end1="10" start2="9" end2="10" changelist="8ba6c17c-238c-45b0-b33c-eb5b22ec2069" />
+        <range start1="64" end1="65" start2="64" end2="65" changelist="a7ef20bc-1e9e-4a97-ad61-c610220d5666" />
+        <range start1="98" end1="99" start2="98" end2="99" changelist="a7ef20bc-1e9e-4a97-ad61-c610220d5666" />
+        <range start1="116" end1="117" start2="116" end2="117" changelist="a7ef20bc-1e9e-4a97-ad61-c610220d5666" />
+        <range start1="128" end1="129" start2="128" end2="129" changelist="a7ef20bc-1e9e-4a97-ad61-c610220d5666" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -34,11 +94,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
+    "ignore.preview.features.used": "true",
     "last_opened_file_path": "/home/luis/3Ano2Semestre/POO/POO22-23",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RunManager" selected="Application.Main">

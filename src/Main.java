@@ -1,3 +1,5 @@
+import Controller.Controller;
+
 public class Main {
     /**
      * Método para correr as funcionalidades do Projeto.
