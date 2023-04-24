@@ -120,8 +120,8 @@ public class Parser implements IParser{
         Double precoBaseMedia = Double.parseDouble(fileArq.readLine());
         Double precoBaseGrande = Double.parseDouble(fileArq.readLine());
         Double imposto = Double.parseDouble(fileArq.readLine());
-        Boolean premium = Boolean.parseBoolean(fileArq.readLine());
-        return new Transportadora(nome,precoBasePequena,precoBaseMedia,precoBaseGrande,imposto,premium);
+        Double formula = Double.parseDouble(fileArq.readLine());
+        return new Transportadora(nome,precoBasePequena,precoBaseMedia,precoBaseGrande,imposto,formula);
     }
 
 

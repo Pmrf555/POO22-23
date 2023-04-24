@@ -8,16 +8,17 @@ public class Transportadora {
     private Double precoBaseMedia;
     private Double precoBaseGrande;
     private Double imposto;
-    private Boolean premium;
+    private Double formula;
+
 
     public Transportadora(String nome, Double precoBasePequena, Double precoBaseMedia,
-                          Double precoBaseGrande, Double imposto, Boolean premium){
+                          Double precoBaseGrande, Double imposto, Double formula){
         this.nome = nome;
         this.precoBasePequena = precoBasePequena;
         this.precoBaseMedia = precoBaseMedia;
         this.precoBaseGrande = precoBaseGrande;
         this.imposto = imposto;
-        this.premium = premium;
+        this.formula = formula;
     }
 
     public Transportadora (Transportadora t){
@@ -26,21 +27,7 @@ public class Transportadora {
         this.precoBaseMedia = t.getPrecoBaseMedia();
         this.precoBaseGrande = t.getPrecoBaseGrande();
         this.imposto = t.getImposto();
-        this.premium = t.getPremium();
-    }
-
-    public Double calculaValorTransporte(Encomendas enc){
-        Double preco = 0.00;
-        if (enc.getDimensaoEmbalagem().equals("pequena")){
-            preco = precoBasePequena * (1+this.imposto);
-        }
-        if (enc.getDimensaoEmbalagem().equals("media")){
-            preco = precoBaseMedia * (1+this.imposto);
-        }
-        if (enc.getDimensaoEmbalagem().equals("grande")){
-            preco = precoBaseGrande * (1+this.imposto);
-        }
-        return preco;
+        this.formula = t.getFormula();
     }
 
 
@@ -75,13 +62,8 @@ public class Transportadora {
     public void setImposto(Double imposto) {
         this.imposto = imposto;
     }
-
-    public Boolean getPremium() {
-        return premium;
-    }
-    public void setPremium(Boolean premium) {
-        this.premium = premium;
-    }
+    public Double getFormula() { return formula;}
+    public void setFormula(Double formula) {this.formula  = formula;}
 
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -96,10 +78,5 @@ public class Transportadora {
                 && Objects.equals(precoBaseMedia, other.precoBaseMedia)
                 && Objects.equals(precoBaseGrande, other.precoBaseGrande)
                 && Objects.equals(imposto, other.imposto)
-                && Objects.equals(premium, other.premium);
-    }
-
-    public Transportadora clone(){
-        return new Transportadora(this);
     }
 }
