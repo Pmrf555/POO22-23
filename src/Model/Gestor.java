@@ -37,6 +37,18 @@ public class Gestor {
         return aux;
     }
 
+    // Função para determinar quanto dinheiro ganhou o ‘Vintage’ no seu funcionamento
+    public double lucroVintage(Map<Integer,Encomendas> encomendasMap){
+        double lucro = 0;
+
+        for(Encomendas encs : encomendasMap.values()){
+            lucro += encs.calcularTaxaVintage();
+        }
+
+        return lucro;
+    }
+
+
     public Map<Long, Artigos> getArtigosMap() {
         return artigosMap;
     }
