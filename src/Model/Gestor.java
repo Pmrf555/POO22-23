@@ -1,9 +1,6 @@
 package Model;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Gestor {
@@ -59,9 +56,38 @@ public class Gestor {
         return maiorFatura;
     }
 
-    //3.3.3
-    public List<Encomendas> emitidasPorVendedor(Integer codUtilizador){
-        return
+    // Função para listar as encomendas emitidas por um vendedor
+    public List<Encomendas> encomendasEmitidasPorVendedor(Integer codUtilizador) {
+        Utilizador user = utilizadorMap.get(codUtilizador);
+        List<Encomendas> aux = new ArrayList<Encomendas>();
+        for (Encomendas enc : encomendasMap.values()) {
+            Boolean flag = false;
+            for (Artigos artigos : enc.getArtigos()) {
+                if (user.temArtigoAssociado(artigos)) {
+                    flag = true;
+                }
+            }
+            if(flag){
+                aux.add(enc);
+            }
+        }
+        return aux;
+    }
+
+    // Função que irá fornecer uma ordenação dos maiores vendedores do sistema durante um período a determinar
+    public List<Utilizador> maioresVendedoresSistema(Date inicio,Date fim, int quantosNoTop) {
+
+        return this.utilizadorMap.values().stream()
+                .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosVendidosEntreDatas(inicio, fim)))
+                .limit(quantosNoTop).collect(Collectors.toList());
+    }
+
+    // Função que irá fornecer uma ordenação dos maiores compradores do sistema durante um período a determinar
+    public List<Utilizador> maioresCompradoresSistema(Date inicio,Date fim, int quantosNoTop) {
+
+        return this.utilizadorMap.values().stream()
+                .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosCompradosEntreDatas(inicio, fim)))
+                .limit(quantosNoTop).collect(Collectors.toList());
     }
 
     // Função para determinar quanto dinheiro ganhou o ‘Vintage’ no seu funcionamento
