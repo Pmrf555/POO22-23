@@ -15,6 +15,7 @@ public class Encomendas{
     private Date dataCriacao;
     private Date prazoLimite;
 
+
     public static int getNumeroEnc() {
         return numeroEnc;
     }
@@ -66,14 +67,34 @@ public class Encomendas{
     // Calcula o preço final da encomenda
     private void calcularPrecoFinal() {
         precoFinal = 0;
+
+
         for (Artigos artigo : artigos) {
             if (artigo.getNumeroUtilizadores() == 0) { // ser 0 significa q o estado do artigo é novo ? penso que é necessario redefinir a varaivel estado na classe "artigos"
                 precoFinal += taxaSatisfacaoServicoNovo;
+
             } else {
                 precoFinal += taxaSatisfacaoServicoUsado;
             }
         }
         precoFinal += custosExpedicao;
+    }
+
+    // Calcula a taxa de comissão que a ‘Vintage’ recebe
+    public double calcularTaxaVintage() {
+        ArrayList<Artigos> art = this.getArtigos();
+
+        double taxaVintage = 0;
+
+        for (Artigos artigo : art) {
+            if (artigo.getEstado() == 0) {
+                taxaVintage += taxaSatisfacaoServicoNovo;
+
+            } else {
+                taxaVintage += taxaSatisfacaoServicoUsado;
+            }
+        }
+        return taxaVintage;
     }
 
     // Devolve a encomenda, caso ainda esteja dentro do prazo limite
