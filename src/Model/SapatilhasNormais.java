@@ -18,7 +18,7 @@ public class SapatilhasNormais extends Sapatilhas{
     }
 
     public void desconto(Double desconto){
-        if(getDataLancamento().getYear() != LocalDateTime.now().getYear() || getTamanho() > 45) setDesconto(desconto);
+        if(getNumeroUtilizadores() > 0 || getTamanho() > 45) setDesconto(desconto);
         else setDesconto(1.0);
     }
 }
