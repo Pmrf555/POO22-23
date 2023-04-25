@@ -47,7 +47,7 @@ public class Encomendas{
         this.custosExpedicao = custosExpedicao;
         this.estado = "pendente";
         this.dataCriacao = new Date();
-        this.prazoLimite = new Date(dataCriacao.getTime() + (1000 * 60 * 60 * 24 * 7)); // prazo de uma semana
+        this.prazoLimite = new Date(dataCriacao.getTime() + (1000 * 60 * 60 * 24 * 2)); // prazo de 48 horas
         Encomendas.numeroEnc = getNumeroEnc();
         Encomendas.setNumeroEnc(getNumeroEnc()+1);
     }
@@ -70,7 +70,7 @@ public class Encomendas{
 
 
         for (Artigos artigo : artigos) {
-            if (artigo.getNumeroUtilizadores() == 0) { // ser 0 significa q o estado do artigo é novo ? penso que é necessario redefinir a varaivel estado na classe "artigos"
+            if (artigo.getEstado() == 1) {
                 precoFinal += taxaSatisfacaoServicoNovo;
 
             } else {
