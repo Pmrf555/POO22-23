@@ -4,7 +4,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utilizador<ArtigosVendidos> {
-    private int codigo;
+    private static int codigo;
+    private int codigoUser;
+
+    public int getCodigoUser() {
+        return codigoUser;
+    }
+
+    public void setCodigoUser(int codigoUser) {
+        this.codigoUser = codigoUser;
+    }
+
     private String email;
     private String nome;
     private String morada;
@@ -33,13 +43,15 @@ public class Utilizador<ArtigosVendidos> {
         return total;
     }
 
-    //getters and setters
-    public int getCodigo() {
+    public static int getCodigo() {
         return codigo;
     }
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+
+    public static void setCodigo(int codigo) {
+        Utilizador.codigo = codigo;
     }
+
+    //getters and setters
     public String getEmail() {
         return email;
     }
@@ -113,7 +125,8 @@ public class Utilizador<ArtigosVendidos> {
     }
 
     public Utilizador(Utilizador aux){
-        this.codigo = aux.getCodigo();
+        this.codigoUser = Utilizador.getCodigo();
+        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
         this.email = aux.getEmail();
         this.nome = aux.getNome();
         this.morada = aux.getMorada();
@@ -123,9 +136,11 @@ public class Utilizador<ArtigosVendidos> {
         ArtigosComprados = aux.getArtigosComprados();
         this.totalVendido = aux.getTotalVendido();
     }
+
     public Utilizador(int codigo, String email, String nome, String morada, int nif, ArrayList<Artigos> artigosParaVenda
             , Map<Date,List<Artigos>> artigosVendidos, ArrayList<Artigos> artigosComprados, Double totalVendido) {
-        this.codigo = codigo;
+        this.codigoUser = Utilizador.getCodigo();
+        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
         this.email = email;
         this.nome = nome;
         this.morada = morada;
