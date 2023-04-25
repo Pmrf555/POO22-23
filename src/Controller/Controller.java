@@ -1,5 +1,6 @@
 package Controller;
 import java.io.IOException;
+import java.text.ParseException;
 
 import Model.*;
 import View.*;
@@ -9,9 +10,15 @@ public class Controller {
     public static void run() throws ClassNotFoundException, IOException {
         IView view = new View();
         IInput input = new Input();
-        IModel model = new Model();
+        IGestor gestor = new Gestor();
         IParser p = new Parser();
-        //p.parse(model);
+
+        try {
+            p.lerFicheiro(gestor);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         while (true) {
             view.mostrarMenuPrincipal();
             int escolha = input.InputInteger();
