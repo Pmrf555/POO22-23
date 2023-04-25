@@ -3,9 +3,21 @@ package Model;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Utilizador<ArtigosVendidos> {
+public class Utilizador{
     private static int codigo;
     private int codigoUser;
+    private String email;
+    private String nome;
+    private String morada;
+    private int nif;
+    private ArrayList<Artigos> ArtigosParaVenda;
+    private Map<Date, List<Artigos>> ArtigosVendidos;
+    private Map<Date,List<Artigos>> ArtigosComprados;
+    private Double totalVendido; //soma do valor dos itens vendidos
+
+    public boolean temArtigoAssociado(Artigos artigos){
+        return this.ArtigosComprados.values().stream().anyMatch(e->e.contains(artigos)) || this.ArtigosVendidos.values().stream().anyMatch(e->e.contains(artigos));
+    }
 
     public int getCodigoUser() {
         return codigoUser;
@@ -14,16 +26,6 @@ public class Utilizador<ArtigosVendidos> {
     public void setCodigoUser(int codigoUser) {
         this.codigoUser = codigoUser;
     }
-
-    private String email;
-    private String nome;
-    private String morada;
-    private int nif;
-    private ArrayList<Artigos> ArtigosParaVenda;
-    private Map<Date, List<Artigos>> ArtigosVendidos;
-    private ArrayList<Artigos> ArtigosComprados;
-    private Double totalVendido; //soma do valor dos itens vendidos
-
 
     private List<List<Artigos>> artigosVendidosEntreDatas(Date inicio, Date fim){
         return this.ArtigosVendidos.entrySet().stream().filter(e->(e.getKey().after(inicio) && e.getKey().before(fim))).map(Map.Entry::getValue)
@@ -42,6 +44,26 @@ public class Utilizador<ArtigosVendidos> {
         }
         return total;
     }
+
+
+    private List<List<Artigos>> artigosCompradosEntreDatas(Date inicio, Date fim){
+        return this.ArtigosComprados.entrySet().stream().filter(e->(e.getKey().after(inicio) && e.getKey().before(fim))).map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+    }
+
+    public Double calculaValorartigosCompradosEntreDatas(Date inicio, Date fim){
+        List<List<Artigos>> a = artigosCompradosEntreDatas(inicio,fim);
+
+        Double total = 0.0;
+
+        for (List<Artigos> b : a){
+            for (Artigos c : b){
+                total += c.preco();
+            }
+        }
+        return total;
+    }
+
 
     public static int getCodigo() {
         return codigo;
@@ -92,10 +114,11 @@ public class Utilizador<ArtigosVendidos> {
     public void setArtigosVendidos(Map<Date,List<Artigos>> ArtigosVendidos) {
         this.ArtigosVendidos = ArtigosVendidos;
     }
-    public ArrayList<Artigos> getArtigosComprados() {
-        return (ArrayList<Artigos>) ArtigosComprados.stream().map(Artigos::clone).collect(Collectors.toList());
+    public Map<Date,List<Artigos>> getArtigosComprados() {
+        return ArtigosComprados.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().stream().map(Artigos::clone).collect(Collectors.toList())));
     }
-    public void setArtigosComprados(ArrayList<Artigos> ArtigosComprados) {
+    public void setArtigosComprados(Map<Date,List<Artigos>> ArtigosComprados) {
         this.ArtigosComprados = ArtigosComprados;
     }
     public Double getTotalVendido() {
@@ -138,7 +161,7 @@ public class Utilizador<ArtigosVendidos> {
     }
 
     public Utilizador(int codigo, String email, String nome, String morada, int nif, ArrayList<Artigos> artigosParaVenda
-            , Map<Date,List<Artigos>> artigosVendidos, ArrayList<Artigos> artigosComprados, Double totalVendido) {
+            , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados, Double totalVendido) {
         this.codigoUser = Utilizador.getCodigo();
         Utilizador.setCodigo(Utilizador.getCodigo() + 1);
         this.email = email;
