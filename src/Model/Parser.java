@@ -3,13 +3,16 @@ package Model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class Parser implements IParser{
                     //  LEITURA DO FICHEIRO PARA OS MAPAS \\
 
-    public void lerFicheiro(Gestor ges,String nomeFicheiro) throws IOException {
+    public void lerFicheiro(Gestor ges,String nomeFicheiro) throws IOException, ParseException {
         int estado = 0; // 0 se estiver a ler malasNormais,1 malasPremium,2 sapatilhasNormais,3 sapatilhasPremium,4 t-Shirts, 5 utilizadores, 6 encomendas e 7 trasportadoras
         int aux = 0;
         FileReader arq = new FileReader(nomeFicheiro);
@@ -61,7 +64,7 @@ public class Parser implements IParser{
         arq.close();
     }
 
-    public Utilizador lerUtilizador(Gestor ges,BufferedReader fileArq) throws IOException {
+    public Utilizador lerUtilizador(Gestor ges,BufferedReader fileArq) throws IOException, ParseException {
         int codigo = Integer.parseInt(fileArq.readLine());
         String email = fileArq.readLine();
         String nome = fileArq.readLine();
@@ -81,7 +84,7 @@ public class Parser implements IParser{
         int numeroArtigosVendidos = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosVendidos;i++){
             Long codAlfanumerico = Long.parseLong(fileArq.readLine());
-            Date data = new Date(fileArq.readLine());
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
             if(aux2.containsKey(data)){
                 aux2.get(data).add(ges.getArtigosMap().get(codAlfanumerico));
             }
@@ -103,7 +106,7 @@ public class Parser implements IParser{
     }
 
 
-    public Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException {
+    public Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException, ParseException {
         int numeroArtigos = Integer.parseInt(fileArq.readLine());
         ArrayList<Artigos> aux = new ArrayList<>();
         for(int i = 0;i<numeroArtigos;i++){
@@ -116,8 +119,8 @@ public class Parser implements IParser{
         Double taxaSatisfacaoServicoUsado = Double.parseDouble(fileArq.readLine());
         Double custoExpedicao = Double.parseDouble(fileArq.readLine());
         String estado = fileArq.readLine();
-        Date dataCriacao = new Date(fileArq.readLine());
-        Date prazoLimite = new Date(fileArq.readLine());
+        Date dataCriacao = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
+        Date prazoLimite = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
         return new Encomendas(aux,dimensaoEmbalagem,precoFinal,taxaSatisfacaoServicoNovo,taxaSatisfacaoServicoUsado,custoExpedicao,estado,dataCriacao,prazoLimite);
     }
 
