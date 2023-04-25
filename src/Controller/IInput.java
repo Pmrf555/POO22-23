@@ -1,7 +1,7 @@
 package Controller;
 
 public interface IInput {
-    int InputInteger();
-
+    public int InputInteger();
+    public String InputString();
     void closeScanner();
 }
