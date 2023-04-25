@@ -9,6 +9,7 @@ public abstract class Artigos {
     private Double precoBase;
     private Double correcaoPreco;
     private Double desconto;
+    private String nomeTransportadora; // ""
 
     public Artigos(int numeroUtilizadores, Double estado, String descricao, String marca
             , Long codigoAlfa, Double precoBase, Double correcaoPreco,Double desconto) {
@@ -20,6 +21,7 @@ public abstract class Artigos {
         this.precoBase = precoBase;
         this.correcaoPreco = correcaoPreco;
         this.desconto = desconto;
+        this.nomeTransportadora = "";
     }
 
     public Artigos() {
@@ -35,6 +37,14 @@ public abstract class Artigos {
         this.desconto = desconto;
     }
 
+    public String getNomeTransportadora() {
+        return nomeTransportadora;
+    }
+
+    public void setNomeTransportadora(String nomeTransportadora) {
+        this.nomeTransportadora = nomeTransportadora;
+    }
+
     public Artigos(Artigos art){
         this.numeroUtilizadores = art.getNumeroUtilizadores();
         this.estado = art.getEstado();
@@ -44,6 +54,7 @@ public abstract class Artigos {
         this.precoBase = art.getPrecoBase();
         this.correcaoPreco = art.getCorrecaoPreco();
         this.desconto = art.getDesconto();
+        this.nomeTransportadora = art.getNomeTransportadora();
     }
 
     public int getNumeroUtilizadores() {
