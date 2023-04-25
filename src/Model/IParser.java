@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
 
 public interface IParser extends Serializable {
 
-    public void lerFicheiro(Gestor ges,String nomeFicheiro) throws IOException;
+    public void lerFicheiro(Gestor ges,String nomeFicheiro) throws IOException, ParseException;
 
-    public Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException;
+    public Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException, ParseException;
 
     public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException;
 
