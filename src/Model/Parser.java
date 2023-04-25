@@ -4,8 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class Parser implements IParser{
                     //  LEITURA DO FICHEIRO PARA OS MAPAS \\
@@ -70,7 +69,7 @@ public class Parser implements IParser{
         int nif = Integer.parseInt(fileArq.readLine());
 
         ArrayList<Artigos> aux1 = new ArrayList<>();
-        ArrayList<Artigos> aux2 = new ArrayList<>();
+        Map<Date,List<Artigos>> aux2 = new HashMap<>();
         ArrayList<Artigos> aux3 = new ArrayList<>();
 
         int numeroArtigosParaVenda = Integer.parseInt(fileArq.readLine());
@@ -82,7 +81,15 @@ public class Parser implements IParser{
         int numeroArtigosVendidos = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosVendidos;i++){
             Long codAlfanumerico = Long.parseLong(fileArq.readLine());
-            aux2.add(ges.getArtigosMap().get(codAlfanumerico));
+            Date data = new Date(fileArq.readLine());
+            if(aux2.containsKey(data)){
+                aux2.get(data).add(ges.getArtigosMap().get(codAlfanumerico));
+            }
+            else{
+                List<Artigos> aux = null;
+                aux.add(ges.getArtigosMap().get(codAlfanumerico));
+                aux2.put(data,aux);
+            }
         }
 
         int numeroArtigosComprados = Integer.parseInt(fileArq.readLine());
