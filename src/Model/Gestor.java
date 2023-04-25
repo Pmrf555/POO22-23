@@ -3,7 +3,7 @@ package Model;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Gestor {
+public class Gestor implements IGestor{
     private Map<Long,Artigos> artigosMap; //key->codigo alfanumerico
     private Map<String ,Transportadora> transportadoraMap; // key-> nome
     private Map<Integer,Utilizador> utilizadorMap; //key->codigo
