@@ -3,16 +3,18 @@ package Model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class Parser implements IParser{
+    private String nomeFicheiro;
                     //  LEITURA DO FICHEIRO PARA OS MAPAS \\
-
-    public void lerFicheiro(Gestor ges,String nomeFicheiro) throws IOException, ParseException {
+    public Parser(){
+        this.nomeFicheiro = "../ficheiroLeitura";
+    }
+    public void lerFicheiro(IGestor ges) throws IOException, ParseException {
         int estado = 0; // 0 se estiver a ler malasNormais,1 malasPremium,2 sapatilhasNormais,3 sapatilhasPremium,4 t-Shirts, 5 utilizadores, 6 encomendas e 7 trasportadoras
         int aux = 0;
         FileReader arq = new FileReader(nomeFicheiro);
@@ -64,7 +66,7 @@ public class Parser implements IParser{
         arq.close();
     }
 
-    public Utilizador lerUtilizador(Gestor ges,BufferedReader fileArq) throws IOException, ParseException {
+    public Utilizador lerUtilizador(IGestor ges,BufferedReader fileArq) throws IOException, ParseException {
         int codigo = Integer.parseInt(fileArq.readLine());
         String email = fileArq.readLine();
         String nome = fileArq.readLine();
@@ -73,7 +75,7 @@ public class Parser implements IParser{
 
         ArrayList<Artigos> aux1 = new ArrayList<>();
         Map<Date,List<Artigos>> aux2 = new HashMap<>();
-        ArrayList<Artigos> aux3 = new ArrayList<>();
+        Map<Date,List<Artigos>> aux3 = new HashMap<>();
 
         int numeroArtigosParaVenda = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosParaVenda;i++){
@@ -89,7 +91,7 @@ public class Parser implements IParser{
                 aux2.get(data).add(ges.getArtigosMap().get(codAlfanumerico));
             }
             else{
-                List<Artigos> aux = null;
+                List<Artigos> aux = new ArrayList<Artigos>();
                 aux.add(ges.getArtigosMap().get(codAlfanumerico));
                 aux2.put(data,aux);
             }
@@ -98,7 +100,15 @@ public class Parser implements IParser{
         int numeroArtigosComprados = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosComprados;i++){
             Long codAlfanumerico = Long.parseLong(fileArq.readLine());
-            aux3.add(ges.getArtigosMap().get(codAlfanumerico));
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
+            if(aux3.containsKey(data)){
+                aux3.get(data).add(ges.getArtigosMap().get(codAlfanumerico));
+            }
+            else{
+                List<Artigos> aux = new ArrayList<Artigos>();
+                aux.add(ges.getArtigosMap().get(codAlfanumerico));
+                aux3.put(data,aux);
+            }
         }
 
         Double totalVendido = Double.parseDouble(fileArq.readLine());
@@ -106,7 +116,7 @@ public class Parser implements IParser{
     }
 
 
-    public Encomendas lerEncomendas(Gestor ges,BufferedReader fileArq) throws IOException, ParseException {
+    public Encomendas lerEncomendas(IGestor ges,BufferedReader fileArq) throws IOException, ParseException {
         int numeroArtigos = Integer.parseInt(fileArq.readLine());
         ArrayList<Artigos> aux = new ArrayList<>();
         for(int i = 0;i<numeroArtigos;i++){
@@ -126,15 +136,9 @@ public class Parser implements IParser{
 
     public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException {
         String nome = fileArq.readLine();
-        Double precoBasePequena = Double.parseDouble(fileArq.readLine());
-        Double precoBaseMedia = Double.parseDouble(fileArq.readLine());
-        Double precoBaseGrande = Double.parseDouble(fileArq.readLine());
-        Double imposto = Double.parseDouble(fileArq.readLine());
-        Double formula = Double.parseDouble(fileArq.readLine());
-        return new Transportadora(nome,precoBasePequena,precoBaseMedia,precoBaseGrande,imposto,formula);
+        Double margemLucro = Double.parseDouble(fileArq.readLine());
+        return new Transportadora(nome,margemLucro);
     }
-
-
 
     public TShirt lerTShirt(BufferedReader fileArq) throws IOException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
