@@ -15,6 +15,9 @@ public class TShirt extends Artigos{
         super(art);
         this.tamanho = tamanho;
         this.padrao = padrao;
+        if(!padrao.equals("liso")){
+            setDesconto(50.0);
+        }
     }
 
     public String getTamanho() {
