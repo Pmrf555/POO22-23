@@ -3,33 +3,34 @@ package Model;
 import java.util.Objects;
 
 public class Transportadora {
+    private static Double imposto;
+    private static Double precoBasePequena;
+    private static Double precoBaseMedia;
+    private static Double precoBaseGrande;
     private String nome;
-    private Double precoBasePequena;
-    private Double precoBaseMedia;
-    private Double precoBaseGrande;
-    private Double imposto;
-    private Double formula;
+    private Double margemLucro;
 
 
-    public Transportadora(String nome, Double precoBasePequena, Double precoBaseMedia,
-                          Double precoBaseGrande, Double imposto, Double formula){
+    public Transportadora(String nome, Double margemLucro){
         this.nome = nome;
-        this.precoBasePequena = precoBasePequena;
-        this.precoBaseMedia = precoBaseMedia;
-        this.precoBaseGrande = precoBaseGrande;
-        this.imposto = imposto;
-        this.formula = formula;
+        this.margemLucro = margemLucro;
     }
 
     public Transportadora (Transportadora t){
         this.nome = t.getNome();
-        this.precoBasePequena = t.getPrecoBasePequena();
-        this.precoBaseMedia = t.getPrecoBaseMedia();
-        this.precoBaseGrande = t.getPrecoBaseGrande();
-        this.imposto = t.getImposto();
-        this.formula = t.getFormula();
+        this.margemLucro = t.getMargemLucro();
     }
 
+    // Funcção que cria a fórmula de cálculo do preço de expedição
+    public Double precoExpedicao(Encomendas encomendas){
+        if (encomendas.getDimensaoEmbalagem().equals("pequena")) {
+            return (precoBasePequena * margemLucro * (1 + imposto)) * 0.9;
+        } else if(encomendas.getDimensaoEmbalagem().equals("media")){
+            return (precoBaseMedia * margemLucro * (1 + imposto)) * 0.9;
+        }else {
+            return (precoBaseGrande * margemLucro * (1 + imposto)) * 0.9;
+        }
+    }
 
     //getters e setters
     public String getNome() {
@@ -38,32 +39,45 @@ public class Transportadora {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public Double getPrecoBasePequena() {
-        return precoBasePequena;
-    }
-    public void setPrecoBasePequena(Double precoBasePequena) {
-        this.precoBasePequena = precoBasePequena;
-    }
-    public Double getPrecoBaseMedia() {
-        return precoBaseMedia;
-    }
-    public void setPrecoBaseMedia(Double precoBaseMedia) {
-        this.precoBaseMedia = precoBaseMedia;
-    }
-    public Double getPrecoBaseGrande() {
-        return precoBaseGrande;
-    }
-    public void setPrecoBaseGrande(Double precoBaseGrande) {
-        this.precoBaseGrande = precoBaseGrande;
-    }
-    public Double getImposto() {
+
+    public static Double getImposto() {
         return imposto;
     }
-    public void setImposto(Double imposto) {
-        this.imposto = imposto;
+
+    public static void setImposto(Double imposto) {
+        Transportadora.imposto = imposto;
     }
-    public Double getFormula() { return formula;}
-    public void setFormula(Double formula) {this.formula  = formula;}
+
+    public static Double getPrecoBasePequena() {
+        return precoBasePequena;
+    }
+
+    public static void setPrecoBasePequena(Double precoBasePequena) {
+        Transportadora.precoBasePequena = precoBasePequena;
+    }
+
+    public static Double getPrecoBaseMedia() {
+        return precoBaseMedia;
+    }
+
+    public static void setPrecoBaseMedia(Double precoBaseMedia) {
+        Transportadora.precoBaseMedia = precoBaseMedia;
+    }
+
+    public static Double getPrecoBaseGrande() {
+        return precoBaseGrande;
+    }
+
+    public static void setPrecoBaseGrande(Double precoBaseGrande) {
+        Transportadora.precoBaseGrande = precoBaseGrande;
+    }
+
+    public Double getMargemLucro(){
+        return margemLucro;
+    }
+    public void setMargemLucro(Double margemLucro) {
+        this.margemLucro = margemLucro;
+    }
 
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -73,10 +87,7 @@ public class Transportadora {
             return false;
         }
         Transportadora other = (Transportadora) obj;
-        return Objects.equals(nome, other.nome)
-                && Objects.equals(precoBasePequena, other.precoBasePequena)
-                && Objects.equals(precoBaseMedia, other.precoBaseMedia)
-                && Objects.equals(precoBaseGrande, other.precoBaseGrande)
-                && Objects.equals(imposto, other.imposto);
+        return other.getNome().equals(nome)
+                && other.getMargemLucro() == margemLucro;
     }
 }
