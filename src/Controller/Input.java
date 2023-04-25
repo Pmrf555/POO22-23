@@ -36,7 +36,31 @@ public class Input implements IInput{
         return input;
     }
 
+    public double InputDouble(){
+        double input = 0;
+        while(true) {
+            try {
+                input = Double.parseDouble(scanner.nextLine());
+                break;
+            }catch (NumberFormatException e) {
+                continue;
+            }
+        }
+        return input;
+    }
 
+    public long InputLong(){
+        long input = 0;
+        while(true) {
+            try {
+                input = Long.parseLong(scanner.nextLine());
+                break;
+            }catch (NumberFormatException e) {
+                continue;
+            }
+        }
+        return input;
+    }
     /**
      * Função que pede ao utilizador que introduza uma String
      * @return A string lida 

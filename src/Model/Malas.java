@@ -6,8 +6,8 @@ public abstract class Malas extends Artigos{
     private int ano;
 
     public Malas(int numeroUtilizadores, Double estado, String descricao, String marca
-            , Long codigoAlfa, Double precoBase, Double correcaoPreco, Double desconto, int dimensao, String material, int ano) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, desconto);
+            , Long codigoAlfa, Double precoBase, Double correcaoPreco, int dimensao, String material, int ano) {
+        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco);
         this.dimensao = dimensao;
         this.material = material;
         this.ano = ano;

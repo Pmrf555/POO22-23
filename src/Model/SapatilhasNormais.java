@@ -9,16 +9,16 @@ public class SapatilhasNormais extends Sapatilhas{
 
     public SapatilhasNormais(int numeroUtilizadores, Double estado, String descricao, String marca, Long codigoAlfa
             , Double precoBase, Double correcaoPreco, Double tamanho, Boolean atacadores, String cor
-            , LocalDateTime dataLancamento, Double desconto) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento, desconto);
+            , LocalDateTime dataLancamento) {
+        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento);
     }
 
     public Double preco(){
-        return getPrecoBase() + (getPrecoBase() / getNumeroUtilizadores() * getEstado()) * (getDesconto() / 100);
+        return getPrecoBase() + (getPrecoBase() / getNumeroUtilizadores() * getEstado()) * (getCorrecaoPreco() / 100);
     }
 
     public void desconto(Double desconto){
-        if(getNumeroUtilizadores() > 0 || getTamanho() > 45) setDesconto(desconto);
-        else setDesconto(1.0);
+        if(getNumeroUtilizadores() > 0 || getTamanho() > 45) setCorrecaoPreco(desconto);
+        else setCorrecaoPreco(1.0);
     }
 }

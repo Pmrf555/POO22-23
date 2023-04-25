@@ -5,8 +5,8 @@ public class TShirt extends Artigos{
     private String padrao; // se padrão for diferente de liso tem 50% desconto
 
     public TShirt(int numeroUtilizadores, Double estado, String descricao
-            , String marca, Long codigoAlfa, Double precoBase, Double correcaoPreco, String tamanho, String padrao,Double desconto) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco,desconto);
+            , String marca, Long codigoAlfa, Double precoBase, Double correcaoPreco, String tamanho, String padrao) {
+        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco);
         this.tamanho = tamanho;
         this.padrao = padrao;
     }
@@ -16,7 +16,7 @@ public class TShirt extends Artigos{
         this.tamanho = tamanho;
         this.padrao = padrao;
         if(!padrao.equals("liso")){
-            setDesconto(50.0);
+            setCorrecaoPreco(50.0);
         }
     }
 
@@ -37,11 +37,11 @@ public class TShirt extends Artigos{
     }
 
     public void desconto(){
-        if(!this.padrao.equals("liso")) setDesconto(50.0);
-        else setDesconto(0.0);
+        if(!this.padrao.equals("liso")) setCorrecaoPreco(50.0);
+        else setCorrecaoPreco(0.0);
     }
 
     public Double preco(){
-        return getPrecoBase() * (getDesconto() / 100);
+        return getPrecoBase() * (getCorrecaoPreco() / 100);
     }
 }

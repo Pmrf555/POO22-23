@@ -22,8 +22,8 @@ public class MalasPremium extends Malas{
     }
 
     public MalasPremium(int numeroUtilizadores, Double estado, String descricao, String marca, Long codigoAlfa
-            , Double precoBase, Double correcaoPreco, Double desconto, int dimensao, String material, int ano, double valorizacao) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, desconto, dimensao, material, ano);
+            , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano, double valorizacao) {
+        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, dimensao, material, ano);
         this.valorizacao = valorizacao;
     }
 

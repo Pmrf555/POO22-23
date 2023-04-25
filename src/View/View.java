@@ -13,7 +13,7 @@ public class View implements IView{
         menu.adicionaOpcao("Adicionar Artigo \uD83D\uDCE5");
         menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDE9B");
         menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
-        menu.adicionaOpcao("Adicionar Utilizador \uD83D\uDCE6");
+        menu.adicionaOpcao("Adicionar Utilizador \uD83D\uDC64");
         menu.adicionaOpcao("Sair ❌");
         menu.show(true);
     }
@@ -27,6 +27,7 @@ public class View implements IView{
         menu.adicionaOpcao("Adicionar Mala Normal \uD83D\uDC5B");
         menu.adicionaOpcao("Adicionar Mala Premium \uD83D\uDC5C");
         menu.adicionaOpcao("Adicionar T-Shirt \uD83D\uDC55");
+        menu.adicionaOpcao("Voltar");
         menu.adicionaOpcao("Sair ❌");
         menu.show(true);
     }
