@@ -1,21 +1,37 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class Utilizador {
+public class Utilizador<ArtigosVendidos> {
     private int codigo;
     private String email;
     private String nome;
     private String morada;
     private int nif;
     private ArrayList<Artigos> ArtigosParaVenda;
-    private ArrayList<Artigos> ArtigosVendidos;
+    private Map<Date, List<Artigos>> ArtigosVendidos;
     private ArrayList<Artigos> ArtigosComprados;
     private Double totalVendido; //soma do valor dos itens vendidos
 
 
+    private List<List<Artigos>> artigosVendidosEntreDatas(Date inicio, Date fim){
+        return this.ArtigosVendidos.entrySet().stream().filter(e->(e.getKey().after(inicio) && e.getKey().before(fim))).map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+    }
+
+    public Double calculaValorartigosVendidosEntreDatas(Date inicio, Date fim){
+        List<List<Artigos>> a = artigosVendidosEntreDatas(inicio,fim);
+
+        Double total = 0.0;
+
+        for (List<Artigos> b : a){
+            for (Artigos c : b){
+                total += c.preco();
+            }
+        }
+        return total;
+    }
 
     //getters and setters
     public int getCodigo() {
@@ -57,10 +73,11 @@ public class Utilizador {
     public void setArtigosParaVenda(ArrayList<Artigos> ArtigosParaVenda) {
         this.ArtigosParaVenda = ArtigosParaVenda;
     }
-    public ArrayList<Artigos> getArtigosVendidos() {
-        return (ArrayList<Artigos>) ArtigosVendidos.stream().map(Artigos::clone).collect(Collectors.toList());
+    public Map<Date,List<Artigos>> getArtigosVendidos() {
+        return ArtigosVendidos.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().stream().map(Artigos::clone).collect(Collectors.toList())));
     }
-    public void setArtigosVendidos(ArrayList<Artigos> ArtigosVendidos) {
+    public void setArtigosVendidos(Map<Date,List<Artigos>> ArtigosVendidos) {
         this.ArtigosVendidos = ArtigosVendidos;
     }
     public ArrayList<Artigos> getArtigosComprados() {
@@ -107,7 +124,7 @@ public class Utilizador {
         this.totalVendido = aux.getTotalVendido();
     }
     public Utilizador(int codigo, String email, String nome, String morada, int nif, ArrayList<Artigos> artigosParaVenda
-            , ArrayList<Artigos> artigosVendidos, ArrayList<Artigos> artigosComprados, Double totalVendido) {
+            , Map<Date,List<Artigos>> artigosVendidos, ArrayList<Artigos> artigosComprados, Double totalVendido) {
         this.codigo = codigo;
         this.email = email;
         this.nome = nome;
