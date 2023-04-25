@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class Gestor {
                 .collect(Collectors.toList()).get(0);
     }
 
+    // Função que determina qual é o vendedor que mais faturou num período ou desde sempre
     public Utilizador vendedorQueMaisFaturouEntreDatas(Date inicio,Date fim) {
         Utilizador aux = null;
         Double valorMax = 0.0;
@@ -35,6 +37,31 @@ public class Gestor {
             }
         }
         return aux;
+    }
+
+    // Função que determina qual o transportador com maior volume de faturação
+    public Transportadora transportadoraComMaiorFaturacao(){
+        Transportadora maiorFatura = null;
+        Double faturacao = 0.0;
+        Double max = 0.0;
+
+        for(Transportadora trans : transportadoraMap.values()){
+            for (Encomendas enc : encomendasMap.values()){
+                if(enc.getArtigos().get(0).getNomeTransportadora().equals(trans.getNome())){
+                    faturacao += trans.precoExpedicao(enc);
+                }
+            }
+            if(faturacao > max){
+                max = faturacao;
+                maiorFatura = trans;
+            }
+        }
+        return maiorFatura;
+    }
+
+    //3.3.3
+    public List<Encomendas> emitidasPorVendedor(Integer codUtilizador){
+        return
     }
 
     // Função para determinar quanto dinheiro ganhou o ‘Vintage’ no seu funcionamento
