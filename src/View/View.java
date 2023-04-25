@@ -9,10 +9,26 @@ public class View implements IView{
         clearScreen();
         Menu menu = new Menu();
         menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
-        // menu.adicionaOpcao("Consultar equipas 👥");
+        menu.adicionaOpcao("Adicionar Artigo");
+        menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDE9B");
+        menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
+        menu.adicionaOpcao("Adicionar Utilizador");
         menu.adicionaOpcao("Sair ❌");
         menu.show(true);
     }
+
+    public void mostraMenuArtigos(){
+        clearScreen();
+        Menu menu = new Menu();
+        menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
+        menu.adicionaOpcao("Adicionar Artigo");
+        menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDE9B");
+        menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
+        menu.adicionaOpcao("Adicionar Utilizador");
+        menu.adicionaOpcao("Sair ❌");
+        menu.show(true);
+    }
+
 
 
     /**
