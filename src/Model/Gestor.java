@@ -20,9 +20,21 @@ public class Gestor {
         this.dataAtual = new Date();
     }
 
-    public Utilizador vendedorQueMaisFaturou(){
+    public Utilizador vendedorQueMaisFaturouSempre(){
         return this.utilizadorMap.values().stream().sorted((p1, p2) -> (int) (p1.getTotalVendido() - p2.getTotalVendido()))
                 .collect(Collectors.toList()).get(0);
+    }
+
+    public Utilizador vendedorQueMaisFaturouEntreDatas(Date inicio,Date fim) {
+        Utilizador aux = null;
+        Double valorMax = 0.0;
+        for (Utilizador user: utilizadorMap.values()){
+            if(user.calculaValorartigosVendidosEntreDatas(inicio,fim) > valorMax){
+                aux = user;
+                valorMax = user.calculaValorartigosVendidosEntreDatas(inicio,fim);
+            }
+        }
+        return aux;
     }
 
     public Map<Long, Artigos> getArtigosMap() {
