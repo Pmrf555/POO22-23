@@ -11,13 +11,11 @@ public class TShirt extends Artigos{
         this.padrao = padrao;
     }
 
-    public TShirt(Artigos art, String tamanho, String padrao) {
-        super(art);
+    public TShirt(int numeroUtilizadores, Double estado, String descricao
+            , String marca, Double precoBase, Double correcaoPreco, String tamanho, String padrao) {
+        super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco);
         this.tamanho = tamanho;
         this.padrao = padrao;
-        if(!padrao.equals("liso")){
-            setCorrecaoPreco(50.0);
-        }
     }
 
     public String getTamanho() {
@@ -43,5 +41,12 @@ public class TShirt extends Artigos{
 
     public Double preco(){
         return getPrecoBase() * (getCorrecaoPreco() / 100);
+    }
+
+    public String toString(){
+        return "Número Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
+                +getEstado()+ "\nDescricao: " +getDescricao()+ "\nMarca: "+getMarca()+ "\nCodigo Alfanumerico: "
+                +getCodigoAlfa()+"\nPreço Base: "+getPrecoBase()+"\nCorreção Preço: "+getCorrecaoPreco()+"\nTamanho: "
+                +getTamanho()+ "\nPadrão: " +getPadrao();
     }
 }
