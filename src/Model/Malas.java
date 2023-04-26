@@ -13,8 +13,9 @@ public abstract class Malas extends Artigos{
         this.ano = ano;
     }
 
-    public Malas(Artigos art, int dimensao, String material, int ano) {
-        super(art);
+    public Malas(int numeroUtilizadores, Double estado, String descricao, String marca
+            , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano) {
+        super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco);
         this.dimensao = dimensao;
         this.material = material;
         this.ano = ano;
