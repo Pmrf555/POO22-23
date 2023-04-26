@@ -10,6 +10,11 @@ public class Transportadora {
     private String nome;
     private Double margemLucro;
 
+    public String toString(){
+        return "Imposto: " + getImposto() + "\nPreço Base Pequena: "
+                +getPrecoBasePequena()+ "\nPreço Base Média: " +getPrecoBaseMedia()+ "\nPreço Base Grande: "+getPrecoBaseGrande()
+                + "\nNome: "+getNome()+"\nMargem Lucro: "+getMargemLucro();
+    }
 
     public Transportadora(String nome, Double margemLucro){
         this.nome = nome;
