@@ -109,9 +109,7 @@ public class Parser implements IParser{
                 aux3.put(data,aux);
             }
         }
-
-        Double totalVendido = Double.parseDouble(fileArq.readLine());
-        return new Utilizador(codigo,email,nome,morada,nif,aux1,aux2,aux3,totalVendido);
+        return new Utilizador(email,nome,morada,nif,aux1,aux2,aux3);
     }
 
 
