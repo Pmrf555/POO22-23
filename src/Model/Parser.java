@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Parser implements IParser{
@@ -121,14 +120,14 @@ public class Parser implements IParser{
             aux.add(ges.getArtigosMap().get(codAlfanumerico));
         }
         String dimensaoEmbalagem = fileArq.readLine();
-        Double precoFinal = Double.parseDouble(fileArq.readLine());
         Double taxaSatisfacaoServicoNovo = Double.parseDouble(fileArq.readLine());
         Double taxaSatisfacaoServicoUsado = Double.parseDouble(fileArq.readLine());
         Double custoExpedicao = Double.parseDouble(fileArq.readLine());
         String estado = fileArq.readLine();
         Date dataCriacao = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
         Date prazoLimite = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
-        return new Encomendas(aux,dimensaoEmbalagem,precoFinal,taxaSatisfacaoServicoNovo,taxaSatisfacaoServicoUsado,custoExpedicao,estado,dataCriacao,prazoLimite);
+        return new Encomendas(aux,dimensaoEmbalagem,taxaSatisfacaoServicoNovo,taxaSatisfacaoServicoUsado,custoExpedicao
+                ,estado,dataCriacao,prazoLimite);
     }
 
     public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException {
@@ -142,12 +141,11 @@ public class Parser implements IParser{
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
         String marca = fileArq.readLine();
-        Long codAlfa = Long.parseLong(fileArq.readLine());
         Double precobase = Double.parseDouble(fileArq.readLine());
         Double correcaoPreco = Double.parseDouble(fileArq.readLine());
         String tamanho = fileArq.readLine();
         String padrao = fileArq.readLine();
-        return new TShirt(numeroUtilizadores,estado,descricao,marca,codAlfa,precobase,correcaoPreco,tamanho,padrao);
+        return new TShirt(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,tamanho,padrao);
     }
 
     public MalasNormais lerMalaNormal(BufferedReader fileArq) throws IOException {
@@ -155,13 +153,12 @@ public class Parser implements IParser{
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
         String marca = fileArq.readLine();
-        Long codAlfa = Long.parseLong(fileArq.readLine());
         Double precobase = Double.parseDouble(fileArq.readLine());
         Double correcaoPreco = Double.parseDouble(fileArq.readLine());
         int dimensao = Integer.parseInt(fileArq.readLine());
         String material = fileArq.readLine();
         int ano = Integer.parseInt(fileArq.readLine());
-        return new MalasNormais(numeroUtilizadores,estado,descricao,marca,codAlfa,precobase,correcaoPreco,dimensao,material,ano);
+        return new MalasNormais(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,dimensao,material,ano);
     }
 
     public MalasPremium lerMalaPremium(BufferedReader fileArq) throws IOException {
@@ -169,29 +166,27 @@ public class Parser implements IParser{
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
         String marca = fileArq.readLine();
-        Long codAlfa = Long.parseLong(fileArq.readLine());
         Double precobase = Double.parseDouble(fileArq.readLine());
         Double correcaoPreco = Double.parseDouble(fileArq.readLine());
         int dimensao = Integer.parseInt(fileArq.readLine());
         String material = fileArq.readLine();
         int ano = Integer.parseInt(fileArq.readLine());
         Double valorizacao = Double.parseDouble(fileArq.readLine());
-        return new MalasPremium(numeroUtilizadores,estado,descricao,marca,codAlfa,precobase,correcaoPreco,dimensao,material,ano,valorizacao);
+        return new MalasPremium(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,dimensao,material,ano,valorizacao);
     }
 
-    public Sapatilhas lerSapatilhas(BufferedReader fileArq) throws IOException {
+    public Sapatilhas lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
         String marca = fileArq.readLine();
-        Long codAlfa = Long.parseLong(fileArq.readLine());
         Double precobase = Double.parseDouble(fileArq.readLine());
         Double correcaoPreco = Double.parseDouble(fileArq.readLine());
         Double tamanho = Double.parseDouble(fileArq.readLine());
         Boolean atacadore = Boolean.parseBoolean(fileArq.readLine());
         String cor = fileArq.readLine();
-        LocalDateTime dataLancamento = LocalDateTime.parse(fileArq.readLine());
-        return new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,codAlfa,precobase,correcaoPreco,tamanho,atacadore,cor,dataLancamento);
+        Date dataLancamento = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
+        return new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,tamanho,atacadore,cor,dataLancamento);
     }
 
 }
