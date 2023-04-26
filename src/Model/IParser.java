@@ -20,6 +20,6 @@ public interface IParser extends Serializable {
 
     public MalasPremium lerMalaPremium(BufferedReader fileArq) throws IOException;
 
-    public Sapatilhas lerSapatilhas(BufferedReader fileArq) throws IOException;
+    public Sapatilhas lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException;
 
 }
