@@ -4,10 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Formatter;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import Model.*;
 import View.*;
@@ -91,15 +89,13 @@ public class Controller {
         String descricao = input.InputString();
         view.mostraMensagem("Insira o nome da marca:");
         String marca = input.InputString();
-        view.mostraMensagem("Insira código alfanumérico:");
-        Long codAlfa = input.InputLong();
         view.mostraMensagem("Insira preço base:");
         Double precoBase = input.InputDouble();
         view.mostraMensagem("Insira correção do preço");
         Double correcaoPreco = input.InputDouble();
         view.mostraMensagem("Insira o tamanho:");
         Double dimensao = input.InputDouble();
-        view.mostraMensagem("0- Não tem atacadores:\n1-Tem atacadores");
+        view.mostraMensagem("0- Não tem atacadores:\n1- Tem atacadores");
         Boolean atacadores;
         if(input.InputInteger() == 0){
             atacadores = false;
@@ -111,7 +107,9 @@ public class Controller {
         view.mostraMensagem("Insira a data de lançamento(formato dd/MM/yyy)");
         String data = input.InputString();
         LocalDateTime data1 = LocalDateTime.parse(data);
-        gestor.getArtigosMap().put(codAlfa,new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,codAlfa,precoBase,correcaoPreco,dimensao,atacadores,cor,data1));
+        SapatilhasNormais aux = new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco
+                ,dimensao,atacadores,cor,data1);
+        gestor.getArtigosMap().put(aux.getCodigoAlfa(), aux);
     }
 
     public static void adicionarSapatilhaPremium(IView view,IInput input,IGestor gestor){
@@ -123,8 +121,6 @@ public class Controller {
         String descricao = input.InputString();
         view.mostraMensagem("Insira o nome da marca:");
         String marca = input.InputString();
-        view.mostraMensagem("Insira código alfanumérico:");
-        Long codAlfa = input.InputLong();
         view.mostraMensagem("Insira preço base:");
         Double precoBase = input.InputDouble();
         view.mostraMensagem("Insira correção do preço");
@@ -142,8 +138,13 @@ public class Controller {
         String cor = input.InputString();
         view.mostraMensagem("Insira a data de lançamento(formato dd/MM/yyy)");
         String data = input.InputString();
-        LocalDateTime data1 = LocalDateTime.parse(data);
-        gestor.getArtigosMap().put(codAlfa,new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,codAlfa,precoBase,correcaoPreco,dimensao,atacadores,cor,data1));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(data, formatter);
+
+        SapatilhasPremium aux = new SapatilhasPremium(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco
+                ,dimensao,atacadores,cor,dateTime);
+        gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
     }
     // numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, desconto, dimensao, material, ano
     public static void adicionaMalaNormal(IView view,IInput input,IGestor gestor){
@@ -155,8 +156,6 @@ public class Controller {
         String descricao = input.InputString();
         view.mostraMensagem("Insira o nome da marca:");
         String marca = input.InputString();
-        view.mostraMensagem("Insira código alfanumérico:");
-        Long codAlfa = input.InputLong();
         view.mostraMensagem("Insira preço base:");
         Double precoBase = input.InputDouble();
         view.mostraMensagem("Insira correção do preço");
@@ -167,7 +166,8 @@ public class Controller {
         String material = input.InputString();
         view.mostraMensagem("Insira o ano:");
         Integer ano = input.InputInteger();
-        gestor.getArtigosMap().put(codAlfa,new MalasNormais(numeroUtilizadores,estado,descricao,marca,codAlfa,precoBase,correcaoPreco,dimensao,material,ano));
+        MalasNormais aux = new MalasNormais(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco,dimensao,material,ano);
+        gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
     }
 
     public static void adicionaMalaPremium(IView view,IInput input,IGestor gestor){
@@ -179,8 +179,6 @@ public class Controller {
         String descricao = input.InputString();
         view.mostraMensagem("Insira o nome da marca:");
         String marca = input.InputString();
-        view.mostraMensagem("Insira código alfanumérico:");
-        Long codAlfa = input.InputLong();
         view.mostraMensagem("Insira preço base:");
         Double precoBase = input.InputDouble();
         view.mostraMensagem("Insira correção do preço");
@@ -193,7 +191,9 @@ public class Controller {
         Integer ano = input.InputInteger();
         view.mostraMensagem("Insira a valorização:");
         Double valorizacao = input.InputDouble();
-        gestor.getArtigosMap().put(codAlfa,new MalasPremium(numeroUtilizadores,estado,descricao,marca,codAlfa,precoBase,correcaoPreco,dimensao,material,ano,valorizacao));
+        MalasPremium aux = new MalasPremium(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco,dimensao
+                ,material,ano,valorizacao);
+        gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
     }
 
     public static void adicionaTShirt(IView view,IInput input,IGestor gestor){
@@ -205,8 +205,6 @@ public class Controller {
         String descricao = input.InputString();
         view.mostraMensagem("Insira o nome da marca:");
         String marca = input.InputString();
-        view.mostraMensagem("Insira código alfanumérico:");
-        Long codAlfa = input.InputLong();
         view.mostraMensagem("Insira preço base:");
         Double precoBase = input.InputDouble();
         view.mostraMensagem("Insira correção do preço");
@@ -215,7 +213,8 @@ public class Controller {
         String tamanho = input.InputString();
         view.mostraMensagem("Insira o padrão:");
         String padrao = input.InputString();
-        gestor.getArtigosMap().put(codAlfa,new TShirt(numeroUtilizadores,estado,descricao,marca,codAlfa,precoBase,correcaoPreco,tamanho,padrao));
+        TShirt aux = new TShirt(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco,tamanho,padrao);
+        gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
     }
 
     public static void adicionaTransportadora(IView view,IInput input,IGestor gestor){
@@ -230,10 +229,10 @@ public class Controller {
         view.mostraMensagem("Quantos artigos vai ter a encomenda?");
         Integer numeroArtigos = input.InputInteger();
         view.mostraMensagem("Agora insira os códigos alfanuméricos dos" +numeroArtigos+ " artigos:");
-        List<Artigos> codAlfa = new ArrayList<Artigos>();
+        List<Artigos> artigos = new ArrayList<Artigos>();
         for (int i = 0; i<numeroArtigos;i++){
             Long aux = input.InputLong();
-            codAlfa.add(gestor.getArtigosMap().get(aux));
+            artigos.add(gestor.getArtigosMap().get(aux));
         }
         view.mostraMensagem("Insira a dimensão da embalagem:");
         String dimensaoEmbalagem = input.InputString();
@@ -251,14 +250,72 @@ public class Controller {
         String dataCriacao = input.InputString();
         view.mostraMensagem("Insira o prazo limite:");
         String prazoLimite = input.InputString();
-        Date dataCriacao1,prazoLimite1;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        dataCriacao1 = formatter.parse(dataCriacao);
-        prazoLimite1 = formatter.parse(prazoLimite);
+
+        Date dataCriacao1 = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
+        Date prazoLimite1 = new SimpleDateFormat("dd/MM/yyyy").parse(prazoLimite);
+
+        Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,precoFinal,satisfacaoServicoNovo
+                ,satisfacaoServicoUsado,custoExpedicao,estado,dataCriacao1,prazoLimite1);
+
+        gestor.getEncomendasMap().put(aux.getNumeroEncomenda(),aux);
     }
 
-    public static void adicionaUtilizador(IView view,IInput input,IGestor gestor){
+    public static void adicionaUtilizador(IView view,IInput input,IGestor gestor) throws ParseException {
+        view.mostraMensagem("Insira o email:");
+        String email = input.InputString();
+        view.mostraMensagem("Insira o nome:");
+        String nome = input.InputString();
+        view.mostraMensagem("Insira Morada:");
+        String morada = input.InputString();
+        view.mostraMensagem("Insira o NIF:");
+        int nif = input.InputInteger();
 
+        view.mostraMensagem("Quantos artigos para venda vai ter o utilizador?");
+        Integer numeroArtigosparaVenda = input.InputInteger();
+        List<Artigos> artigosVenda = new ArrayList<Artigos>();
+        for (int i = 0; i<numeroArtigosparaVenda;i++){
+            view.mostraMensagem("Insira o código alfanumérico do artigo:");
+            Long aux = input.InputLong();
+            artigosVenda.add(gestor.getArtigosMap().get(aux));
+        }
+
+        Map<Date,List<Artigos>> aux2 = new HashMap<>();
+        view.mostraMensagem("Quantos artigos vendidos vai ter o utilizador?");
+        Integer numeroArtigosVendidos = input.InputInteger();
+        for(int i = 0;i<numeroArtigosVendidos;i++){
+            view.mostraMensagem("Insira o código alfanumérico do artigo:");
+            Long codAlfanumerico = input.InputLong();
+            view.mostraMensagem("Insira a data de venda do produto (formato dd/MM/yyyy):");
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+            if(aux2.containsKey(data)){
+                aux2.get(data).add(gestor.getArtigosMap().get(codAlfanumerico));
+            }
+            else{
+                List<Artigos> aux = new ArrayList<Artigos>();
+                aux.add(gestor.getArtigosMap().get(codAlfanumerico));
+                aux2.put(data,aux);
+            }
+        }
+
+        Map<Date,List<Artigos>> aux3 = new HashMap<>();
+        view.mostraMensagem("Quantos artigos comprados vai ter o utilizador?");
+        Integer numeroArtigosComprados = input.InputInteger();
+        for(int i = 0;i<numeroArtigosVendidos;i++){
+            view.mostraMensagem("Insira o código alfanumérico do artigo:");
+            Long codAlfanumerico = input.InputLong();
+            view.mostraMensagem("Insira a data de compra do produto (formato dd/MM/yyyy):");
+            Date data = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+            if(aux2.containsKey(data)){
+                aux2.get(data).add(gestor.getArtigosMap().get(codAlfanumerico));
+            }
+            else{
+                List<Artigos> aux = new ArrayList<Artigos>();
+                aux.add(gestor.getArtigosMap().get(codAlfanumerico));
+                aux3.put(data,aux);
+            }
+        }
+        Utilizador utilizador = new Utilizador(email,nome,morada,nif,artigosVenda,aux2,aux3);
+        gestor.getUtilizadorMap().put(utilizador.getCodigoUser(),utilizador);
     }
 
 }
