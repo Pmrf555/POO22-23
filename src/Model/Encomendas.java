@@ -18,6 +18,9 @@ public class Encomendas{
     private Date dataCriacao;
     private Date prazoLimite;
 
+    private Double calculaPrecoFinal(){
+        return this.artigos.stream().mapToDouble(Artigos::preco).sum() + custosExpedicao;
+    }
 
     public static int getNumeroEnc() {
         return numeroEnc;
@@ -29,33 +32,33 @@ public class Encomendas{
 
 
 
-    public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
+    public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo
             , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = Encomendas.getNumeroEnc();
         Encomendas.setNumeroEnc(Encomendas.getNumeroEnc()+1);
         this.artigos = artigos;
         this.dimensaoEmbalagem = dimensaoEmbalagem;
-        this.precoFinal = precoFinal;
         this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
         this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
         this.custosExpedicao = custosExpedicao;
         this.estado = estado;
         this.dataCriacao = dataCriacao;
         this.prazoLimite = prazoLimite;
+        this.precoFinal = calculaPrecoFinal();
     }
 
-    public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
+    public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo
             , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = numeroEnc;
         this.artigos = artigos;
         this.dimensaoEmbalagem = dimensaoEmbalagem;
-        this.precoFinal = precoFinal;
         this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
         this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
         this.custosExpedicao = custosExpedicao;
         this.estado = estado;
         this.dataCriacao = dataCriacao;
         this.prazoLimite = prazoLimite;
+        this.precoFinal = calculaPrecoFinal();
     }
     // Construtor da classe Encomenda
     public Encomendas(String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo, double taxaSatisfacaoServicoUsado, double custosExpedicao) {
