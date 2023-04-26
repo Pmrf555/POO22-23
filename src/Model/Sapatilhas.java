@@ -1,45 +1,22 @@
 package Model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public abstract class Sapatilhas extends Artigos{
     private Double tamanho;
     private Boolean atacadores; // atacadores ou atilhos
     private String cor;
-    private LocalDateTime dataLancamento;
+    private Date dataLancamento;
 
     public Sapatilhas(int numeroUtilizadores, Double estado, String descricao, String marca
-            , Long codigoAlfa, Double precoBase, Double correcaoPreco, Double tamanho
-            , Boolean atacadores, String cor, LocalDateTime dataLancamento) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco);
-        this.tamanho = tamanho;
-        this.atacadores = atacadores;
-        this.cor = cor;
-        this.dataLancamento = dataLancamento;
-    }
-    public Sapatilhas(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco, Double tamanho
-            , Boolean atacadores, String cor, LocalDateTime dataLancamento) {
+            , Boolean atacadores, String cor, Date dataLancamento) {
         super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco);
         this.tamanho = tamanho;
         this.atacadores = atacadores;
         this.cor = cor;
         this.dataLancamento = dataLancamento;
-    }
-    public Sapatilhas(Artigos art, Double tamanho, Boolean atacadores, String cor, LocalDateTime dataLancamento) {
-        super(art);
-        this.tamanho = tamanho;
-        this.atacadores = atacadores;
-        this.cor = cor;
-        this.dataLancamento = dataLancamento;
-    }
-
-    public Sapatilhas(Artigos artigos,Sapatilhas sapatilhas){
-        super(artigos);
-        this.tamanho = sapatilhas.getTamanho();
-        this.atacadores = sapatilhas.getAtacadores();
-        this.cor = sapatilhas.getCor();
-        this.dataLancamento = sapatilhas.getDataLancamento();
     }
 
     public Double getTamanho() {
@@ -66,11 +43,11 @@ public abstract class Sapatilhas extends Artigos{
         this.cor = cor;
     }
 
-    public LocalDateTime getDataLancamento() {
+    public Date getDataLancamento() {
         return dataLancamento;
     }
 
-    public void setDataLancamento(LocalDateTime dataLancamento) {
+    public void setDataLancamento(Date dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
 
