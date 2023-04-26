@@ -9,11 +9,21 @@ public class SapatilhasPremium extends Sapatilhas{ //nunca tem desconto mas aume
         super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento);
     }
 
+    public SapatilhasPremium(int numeroUtilizadores, Double estado, String descricao, String marca, Double precoBase, Double correcaoPreco, Double tamanho, Boolean atacadores, String cor, LocalDateTime dataLancamento) {
+        super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento);
+    }
     public SapatilhasPremium(Artigos artigos, Sapatilhas sapatilhas){
         super(artigos,sapatilhas);
     }
 
     public Double preco(){
         return super.getPrecoBase() + (10 * LocalDateTime.now().until(super.getDataLancamento(), ChronoUnit.YEARS)); // o 10 foi inventado não sei se é preciso um número especifico
+    }
+
+    public String toString(){
+        return "Número Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
+                +getEstado()+ "\nDescricao: " +getDescricao()+ "\nMarca: "+getMarca()+ "\nCodigo Alfanumerico: "
+                +getCodigoAlfa()+"\nPreço Base: "+getPrecoBase()+"\nCorreção Preço: "+getCorrecaoPreco()+"\nTamanho: "
+                +getTamanho()+ "\nAtacadores: " +getAtacadores()+"\nCor: "+getCor();
     }
 }
