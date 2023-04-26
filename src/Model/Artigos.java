@@ -12,18 +12,6 @@ public abstract class Artigos {
     private String nomeTransportadora; // ""
 
     public Artigos(int numeroUtilizadores, Double estado, String descricao, String marca
-            , Long codigoAlfa, Double precoBase, Double correcaoPreco) {
-        this.numeroUtilizadores = numeroUtilizadores;
-        this.estado = estado;
-        this.descricao = descricao;
-        this.marca = marca;
-        this.codigoAlfa = codigoAlfa;
-        this.precoBase = precoBase;
-        this.correcaoPreco = correcaoPreco;
-        this.nomeTransportadora = "";
-    }
-
-    public Artigos(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco) {
         this.numeroUtilizadores = numeroUtilizadores;
         this.estado = estado;
@@ -36,9 +24,7 @@ public abstract class Artigos {
         this.nomeTransportadora = "";
     }
 
-    public Artigos() {
-
-    }
+    public Artigos() {}
 
     public abstract  Double preco();
 
