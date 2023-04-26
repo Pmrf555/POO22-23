@@ -10,10 +10,60 @@ public class Utilizador{
     private String nome;
     private String morada;
     private int nif;
-    private ArrayList<Artigos> ArtigosParaVenda;
+    private List<Artigos> ArtigosParaVenda;
     private Map<Date, List<Artigos>> ArtigosVendidos;
     private Map<Date,List<Artigos>> ArtigosComprados;
     private Double totalVendido; //soma do valor dos itens vendidos
+
+    public Utilizador(Utilizador aux){
+        this.codigoUser = Utilizador.getCodigo();
+        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
+        this.email = aux.getEmail();
+        this.nome = aux.getNome();
+        this.morada = aux.getMorada();
+        this.nif = aux.getNif();
+        ArtigosParaVenda = aux.getArtigosParaVenda();
+        ArtigosVendidos = aux.getArtigosVendidos();
+        ArtigosComprados = aux.getArtigosComprados();
+        this.totalVendido = aux.getTotalVendido();
+    }
+
+    public Utilizador(int codigo, String email, String nome, String morada, int nif, List<Artigos> artigosParaVenda
+            , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados) {
+        this.codigoUser = codigo;
+        this.email = email;
+        this.nome = nome;
+        this.morada = morada;
+        this.nif = nif;
+        ArtigosParaVenda = artigosParaVenda;
+        ArtigosVendidos = artigosVendidos;
+        ArtigosComprados = artigosComprados;
+        this.totalVendido = calculaTotalVendido();
+    }
+
+    public Utilizador(String email, String nome, String morada, int nif, List<Artigos> artigosParaVenda
+            , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados) {
+        this.codigoUser = Utilizador.getCodigo();
+        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
+        this.email = email;
+        this.nome = nome;
+        this.morada = morada;
+        this.nif = nif;
+        ArtigosParaVenda = artigosParaVenda;
+        ArtigosVendidos = artigosVendidos;
+        ArtigosComprados = artigosComprados;
+        this.totalVendido = calculaTotalVendido();
+    }
+
+    private Double calculaTotalVendido(){
+        Double total = 0.0;
+        for(List<Artigos> artigos : this.ArtigosVendidos.values()){
+            for (Artigos artigos1 : artigos){
+                total += artigos1.preco();
+            }
+        }
+        return total;
+    }
 
     public boolean temArtigoAssociado(Artigos artigos){
         return this.ArtigosComprados.values().stream().anyMatch(e->e.contains(artigos)) || this.ArtigosVendidos.values().stream().anyMatch(e->e.contains(artigos));
@@ -147,37 +197,39 @@ public class Utilizador{
                 Objects.equals(totalVendido, utilizador.totalVendido);
     }
 
-    public Utilizador(Utilizador aux){
-        this.codigoUser = Utilizador.getCodigo();
-        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
-        this.email = aux.getEmail();
-        this.nome = aux.getNome();
-        this.morada = aux.getMorada();
-        this.nif = aux.getNif();
-        ArtigosParaVenda = aux.getArtigosParaVenda();
-        ArtigosVendidos = aux.getArtigosVendidos();
-        ArtigosComprados = aux.getArtigosComprados();
-        this.totalVendido = aux.getTotalVendido();
-    }
-
-    public Utilizador(int codigo, String email, String nome, String morada, int nif, ArrayList<Artigos> artigosParaVenda
-            , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados, Double totalVendido) {
-        this.codigoUser = Utilizador.getCodigo();
-        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
-        this.email = email;
-        this.nome = nome;
-        this.morada = morada;
-        this.nif = nif;
-        ArtigosParaVenda = artigosParaVenda;
-        ArtigosVendidos = artigosVendidos;
-        ArtigosComprados = artigosComprados;
-        this.totalVendido = totalVendido;
-    }
 
     public Utilizador clone(){
         return new Utilizador(this);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder aux1 = null;
+        for(Artigos artigos : this.ArtigosParaVenda){
+            aux1.append(artigos.toString());
+        }
+        StringBuilder aux2 = null;
+        for(List<Artigos> artigos : this.ArtigosVendidos.values()){
+            for (Artigos artigos1 : artigos){
+                aux2.append(artigos1.toString());
+            }
+        }
+        StringBuilder aux3 = null;
+        for(List<Artigos> artigos : this.ArtigosComprados.values()){
+            for (Artigos artigos1 : artigos){
+                aux3.append(artigos1.toString());
+            }
+        }
+        return "Utilizador{" +
+                "codigoUser=" + codigoUser +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", morada='" + morada + '\'' +
+                ", nif=" + nif +
+                aux1 + aux2 + aux3+
+                ", totalVendido=" + totalVendido +
+                '}';
+    }
 }
 
 
