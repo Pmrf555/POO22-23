@@ -1,11 +1,14 @@
 package Model;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Encomendas{
     private static int numeroEnc;
-    private ArrayList<Artigos> artigos;
+    private int numeroEncomenda;
+    private List<Artigos> artigos;
     private String dimensaoEmbalagem;
     private double precoFinal;
     private double taxaSatisfacaoServicoNovo;
@@ -24,8 +27,12 @@ public class Encomendas{
         Encomendas.numeroEnc = numeroEnc;
     }
 
-    public Encomendas(ArrayList<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
+
+
+    public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
             , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
+        this.numeroEncomenda = Encomendas.getNumeroEnc();
+        Encomendas.setNumeroEnc(Encomendas.getNumeroEnc()+1);
         this.artigos = artigos;
         this.dimensaoEmbalagem = dimensaoEmbalagem;
         this.precoFinal = precoFinal;
@@ -37,6 +44,19 @@ public class Encomendas{
         this.prazoLimite = prazoLimite;
     }
 
+    public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double precoFinal, double taxaSatisfacaoServicoNovo
+            , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
+        this.numeroEncomenda = numeroEnc;
+        this.artigos = artigos;
+        this.dimensaoEmbalagem = dimensaoEmbalagem;
+        this.precoFinal = precoFinal;
+        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
+        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
+        this.custosExpedicao = custosExpedicao;
+        this.estado = estado;
+        this.dataCriacao = dataCriacao;
+        this.prazoLimite = prazoLimite;
+    }
     // Construtor da classe Encomenda
     public Encomendas(String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo, double taxaSatisfacaoServicoUsado, double custosExpedicao) {
         this.artigos = new ArrayList<>();
@@ -82,7 +102,7 @@ public class Encomendas{
 
     // Calcula a taxa de comissão que a ‘Vintage’ recebe
     public double calcularTaxaVintage() {
-        ArrayList<Artigos> art = this.getArtigos();
+        List<Artigos> art = this.getArtigos();
 
         double taxaVintage = 0;
 
@@ -108,8 +128,15 @@ public class Encomendas{
     }
 
     // Getters e Setters
-    public ArrayList<Artigos> getArtigos() {
-        return artigos;
+    public int getNumeroEncomenda() {
+        return numeroEncomenda;
+    }
+
+    public void setNumeroEncomenda(int numeroEncomenda) {
+        this.numeroEncomenda = numeroEncomenda;
+    }
+    public List<Artigos> getArtigos() {
+        return artigos.stream().map(Artigos::clone).collect(Collectors.toList());
     }
 
     public String getDimensaoEmbalagem() {
@@ -178,8 +205,12 @@ public class Encomendas{
 
     @Override
     public String toString() {
+        String aux = null;
+        for(Artigos artigos : this.artigos){
+            aux = aux + artigos.toString();
+        }
         return "Encomendas{" +
-                "artigos=" + artigos +
+                aux+
                 ", dimensaoEmbalagem='" + dimensaoEmbalagem + '\'' +
                 ", precoFinal=" + precoFinal +
                 ", taxaSatisfacaoServicoNovo=" + taxaSatisfacaoServicoNovo +
