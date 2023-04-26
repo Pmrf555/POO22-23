@@ -5,13 +5,6 @@ public class TShirt extends Artigos{
     private String padrao; // se padrão for diferente de liso tem 50% desconto
 
     public TShirt(int numeroUtilizadores, Double estado, String descricao
-            , String marca, Long codigoAlfa, Double precoBase, Double correcaoPreco, String tamanho, String padrao) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco);
-        this.tamanho = tamanho;
-        this.padrao = padrao;
-    }
-
-    public TShirt(int numeroUtilizadores, Double estado, String descricao
             , String marca, Double precoBase, Double correcaoPreco, String tamanho, String padrao) {
         super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco);
         this.tamanho = tamanho;
