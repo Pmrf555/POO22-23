@@ -21,12 +21,6 @@ public class MalasPremium extends Malas{
         return getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno());
     }
 
-    public MalasPremium(int numeroUtilizadores, Double estado, String descricao, String marca, Long codigoAlfa
-            , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano, double valorizacao) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, dimensao, material, ano);
-        this.valorizacao = valorizacao;
-    }
-
     public MalasPremium(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano, double valorizacao) {
         super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco, dimensao, material, ano);
