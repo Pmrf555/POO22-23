@@ -17,7 +17,15 @@ public abstract class Sapatilhas extends Artigos{
         this.cor = cor;
         this.dataLancamento = dataLancamento;
     }
-
+    public Sapatilhas(int numeroUtilizadores, Double estado, String descricao, String marca
+            , Double precoBase, Double correcaoPreco, Double tamanho
+            , Boolean atacadores, String cor, LocalDateTime dataLancamento) {
+        super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco);
+        this.tamanho = tamanho;
+        this.atacadores = atacadores;
+        this.cor = cor;
+        this.dataLancamento = dataLancamento;
+    }
     public Sapatilhas(Artigos art, Double tamanho, Boolean atacadores, String cor, LocalDateTime dataLancamento) {
         super(art);
         this.tamanho = tamanho;
