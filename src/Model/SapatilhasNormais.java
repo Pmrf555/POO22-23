@@ -1,20 +1,13 @@
 package Model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class SapatilhasNormais extends Sapatilhas{
-    public SapatilhasNormais(Artigos artigos,Sapatilhas sapatilhas){
-        super(artigos,sapatilhas);
-    }
 
-    public SapatilhasNormais(int numeroUtilizadores, Double estado, String descricao, String marca, Long codigoAlfa
-            , Double precoBase, Double correcaoPreco, Double tamanho, Boolean atacadores, String cor
-            , LocalDateTime dataLancamento) {
-        super(numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento);
-    }
     public SapatilhasNormais(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco, Double tamanho, Boolean atacadores, String cor
-            , LocalDateTime dataLancamento) {
+            , Date dataLancamento) {
         super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento);
     }
     public Double preco(){
