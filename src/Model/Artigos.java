@@ -1,6 +1,7 @@
 package Model;
 
 public abstract class Artigos {
+    private static Long codAlfaClasse;
     private int numeroUtilizadores; //se for 0 é novo, se for maior é usado
     private Double estado; // de 0 a 1 em que 0 é gasta e 1 é como saiu de fábrica
     private String descricao;
@@ -22,11 +23,32 @@ public abstract class Artigos {
         this.nomeTransportadora = "";
     }
 
+    public Artigos(int numeroUtilizadores, Double estado, String descricao, String marca
+            , Double precoBase, Double correcaoPreco) {
+        this.numeroUtilizadores = numeroUtilizadores;
+        this.estado = estado;
+        this.descricao = descricao;
+        this.marca = marca;
+        this.codigoAlfa = Artigos.getCodAlfaClasse();
+        Artigos.setCodAlfaClasse(Artigos.getCodAlfaClasse()+1);
+        this.precoBase = precoBase;
+        this.correcaoPreco = correcaoPreco;
+        this.nomeTransportadora = "";
+    }
+
     public Artigos() {
 
     }
 
     public abstract  Double preco();
+
+    public static Long getCodAlfaClasse() {
+        return codAlfaClasse;
+    }
+
+    public static void setCodAlfaClasse(Long codAlfaClasse) {
+        Artigos.codAlfaClasse = codAlfaClasse;
+    }
 
     public String getNomeTransportadora() {
         return nomeTransportadora;
