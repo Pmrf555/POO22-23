@@ -1,9 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
-public interface IGestor {
+public interface IGestor extends Serializable {
     public Utilizador vendedorQueMaisFaturouSempre();
     public Utilizador vendedorQueMaisFaturouEntreDatas(Date inicio, Date fim);
     public Map<Long, Artigos> getArtigosMap();
