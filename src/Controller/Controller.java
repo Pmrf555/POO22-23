@@ -74,8 +74,10 @@ public class Controller {
             case 6:
                 return;
             default:
-                view.mostraMensagem("Erro na escolha do artigo");
-                IView.pressEnterToContinue(input);
+                //view.mostraMensagem("Erro na escolha do artigo");
+                //IView.pressEnterToContinue(input);
+                input.closeScanner();
+                System.exit(0);
                 break;
         }
     }
