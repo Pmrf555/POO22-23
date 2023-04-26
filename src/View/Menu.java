@@ -44,7 +44,7 @@ public class Menu {
      */
     public void show(boolean cursorVisible){
         System.out.println("\u001B[36m" + titulo + "\u001B[0m");
-        System.out.println("-----------------------------");
+        System.out.println("---------------------------------");
         int i = 1;
         for (String string : this.opcoes) {
             System.out.println("(" + i + "): " + string);
