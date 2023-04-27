@@ -1,5 +1,6 @@
 package Model;
 
+import javax.rmi.CORBA.Util;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,13 @@ public class Gestor implements IGestor{
         this.utilizadorMap = new HashMap<>();
         this.encomendasMap = new HashMap<>();
         this.dataAtual = new Date();
+        Artigos.setCodAlfaClasse(1L);
+        Encomendas.setNumeroEnc(0);
+        Utilizador.setCodigo(1);
+        Transportadora.setImposto(16.0);
+        Transportadora.setPrecoBaseGrande(10.0);
+        Transportadora.setPrecoBaseMedia(13.5);
+        Transportadora.setPrecoBaseGrande(15.0);
     }
 
     public Utilizador vendedorQueMaisFaturouSempre(){
