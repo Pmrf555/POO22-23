@@ -18,8 +18,13 @@ public class Encomendas{
     private Date dataCriacao;
     private Date prazoLimite;
 
-    private Double calculaPrecoFinal(){
-        return this.artigos.stream().mapToDouble(Artigos::preco).sum() + custosExpedicao;
+    private Double calculaPrecoFinal(List<Artigos> artigos,Double custosExpedicao) throws NullPointerException{
+        try {
+            return artigos.stream().mapToDouble(Artigos::preco).sum() + custosExpedicao;
+        }catch (NullPointerException e){
+            System.out.println("Não existem artigos :)");
+        }
+        return 0.0;
     }
 
     public static int getNumeroEnc() {
@@ -44,7 +49,7 @@ public class Encomendas{
         this.estado = estado;
         this.dataCriacao = dataCriacao;
         this.prazoLimite = prazoLimite;
-        this.precoFinal = calculaPrecoFinal();
+        this.precoFinal = calculaPrecoFinal(artigos,custosExpedicao);
     }
 
     public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo
@@ -58,7 +63,7 @@ public class Encomendas{
         this.estado = estado;
         this.dataCriacao = dataCriacao;
         this.prazoLimite = prazoLimite;
-        this.precoFinal = calculaPrecoFinal();
+        this.precoFinal = calculaPrecoFinal(artigos,custosExpedicao);
     }
     // Construtor da classe Encomenda
     public Encomendas(String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo, double taxaSatisfacaoServicoUsado, double custosExpedicao) {
@@ -208,10 +213,15 @@ public class Encomendas{
 
     @Override
     public String toString() {
-        String aux = null;
-        for(Artigos artigos : this.artigos){
-            aux = aux + artigos.toString();
+        StringBuilder aux = null;
+        try {
+            for(Artigos artigos : this.artigos){
+                aux.append(artigos.toString());
+            }
+        }catch (NullPointerException e){
+            System.out.println("Não tem artigos ;(");
         }
+
         return "Encomendas{" +
                 aux+
                 ", dimensaoEmbalagem='" + dimensaoEmbalagem + '\'' +
