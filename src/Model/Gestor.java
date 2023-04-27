@@ -21,7 +21,7 @@ public class Gestor implements IGestor{
         Encomendas.setNumeroEnc(0);
         Utilizador.setCodigo(1);
         Transportadora.setImposto(16.0);
-        Transportadora.setPrecoBaseGrande(10.0);
+        Transportadora.setPrecoBasePequena(10.0);
         Transportadora.setPrecoBaseMedia(13.5);
         Transportadora.setPrecoBaseGrande(15.0);
     }
