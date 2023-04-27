@@ -17,13 +17,13 @@ public class Controller {
         IInput input = new Input();
         IGestor gestor = new Gestor();
         IParser p = new Parser();
-
+/*
         try {
             p.lerFicheiro(gestor);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+*/
         while (true) {
             view.mostrarMenuPrincipal();
             int escolha = input.InputInteger();
@@ -41,12 +41,52 @@ public class Controller {
                     adicionaUtilizador(view,input,gestor);
                     break;
                 case 5:
+                    showArtigos(view,input,gestor);
+                    view.pressEnterToContinue(input);
+                    break;
+                case 6:
+                    showTransportadora(view,input,gestor);
+                    view.pressEnterToContinue(input);
+                    break;
+                case 7:
+                    showEncomenda(view,input,gestor);
+                    view.pressEnterToContinue(input);
+                    break;
+                case 8:
+                    showUtilizador(view,input,gestor);
+                    view.pressEnterToContinue(input);
+                    break;
+                case 9:
                     input.closeScanner();
                     System.exit(0);
                     break;
                 default:
                     break;
             }
+        }
+    }
+
+    public static void showArtigos(IView view,IInput input,IGestor gestor){
+        for(Artigos artigos : gestor.getArtigosMap().values()){
+            view.mostraMensagem(artigos.toString());
+        }
+    }
+
+    public static void showEncomenda(IView view,IInput input,IGestor gestor){
+        for(Encomendas artigos : gestor.getEncomendasMap().values()){
+            view.mostraMensagem(artigos.toString());
+        }
+    }
+
+    public static void showTransportadora(IView view,IInput input,IGestor gestor){
+        for(Transportadora artigos : gestor.getTransportadoraMap().values()){
+            view.mostraMensagem(artigos.toString());
+        }
+    }
+
+    public static void showUtilizador(IView view,IInput input,IGestor gestor){
+        for(Utilizador artigos : gestor.getUtilizadorMap().values()){
+            view.mostraMensagem(artigos.toString());
         }
     }
 
