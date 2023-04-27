@@ -99,7 +99,7 @@ public class Gestor implements IGestor{
     }
 
     // Função para determinar quanto dinheiro ganhou o ‘Vintage’ no seu funcionamento
-    public double lucroVintage(Map<Integer,Encomendas> encomendasMap){
+    public double lucroVintage(){
         double lucro = 0;
 
         for(Encomendas encs : encomendasMap.values()){
