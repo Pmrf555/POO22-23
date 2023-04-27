@@ -133,10 +133,8 @@ public class Controller {
             case 8:
                 return;
             default:
-                //view.mostraMensagem("Erro na escolha do artigo");
-                //IView.pressEnterToContinue(input);
-                input.closeScanner();
-                System.exit(0);
+                view.mostraMensagem("Erro na escolha do artigo");
+                view.pressEnterToContinue(input);
                 break;
         }
     }
@@ -363,15 +361,18 @@ public class Controller {
         gestor.getTransportadoraMap().put(nome,new Transportadora(nome,margemLucro));
     }
 
-    public static void adicionaEncomenda(IView view,IInput input,IGestor gestor) throws ParseException {
+    public static void adicionaEncomenda(IView view,IInput input,IGestor gestor) throws ParseException,NullPointerException {
         view.mostraMensagem("Quantos artigos vai ter a encomenda?");
         Integer numeroArtigos = input.InputInteger();
-        view.mostraMensagem("Agora insira os códigos alfanuméricos dos" +numeroArtigos+ " artigos:");
+        view.mostraMensagem("Agora insira os códigos alfanuméricos dos " +numeroArtigos+ " artigos:");
         List<Artigos> artigos = new ArrayList<Artigos>();
         for (int i = 0; i<numeroArtigos;i++){
             Long aux = input.InputLong();
-            artigos.add(gestor.getArtigosMap().get(aux));
-        }
+            try {
+                artigos.add(gestor.getArtigosMap().get(aux));
+
+            }catch (NullPointerException e){System.out.println("Não adicionei artigos :(");}
+            }
         view.mostraMensagem("Insira a dimensão da embalagem:(String)");
         String dimensaoEmbalagem = input.InputString();
         view.mostraMensagem("Insira a taxa de satisfação de serviço novo:");
@@ -390,8 +391,12 @@ public class Controller {
 
         Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,satisfacaoServicoNovo
                 ,satisfacaoServicoUsado,0.0,estado,dataCriacao1,prazoLimite1);
-        Double custoExpedicao = gestor.getTransportadoraMap().get(artigos.get(0).getNomeTransportadora()).precoExpedicao(aux);
-        aux.setCustosExpedicao(custoExpedicao);
+        try {
+            Double custoExpedicao = gestor.getTransportadoraMap().get(artigos.get(0).getNomeTransportadora()).precoExpedicao(aux);
+            aux.setCustosExpedicao(custoExpedicao);
+        }catch (NullPointerException e){
+            System.out.println("Custo de Expedição fica a 0");
+        }
 
         gestor.getEncomendasMap().put(aux.getNumeroEncomenda(),aux);
     }
