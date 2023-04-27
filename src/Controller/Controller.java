@@ -1,10 +1,6 @@
 package Controller;
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import Model.*;
@@ -12,7 +8,7 @@ import View.*;
 
 public class Controller {
 
-    public static void run() throws ClassNotFoundException, IOException, ParseException {
+    public static void run() throws ParseException {
         IView view = new View();
         IInput input = new Input();
         IGestor gestor = new Gestor();
@@ -56,7 +52,10 @@ public class Controller {
                     showUtilizador(view,input,gestor);
                     view.pressEnterToContinue(input);
                     break;
-                case 9:
+                case 9://simulação
+                    iniciaSimulacao(view,input,gestor);
+                    break;
+                case 10:
                     input.closeScanner();
                     System.exit(0);
                     break;
@@ -66,28 +65,126 @@ public class Controller {
         }
     }
 
+
+
     public static void showArtigos(IView view,IInput input,IGestor gestor){
         for(Artigos artigos : gestor.getArtigosMap().values()){
+            view.mostraMensagem(artigos.getClass().toString());
             view.mostraMensagem(artigos.toString());
         }
     }
 
     public static void showEncomenda(IView view,IInput input,IGestor gestor){
         for(Encomendas artigos : gestor.getEncomendasMap().values()){
+            view.mostraMensagem("Encomenda:");
             view.mostraMensagem(artigos.toString());
         }
     }
 
     public static void showTransportadora(IView view,IInput input,IGestor gestor){
         for(Transportadora artigos : gestor.getTransportadoraMap().values()){
+            view.mostraMensagem("Transportadora:");
             view.mostraMensagem(artigos.toString());
         }
     }
 
     public static void showUtilizador(IView view,IInput input,IGestor gestor){
         for(Utilizador artigos : gestor.getUtilizadorMap().values()){
+            view.mostraMensagem("Utilizador:");
             view.mostraMensagem(artigos.toString());
         }
+    }
+
+    private static void iniciaSimulacao(IView view, IInput input, IGestor gestor) throws ParseException {
+        view.mostrarMenuSimulacao();
+        int escolha = input.InputInteger();
+        switch (escolha){
+            case 1:
+                Utilizador aux = gestor.vendedorQueMaisFaturouSempre();
+                view.mostraMensagem(aux.toString());
+                view.pressEnterToContinue(input);
+                break;
+            case 2:
+                vendedorQueMaisFaturouEntreDatas(view,input,gestor);
+                view.pressEnterToContinue(input);
+                break;
+            case 3:
+                Transportadora transportadora = gestor.transportadoraComMaiorFaturacao();
+                view.mostraMensagem(transportadora.toString());
+                view.pressEnterToContinue(input);
+                break;
+            case 4:
+                encomendasEmitidasPorVendedor(view,input,gestor);
+                view.pressEnterToContinue(input);
+                break;
+            case 5:
+                maioresVendedoresPorData(view,input,gestor);
+                view.pressEnterToContinue(input);
+                break;
+            case 6:
+                maioresCompradoresPorData(view,input,gestor);
+                view.pressEnterToContinue(input);
+                break;
+            case 7:
+                Double lucroVintage = gestor.lucroVintage();
+                view.mostraMensagem(lucroVintage.toString());
+                view.pressEnterToContinue(input);
+                break;
+            case 8:
+                return;
+            default:
+                //view.mostraMensagem("Erro na escolha do artigo");
+                //IView.pressEnterToContinue(input);
+                input.closeScanner();
+                System.exit(0);
+                break;
+        }
+    }
+
+    private static void maioresVendedoresPorData(IView view, IInput input, IGestor gestor) throws ParseException {
+        view.mostraMensagem("Insira a data de inicio:");
+        Date data1 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        view.mostraMensagem("Insira a data de fim:");
+        Date data2 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        view.mostraMensagem("Insira a quantidade de utilizadores que quer no top:");
+        Integer topX = input.InputInteger();
+        List<Utilizador> aux = gestor.maioresVendedoresSistema(data1,data2,topX);
+
+        for(Utilizador utilizador:aux){
+            view.mostraMensagem(utilizador.toString());
+        }
+    }
+
+    private static void maioresCompradoresPorData(IView view, IInput input, IGestor gestor) throws ParseException {
+        view.mostraMensagem("Insira a data de inicio:");
+        Date data1 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        view.mostraMensagem("Insira a data de fim:");
+        Date data2 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        view.mostraMensagem("Insira a quantidade de utilizadores que quer no top:");
+        Integer topX = input.InputInteger();
+        List<Utilizador> aux = gestor.maioresCompradoresSistema(data1,data2,topX);
+
+        for(Utilizador utilizador:aux){
+            view.mostraMensagem(utilizador.toString());
+        }
+    }
+    private static void encomendasEmitidasPorVendedor(IView view, IInput input, IGestor gestor) {
+        view.mostraMensagem("Introduza o código do utilizador:");
+        Integer codAlfa = input.InputInteger();
+        List<Encomendas> aux = gestor.encomendasEmitidasPorVendedor(codAlfa);
+        for(Encomendas encomendas:aux){
+            view.mostraMensagem("Encomendas");
+            view.mostraMensagem(encomendas.toString());
+        }
+    }
+
+    private static void vendedorQueMaisFaturouEntreDatas(IView view, IInput input, IGestor gestor) throws ParseException {
+        view.mostraMensagem("Insira a data de inicio:");
+        Date data1 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        view.mostraMensagem("Insira a data de fim:");
+        Date data2 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        Utilizador aux = gestor.vendedorQueMaisFaturouEntreDatas(data1,data2);
+        view.mostraMensagem(aux.toString());
     }
 
     public static void adicionaArtigo(IView view,IInput input,IGestor gestor) throws ParseException, NullPointerException {
@@ -148,16 +245,7 @@ public class Controller {
         String data = input.InputString();
 
         Date data1 = new SimpleDateFormat("dd/MM/yyyy").parse(data);
-        System.out.println("Data:"+numeroUtilizadores);
-        System.out.println("Data:"+estado);
-        System.out.println("Data:"+descricao);
-        System.out.println("Data:"+marca);
-        System.out.println("Data:"+precoBase);
-        System.out.println("Data:"+correcaoPreco);
-        System.out.println("Data:"+dimensao);
-        System.out.println("Data:"+atacadores);
-        System.out.println("Data:"+cor);
-        System.out.println("Data:"+data1);
+
         SapatilhasNormais aux = new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco
                 ,dimensao,atacadores,cor,data1);
         gestor.getArtigosMap().put(aux.getCodigoAlfa(), aux);
