@@ -6,6 +6,21 @@ public class View implements IView{
 
     public View() { }
 
+    public void mostrarMenuSimulacao(){
+        clearScreen();
+        Menu menu = new Menu();
+        menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
+        menu.adicionaOpcao("Qual o vendedor que mais faturou desde sempre: \uD83D\uDCE5");
+        menu.adicionaOpcao("Qual o vendedor que mais faturou num período de tempo: \uD83D\uDE9B");
+        menu.adicionaOpcao("Qual o transportador com maior volume de faturação: \uD83D\uDCE6");
+        menu.adicionaOpcao("Listar encomendas emitidas por vendedor: \uD83D\uDC64");
+        menu.adicionaOpcao("Ordenar os maiores vendedores do programa num determinado tempo: \uD83D\uDCE5");
+        menu.adicionaOpcao("Ordenar os maiores compradores do programa num determinado tempo: \uD83D\uDE9B");
+        menu.adicionaOpcao("Quanto dinheiro ganhou a Vintage no seu funcionamento \uD83D\uDCE6");
+        menu.adicionaOpcao("Sair da simulação ❌");
+        menu.show(true);
+    }
+
     public void mostrarMenuPrincipal(){
         clearScreen();
         Menu menu = new Menu();
@@ -14,10 +29,11 @@ public class View implements IView{
         menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDE9B");
         menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
         menu.adicionaOpcao("Adicionar Utilizador \uD83D\uDC64");
-        menu.adicionaOpcao("Ver Artigo \uD83D\uDCE5");
-        menu.adicionaOpcao("Ver Transportadora \uD83D\uDE9B");
-        menu.adicionaOpcao("Ver Encomenda \uD83D\uDCE6");
-        menu.adicionaOpcao("Ver Utilizador \uD83D\uDC64");
+        menu.adicionaOpcao("Ver Artigos \uD83D\uDCE5");
+        menu.adicionaOpcao("Ver Transportadoras \uD83D\uDE9B");
+        menu.adicionaOpcao("Ver Encomendas \uD83D\uDCE6");
+        menu.adicionaOpcao("Ver Utilizadores \uD83D\uDC64");
+        menu.adicionaOpcao("Avançar para a simulação \uD83D\uDC64");
         menu.adicionaOpcao("Sair ❌");
         menu.show(true);
     }
@@ -45,7 +61,7 @@ public class View implements IView{
         input.InputString();
     }
 
-    public static void clearScreen() {
+    public void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
