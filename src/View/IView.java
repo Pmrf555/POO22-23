@@ -6,10 +6,7 @@ public interface IView {
 
     void mostrarMenuPrincipal();
     public void mostraMenuArtigos();
-    public static void pressEnterToContinue(IInput input){
-        System.out.println(" --- press enter ---");
-        input.InputString();
-    }
+    public void pressEnterToContinue(IInput input);
     public void mostraMensagem(String msg);
     public static void clearScreen() {}
 }
