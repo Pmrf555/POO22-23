@@ -14,6 +14,10 @@ public class View implements IView{
         menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDE9B");
         menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
         menu.adicionaOpcao("Adicionar Utilizador \uD83D\uDC64");
+        menu.adicionaOpcao("Ver Artigo \uD83D\uDCE5");
+        menu.adicionaOpcao("Ver Transportadora \uD83D\uDE9B");
+        menu.adicionaOpcao("Ver Encomenda \uD83D\uDCE6");
+        menu.adicionaOpcao("Ver Utilizador \uD83D\uDC64");
         menu.adicionaOpcao("Sair ❌");
         menu.show(true);
     }
@@ -36,7 +40,10 @@ public class View implements IView{
         System.out.println(msg);
     }
 
-
+    public void pressEnterToContinue(IInput input){
+        System.out.println(" --- press enter ---");
+        input.InputString();
+    }
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
