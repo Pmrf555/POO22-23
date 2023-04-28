@@ -126,8 +126,7 @@ public class Parser implements IParser{
         String estado = fileArq.readLine();
         Date dataCriacao = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
         Date prazoLimite = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
-        return new Encomendas(aux,dimensaoEmbalagem,taxaSatisfacaoServicoNovo,taxaSatisfacaoServicoUsado,custoExpedicao
-                ,estado,dataCriacao,prazoLimite);
+        return new Encomendas(aux,dimensaoEmbalagem,custoExpedicao,estado,dataCriacao,prazoLimite);
     }
 
     public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException {
