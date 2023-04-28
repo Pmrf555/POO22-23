@@ -367,7 +367,7 @@ public class Controller {
         view.mostraMensagem("Agora insira os códigos alfanuméricos dos " +numeroArtigos+ " artigos:");
         List<Artigos> artigos = new ArrayList<Artigos>();
         for (int i = 0; i<numeroArtigos;i++){
-            Long aux = input.InputLong();
+            Long aux = (long) input.InputInteger();
             try {
                 artigos.add(gestor.getArtigosMap().get(aux));
 
@@ -375,10 +375,6 @@ public class Controller {
             }
         view.mostraMensagem("Insira a dimensão da embalagem:(String)");
         String dimensaoEmbalagem = input.InputString();
-        view.mostraMensagem("Insira a taxa de satisfação de serviço novo:");
-        Double satisfacaoServicoNovo = input.InputDouble();
-        view.mostraMensagem("Insira a taxa de satisfação de serviço usado:");
-        Double satisfacaoServicoUsado = input.InputDouble();
         view.mostraMensagem("Insira o estado:");
         String estado = input.InputString();
         view.mostraMensagem("Insira a data de criação:");
@@ -389,8 +385,7 @@ public class Controller {
         Date dataCriacao1 = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
         Date prazoLimite1 = new SimpleDateFormat("dd/MM/yyyy").parse(prazoLimite);
 
-        Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,satisfacaoServicoNovo
-                ,satisfacaoServicoUsado,0.0,estado,dataCriacao1,prazoLimite1);
+        Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,0.0,estado,dataCriacao1,prazoLimite1);
         try {
             Double custoExpedicao = gestor.getTransportadoraMap().get(artigos.get(0).getNomeTransportadora()).precoExpedicao(aux);
             aux.setCustosExpedicao(custoExpedicao);
