@@ -1,6 +1,5 @@
 package Model;
 
-import javax.rmi.CORBA.Util;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,23 +23,36 @@ public class Gestor implements IGestor{
         Transportadora.setPrecoBasePequena(10.0);
         Transportadora.setPrecoBaseMedia(13.5);
         Transportadora.setPrecoBaseGrande(15.0);
+        Encomendas.setTaxaSatisfacaoServicoNovo(0.5);
+        Encomendas.setTaxaSatisfacaoServicoUsado(0.25);
     }
 
     public Utilizador vendedorQueMaisFaturouSempre(){
-        return this.utilizadorMap.values().stream().sorted((p1, p2) -> (int) (p1.getTotalVendido() - p2.getTotalVendido()))
-                .collect(Collectors.toList()).get(0);
+        try {
+            List<Utilizador> utilizadors = this.utilizadorMap.values().stream().sorted((p1, p2) -> (int) (p1.getTotalVendido() - p2.getTotalVendido())).toList();
+            return utilizadors.get(0);
+        }
+        catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
+        }
+        return new Utilizador();
     }
 
     // Função que determina qual é o vendedor que mais faturou num período ou desde sempre
     public Utilizador vendedorQueMaisFaturouEntreDatas(Date inicio,Date fim) {
         Utilizador aux = null;
         Double valorMax = 0.0;
-        for (Utilizador user: utilizadorMap.values()){
-            if(user.calculaValorartigosVendidosEntreDatas(inicio,fim) > valorMax){
-                aux = user;
-                valorMax = user.calculaValorartigosVendidosEntreDatas(inicio,fim);
+        try {
+            for (Utilizador user: utilizadorMap.values()){
+                if(user.calculaValorartigosVendidosEntreDatas(inicio,fim) > valorMax){
+                    aux = user;
+                    valorMax = user.calculaValorartigosVendidosEntreDatas(inicio,fim);
+                }
             }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
         }
+
         return aux;
     }
 
@@ -49,18 +61,22 @@ public class Gestor implements IGestor{
         Transportadora maiorFatura = null;
         Double faturacao = 0.0;
         Double max = 0.0;
-
-        for(Transportadora trans : transportadoraMap.values()){
-            for (Encomendas enc : encomendasMap.values()){
-                if(enc.getArtigos().get(0).getNomeTransportadora().equals(trans.getNome())){
-                    faturacao += trans.precoExpedicao(enc);
+        try {
+            for(Transportadora trans : transportadoraMap.values()){
+                for (Encomendas enc : encomendasMap.values()){
+                    if(enc.getArtigos().get(0).getNomeTransportadora().equals(trans.getNome())){
+                        faturacao += trans.precoExpedicao(enc);
+                    }
+                }
+                if(faturacao > max){
+                    max = faturacao;
+                    maiorFatura = trans;
                 }
             }
-            if(faturacao > max){
-                max = faturacao;
-                maiorFatura = trans;
-            }
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
         }
+
         return maiorFatura;
     }
 
