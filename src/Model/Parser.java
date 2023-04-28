@@ -1,13 +1,28 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Parser implements IParser{
+
+    public void guardaBin(String nomeFicheiro,IGestor gestor) throws FileNotFoundException, IOException {
+        FileOutputStream bf = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream oos = new ObjectOutputStream(bf);
+        oos.writeObject(gestor);
+        oos.flush();
+        oos.close();
+    }
+
+    public IGestor readBin(String nomeFich) throws IOException,ClassNotFoundException{
+        FileInputStream bf = new FileInputStream(nomeFich);
+        ObjectInputStream ois = new ObjectInputStream(bf);
+        IGestor m = (IGestor) ois.readObject();
+        ois.close();
+        return m;
+    }
+
     private String nomeFicheiro;
                     //  LEITURA DO FICHEIRO PARA OS MAPAS \\
     public Parser(){
@@ -120,8 +135,6 @@ public class Parser implements IParser{
             aux.add(ges.getArtigosMap().get(codAlfanumerico));
         }
         String dimensaoEmbalagem = fileArq.readLine();
-        Double taxaSatisfacaoServicoNovo = Double.parseDouble(fileArq.readLine());
-        Double taxaSatisfacaoServicoUsado = Double.parseDouble(fileArq.readLine());
         Double custoExpedicao = Double.parseDouble(fileArq.readLine());
         String estado = fileArq.readLine();
         Date dataCriacao = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
