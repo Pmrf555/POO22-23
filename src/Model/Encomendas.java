@@ -11,8 +11,8 @@ public class Encomendas{
     private List<Artigos> artigos;
     private String dimensaoEmbalagem;
     private double precoFinal;
-    private double taxaSatisfacaoServicoNovo;
-    private double taxaSatisfacaoServicoUsado;
+    private static double taxaSatisfacaoServicoNovo;
+    private static double taxaSatisfacaoServicoUsado;
     private double custosExpedicao;
     private String estado;
     private Date dataCriacao;
@@ -37,14 +37,11 @@ public class Encomendas{
 
 
 
-    public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo
-            , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
+    public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = Encomendas.getNumeroEnc();
         Encomendas.setNumeroEnc(Encomendas.getNumeroEnc()+1);
         this.artigos = artigos;
         this.dimensaoEmbalagem = dimensaoEmbalagem;
-        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
-        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
         this.custosExpedicao = custosExpedicao;
         this.estado = estado;
         this.dataCriacao = dataCriacao;
@@ -52,13 +49,10 @@ public class Encomendas{
         this.precoFinal = calculaPrecoFinal(artigos,custosExpedicao);
     }
 
-    public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo
-            , double taxaSatisfacaoServicoUsado, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
+    public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = numeroEnc;
         this.artigos = artigos;
         this.dimensaoEmbalagem = dimensaoEmbalagem;
-        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
-        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
         this.custosExpedicao = custosExpedicao;
         this.estado = estado;
         this.dataCriacao = dataCriacao;
@@ -66,12 +60,10 @@ public class Encomendas{
         this.precoFinal = calculaPrecoFinal(artigos,custosExpedicao);
     }
     // Construtor da classe Encomenda
-    public Encomendas(String dimensaoEmbalagem, double taxaSatisfacaoServicoNovo, double taxaSatisfacaoServicoUsado, double custosExpedicao) {
+    public Encomendas(String dimensaoEmbalagem, double custosExpedicao) {
         this.artigos = new ArrayList<>();
         this.dimensaoEmbalagem = dimensaoEmbalagem;
         this.precoFinal = 0;
-        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
-        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
         this.custosExpedicao = custosExpedicao;
         this.estado = "pendente";
         this.dataCriacao = new Date();
@@ -159,22 +151,20 @@ public class Encomendas{
         return precoFinal;
     }
 
-    public double getTaxaSatisfacaoServicoNovo() {
+    public static double getTaxaSatisfacaoServicoNovo() {
         return taxaSatisfacaoServicoNovo;
     }
 
-    public void setTaxaSatisfacaoServicoNovo(double taxaSatisfacaoServicoNovo) {
-        this.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
-        calcularPrecoFinal();
+    public static void setTaxaSatisfacaoServicoNovo(double taxaSatisfacaoServicoNovo) {
+        Encomendas.taxaSatisfacaoServicoNovo = taxaSatisfacaoServicoNovo;
     }
 
-    public double getTaxaSatisfacaoServicoUsado() {
+    public static double getTaxaSatisfacaoServicoUsado() {
         return taxaSatisfacaoServicoUsado;
     }
 
-    public void setTaxaSatisfacaoServicoUsado(double taxaSatisfacaoServicoUsado) {
-        this.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
-        calcularPrecoFinal();
+    public static void setTaxaSatisfacaoServicoUsado(double taxaSatisfacaoServicoUsado) {
+        Encomendas.taxaSatisfacaoServicoUsado = taxaSatisfacaoServicoUsado;
     }
 
     public double getCustosExpedicao() {
