@@ -55,6 +55,9 @@ public class Utilizador{
         this.totalVendido = calculaTotalVendido();
     }
 
+    public Utilizador() {
+    }
+
     private Double calculaTotalVendido(){
         Double total = 0.0;
         for(List<Artigos> artigos : this.ArtigosVendidos.values()){
@@ -205,20 +208,35 @@ public class Utilizador{
     @Override
     public String toString() {
         StringBuilder aux1 = null;
+        try{
         for(Artigos artigos : this.ArtigosParaVenda){
-            aux1.append(artigos.toString());
+
+                aux1.append(artigos.toString());
+        }
+        }catch (NullPointerException e){
+            System.out.println("Não tem artigos");
         }
         StringBuilder aux2 = null;
+        try{
         for(List<Artigos> artigos : this.ArtigosVendidos.values()){
             for (Artigos artigos1 : artigos){
-                aux2.append(artigos1.toString());
+
+                    aux2.append(artigos1.toString());
             }
         }
+        }catch (NullPointerException e){
+            System.out.println("Não tem artigos");
+        }
         StringBuilder aux3 = null;
+        try{
         for(List<Artigos> artigos : this.ArtigosComprados.values()){
             for (Artigos artigos1 : artigos){
-                aux3.append(artigos1.toString());
+
+                    aux3.append(artigos1.toString());
             }
+        }
+        }catch (NullPointerException e){
+            System.out.println("Não tem artigos");
         }
         return "Utilizador{" +
                 "codigoUser=" + codigoUser +
