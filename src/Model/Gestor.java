@@ -40,7 +40,7 @@ public class Gestor implements IGestor{
 
     // Função que determina qual é o vendedor que mais faturou num período ou desde sempre
     public Utilizador vendedorQueMaisFaturouEntreDatas(Date inicio,Date fim) {
-        Utilizador aux = null;
+        Utilizador aux = new Utilizador();
         Double valorMax = 0.0;
         try {
             for (Utilizador user: utilizadorMap.values()){
@@ -58,7 +58,7 @@ public class Gestor implements IGestor{
 
     // Função que determina qual o transportador com maior volume de faturação
     public Transportadora transportadoraComMaiorFaturacao(){
-        Transportadora maiorFatura = null;
+        Transportadora maiorFatura = new Transportadora();
         Double faturacao = 0.0;
         Double max = 0.0;
         try {
@@ -74,7 +74,7 @@ public class Gestor implements IGestor{
                 }
             }
         }catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return maiorFatura;
@@ -84,44 +84,60 @@ public class Gestor implements IGestor{
     public List<Encomendas> encomendasEmitidasPorVendedor(Integer codUtilizador) {
         Utilizador user = utilizadorMap.get(codUtilizador);
         List<Encomendas> aux = new ArrayList<Encomendas>();
-        for (Encomendas enc : encomendasMap.values()) {
-            Boolean flag = false;
-            for (Artigos artigos : enc.getArtigos()) {
-                if (user.temArtigoAssociado(artigos)) {
-                    flag = true;
+        try{
+            for (Encomendas enc : encomendasMap.values()) {
+                Boolean flag = false;
+                for (Artigos artigos : enc.getArtigos()) {
+                    if (user.temArtigoAssociado(artigos)) {
+                        flag = true;
+                    }
+                }
+                if(flag){
+                    aux.add(enc);
                 }
             }
-            if(flag){
-                aux.add(enc);
-            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
         return aux;
     }
 
     // Função que irá fornecer uma ordenação dos maiores vendedores do sistema durante um período a determinar
     public List<Utilizador> maioresVendedoresSistema(Date inicio,Date fim, int quantosNoTop) {
-
-        return this.utilizadorMap.values().stream()
-                .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosVendidosEntreDatas(inicio, fim)))
-                .limit(quantosNoTop).collect(Collectors.toList());
+        try{
+            return this.utilizadorMap.values().stream()
+                    .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosVendidosEntreDatas(inicio, fim)))
+                    .limit(quantosNoTop).collect(Collectors.toList());
+        }catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
+        }
+    return new ArrayList<>();
     }
 
     // Função que irá fornecer uma ordenação dos maiores compradores do sistema durante um período a determinar
     public List<Utilizador> maioresCompradoresSistema(Date inicio,Date fim, int quantosNoTop) {
-
-        return this.utilizadorMap.values().stream()
+        try {
+            return this.utilizadorMap.values().stream()
                 .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosCompradosEntreDatas(inicio, fim)))
                 .limit(quantosNoTop).collect(Collectors.toList());
+        }
+        catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
+        }
+        return new ArrayList<>();
     }
 
     // Função para determinar quanto dinheiro ganhou o ‘Vintage’ no seu funcionamento
     public double lucroVintage(){
-        double lucro = 0;
-
-        for(Encomendas encs : encomendasMap.values()){
-            lucro += encs.calcularTaxaVintage();
+        double lucro = 0.0;
+        try {
+            for(Encomendas encs : encomendasMap.values()){
+                lucro += encs.calcularTaxaVintage();
+            }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
         }
-
         return lucro;
     }
 
