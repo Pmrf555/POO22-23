@@ -1,0 +1,392 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  namespace  {
+    namespace odel {
+      abstract class Model.Artigos {
+          {static} - codAlfaClasse : Long
+          - codigoAlfa : Long
+          - correcaoPreco : Double
+          - descricao : String
+          - estado : Double
+          - marca : String
+          - nomeTransportadora : String
+          - numeroUtilizadores : int
+          - precoBase : Double
+          + Artigos()
+          + Artigos()
+          + Artigos()
+          + Artigos()
+          + clone()
+          + equals()
+          {static} + getCodAlfaClasse()
+          + getCodigoAlfa()
+          + getCorrecaoPreco()
+          + getDescricao()
+          + getEstado()
+          + getMarca()
+          + getNomeTransportadora()
+          + getNumeroUtilizadores()
+          + getPrecoBase()
+          {abstract} + preco()
+          {static} + setCodAlfaClasse()
+          + setCodigoAlfa()
+          + setCorrecaoPreco()
+          + setDescricao()
+          + setEstado()
+          + setMarca()
+          + setNomeTransportadora()
+          + setNumeroUtilizadores()
+          + setPrecoBase()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.Encomendas {
+          - artigos : List<Artigos>
+          - custosExpedicao : double
+          - dataCriacao : Date
+          - dimensaoEmbalagem : String
+          - estado : String
+          {static} - numeroEnc : int
+          - numeroEncomenda : int
+          - prazoLimite : Date
+          - precoFinal : double
+          - taxaSatisfacaoServicoNovo : double
+          - taxaSatisfacaoServicoUsado : double
+          + Encomendas()
+          + Encomendas()
+          + Encomendas()
+          + adicionarArtigo()
+          + calcularTaxaVintage()
+          + devolverEncomenda()
+          + equals()
+          + getArtigos()
+          + getCustosExpedicao()
+          + getDataCriacao()
+          + getDimensaoEmbalagem()
+          + getEstado()
+          {static} + getNumeroEnc()
+          + getNumeroEncomenda()
+          + getPrazoLimite()
+          + getPrecoFinal()
+          + getTaxaSatisfacaoServicoNovo()
+          + getTaxaSatisfacaoServicoUsado()
+          + hashCode()
+          + removerArtigo()
+          + setCustosExpedicao()
+          + setDimensaoEmbalagem()
+          {static} + setNumeroEnc()
+          + setNumeroEncomenda()
+          + setTaxaSatisfacaoServicoNovo()
+          + setTaxaSatisfacaoServicoUsado()
+          + toString()
+          - calcularPrecoFinal()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.Gestor {
+          - artigosMap : Map<Long, Artigos>
+          - dataAtual : Date
+          - encomendasMap : Map<Integer, Encomendas>
+          - transportadoraMap : Map<String, Transportadora>
+          - utilizadorMap : Map<Integer, Utilizador>
+          + Gestor()
+          + encomendasEmitidasPorVendedor()
+          + getArtigosMap()
+          + getDataAtual()
+          + getEncomendasMap()
+          + getTransportadoraMap()
+          + getUtilizadorMap()
+          + lucroVintage()
+          + maioresCompradoresSistema()
+          + maioresVendedoresSistema()
+          + setArtigosMap()
+          + setDataAtual()
+          + setEncomendasMap()
+          + setTransportadoraMap()
+          + setUtilizadorMap()
+          + transportadoraComMaiorFaturacao()
+          + vendedorQueMaisFaturouEntreDatas()
+          + vendedorQueMaisFaturouSempre()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      interface Model.IGestor {
+          {abstract} + getArtigosMap()
+          {abstract} + getEncomendasMap()
+          {abstract} + getTransportadoraMap()
+          {abstract} + getUtilizadorMap()
+          {abstract} + transportadoraComMaiorFaturacao()
+          {abstract} + vendedorQueMaisFaturouEntreDatas()
+          {abstract} + vendedorQueMaisFaturouSempre()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      interface Model.IParser {
+          {abstract} + lerEncomendas()
+          {abstract} + lerFicheiro()
+          {abstract} + lerMalaNormal()
+          {abstract} + lerMalaPremium()
+          {abstract} + lerSapatilhas()
+          {abstract} + lerTShirt()
+          {abstract} + lerTransportadoras()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      abstract class Model.Malas {
+          - ano : int
+          - dimensao : int
+          - material : String
+          + Malas()
+          + Malas()
+          + Malas()
+          + getAno()
+          + getDimensao()
+          + getMaterial()
+          + setAno()
+          + setDimensao()
+          + setMaterial()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.MalasNormais {
+          + MalasNormais()
+          + MalasNormais()
+          + MalasNormais()
+          + preco()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.MalasPremium {
+          - valorizacao : double
+          + MalasPremium()
+          + MalasPremium()
+          + MalasPremium()
+          + getValorizacao()
+          + preco()
+          + setValorizacao()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.Parser {
+          - nomeFicheiro : String
+          + Parser()
+          + lerEncomendas()
+          + lerFicheiro()
+          + lerMalaNormal()
+          + lerMalaPremium()
+          + lerSapatilhas()
+          + lerTShirt()
+          + lerTransportadoras()
+          + lerUtilizador()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      abstract class Model.Sapatilhas {
+          - atacadores : Boolean
+          - cor : String
+          - dataLancamento : LocalDateTime
+          - tamanho : Double
+          + Sapatilhas()
+          + Sapatilhas()
+          + Sapatilhas()
+          + Sapatilhas()
+          + equals()
+          + getAtacadores()
+          + getCor()
+          + getDataLancamento()
+          + getTamanho()
+          + setAtacadores()
+          + setCor()
+          + setDataLancamento()
+          + setTamanho()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.SapatilhasNormais {
+          + SapatilhasNormais()
+          + SapatilhasNormais()
+          + SapatilhasNormais()
+          + desconto()
+          + preco()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.SapatilhasPremium {
+          + SapatilhasPremium()
+          + SapatilhasPremium()
+          + SapatilhasPremium()
+          + preco()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.TShirt {
+          - padrao : String
+          - tamanho : String
+          + TShirt()
+          + TShirt()
+          + desconto()
+          + getPadrao()
+          + getTamanho()
+          + preco()
+          + setPadrao()
+          + setTamanho()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.Transportadora {
+          {static} - imposto : Double
+          - margemLucro : Double
+          - nome : String
+          {static} - precoBaseGrande : Double
+          {static} - precoBaseMedia : Double
+          {static} - precoBasePequena : Double
+          + Transportadora()
+          + Transportadora()
+          + equals()
+          {static} + getImposto()
+          + getMargemLucro()
+          + getNome()
+          {static} + getPrecoBaseGrande()
+          {static} + getPrecoBaseMedia()
+          {static} + getPrecoBasePequena()
+          + precoExpedicao()
+          {static} + setImposto()
+          + setMargemLucro()
+          + setNome()
+          {static} + setPrecoBaseGrande()
+          {static} + setPrecoBaseMedia()
+          {static} + setPrecoBasePequena()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace odel {
+      class Model.Utilizador {
+          - ArtigosComprados : Map<Date, List<Artigos>>
+          - ArtigosParaVenda : List<Artigos>
+          - ArtigosVendidos : Map<Date, List<Artigos>>
+          {static} - codigo : int
+          - codigoUser : int
+          - email : String
+          - morada : String
+          - nif : int
+          - nome : String
+          - totalVendido : Double
+          + Utilizador()
+          + Utilizador()
+          + Utilizador()
+          + calculaValorartigosCompradosEntreDatas()
+          + calculaValorartigosVendidosEntreDatas()
+          + clone()
+          + equals()
+          + getArtigosComprados()
+          + getArtigosParaVenda()
+          + getArtigosVendidos()
+          {static} + getCodigo()
+          + getCodigoUser()
+          + getEmail()
+          + getMorada()
+          + getNif()
+          + getNome()
+          + getTotalVendido()
+          + setArtigosComprados()
+          + setArtigosParaVenda()
+          + setArtigosVendidos()
+          {static} + setCodigo()
+          + setCodigoUser()
+          + setEmail()
+          + setMorada()
+          + setNif()
+          + setNome()
+          + setTotalVendido()
+          + temArtigoAssociado()
+          + toString()
+          - artigosCompradosEntreDatas()
+          - artigosVendidosEntreDatas()
+          - calculaTotalVendido()
+      }
+    }
+  }
+  
+
+  Model.Gestor .up.|> Model.IGestor
+  Model.Malas -up-|> Model.Artigos
+  Model.MalasNormais -up-|> Model.Malas
+  Model.MalasPremium -up-|> Model.Malas
+  Model.Parser .up.|> Model.IParser
+  Model.Sapatilhas -up-|> Model.Artigos
+  Model.SapatilhasNormais -up-|> Model.Sapatilhas
+  Model.SapatilhasPremium -up-|> Model.Sapatilhas
+  Model.TShirt -up-|> Model.Artigos
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
