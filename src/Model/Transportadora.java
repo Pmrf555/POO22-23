@@ -10,6 +10,9 @@ public class Transportadora {
     private String nome;
     private Double margemLucro;
 
+    public Transportadora() {
+    }
+
     public String toString(){
         return "Imposto: " + getImposto() + "\nPreço Base Pequena: "
                 +getPrecoBasePequena()+ "\nPreço Base Média: " +getPrecoBaseMedia()+ "\nPreço Base Grande: "+getPrecoBaseGrande()
