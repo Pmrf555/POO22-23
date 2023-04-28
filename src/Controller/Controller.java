@@ -1,4 +1,5 @@
 package Controller;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -8,7 +9,7 @@ import View.*;
 
 public class Controller {
 
-    public static void run() throws ParseException {
+    public static void run() throws ParseException, IOException, ClassNotFoundException {
         IView view = new View();
         IInput input = new Input();
         IGestor gestor = new Gestor();
@@ -56,6 +57,27 @@ public class Controller {
                     iniciaSimulacao(view,input,gestor);
                     break;
                 case 10:
+                    view.mostraMensagem("Insira o nome do ficheiro: ");
+                    String filePath2 = input.InputString();
+                    p.guardaBin(filePath2, gestor);
+                    view.mostraMensagem("Guardado em " + filePath2);
+                    view.pressEnterToContinue(input);
+                    break;
+                case 11:
+                    view.mostraMensagem("Insira o nome do ficheiro: ");
+                    String filePath = input.InputString();
+                    gestor = p.readBin(filePath);
+                    view.mostraMensagem(
+                            "Lidos " + gestor.getArtigosMap().values().size() + " artigos de [" + filePath + "]");
+                    view.mostraMensagem(
+                            "Lidos " + gestor.getUtilizadorMap().values().size() + " utilizadores de [" + filePath + "]");
+                    view.mostraMensagem(
+                            "Lidos " + gestor.getEncomendasMap().values().size() + " encomendas de [" + filePath + "]");
+                    view.mostraMensagem(
+                            "Lidos " + gestor.getTransportadoraMap().values().size() + " transportadoras de [" + filePath + "]");
+                    view.pressEnterToContinue(input);
+                    break;
+                case 12:
                     input.closeScanner();
                     System.exit(0);
                     break;
@@ -103,33 +125,41 @@ public class Controller {
                 Utilizador aux = gestor.vendedorQueMaisFaturouSempre();
                 view.mostraMensagem(aux.toString());
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
             case 2:
                 vendedorQueMaisFaturouEntreDatas(view,input,gestor);
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
             case 3:
                 Transportadora transportadora = gestor.transportadoraComMaiorFaturacao();
                 view.mostraMensagem(transportadora.toString());
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
             case 4:
                 encomendasEmitidasPorVendedor(view,input,gestor);
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
             case 5:
                 maioresVendedoresPorData(view,input,gestor);
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
             case 6:
                 maioresCompradoresPorData(view,input,gestor);
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
             case 7:
                 Double lucroVintage = gestor.lucroVintage();
                 view.mostraMensagem(lucroVintage.toString());
                 view.pressEnterToContinue(input);
+                iniciaSimulacao(view,input,gestor);
                 break;
+
             case 8:
                 return;
             default:
@@ -148,8 +178,12 @@ public class Controller {
         Integer topX = input.InputInteger();
         List<Utilizador> aux = gestor.maioresVendedoresSistema(data1,data2,topX);
 
-        for(Utilizador utilizador:aux){
-            view.mostraMensagem(utilizador.toString());
+        try{
+            for(Utilizador utilizador:aux){
+                view.mostraMensagem(utilizador.toString());
+            }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -161,10 +195,14 @@ public class Controller {
         view.mostraMensagem("Insira a quantidade de utilizadores que quer no top:");
         Integer topX = input.InputInteger();
         List<Utilizador> aux = gestor.maioresCompradoresSistema(data1,data2,topX);
-
-        for(Utilizador utilizador:aux){
-            view.mostraMensagem(utilizador.toString());
+        try{
+            for(Utilizador utilizador:aux){
+                view.mostraMensagem(utilizador.toString());
+            }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
         }
+
     }
     private static void encomendasEmitidasPorVendedor(IView view, IInput input, IGestor gestor) {
         view.mostraMensagem("Introduza o código do utilizador:");
