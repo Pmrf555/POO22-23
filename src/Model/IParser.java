@@ -8,6 +8,10 @@ import java.text.ParseException;
 
 public interface IParser extends Serializable {
 
+    public void guardaBin(String nomeFicheiro,IGestor gestor) throws FileNotFoundException, IOException;
+
+    public IGestor readBin(String nomeFich) throws IOException, ClassNotFoundException;
+
     public void lerFicheiro(IGestor ges) throws IOException, ParseException;
 
     public Encomendas lerEncomendas(IGestor ges,BufferedReader fileArq) throws IOException, ParseException;
