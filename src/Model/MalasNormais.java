@@ -1,8 +1,9 @@
 package Model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class MalasNormais extends Malas{
+public class MalasNormais extends Malas {
 
     public MalasNormais(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano) {

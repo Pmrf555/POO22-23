@@ -14,13 +14,13 @@ public class Controller {
         IInput input = new Input();
         IGestor gestor = new Gestor();
         IParser p = new Parser();
-/*
+
         try {
             p.lerFicheiro(gestor);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-*/
+
         while (true) {
             view.mostrarMenuPrincipal();
             int escolha = input.InputInteger();

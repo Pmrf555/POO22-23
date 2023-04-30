@@ -20,7 +20,7 @@ public class Input implements IInput{
     }
 
     /**
-     * Função que pede ao utilizador que introduza um interiro, pedindo repetidamente até o utilizador introduzir um input válido 
+     * Função que pede ao utilizador que introduza um inteiro, pedindo repetidamente até o utilizador introduzir um input válido
      * @return O inteiro lido
      */
     public int InputInteger(){

@@ -9,7 +9,7 @@ public class Utilizador{
     private String email;
     private String nome;
     private String morada;
-    private int nif;
+    private long nif;
     private List<Artigos> ArtigosParaVenda;
     private Map<Date, List<Artigos>> ArtigosVendidos;
     private Map<Date,List<Artigos>> ArtigosComprados;
@@ -28,7 +28,7 @@ public class Utilizador{
         this.totalVendido = aux.getTotalVendido();
     }
 
-    public Utilizador(int codigo, String email, String nome, String morada, int nif, List<Artigos> artigosParaVenda
+    public Utilizador(int codigo, String email, String nome, String morada, long nif, List<Artigos> artigosParaVenda
             , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados) {
         this.codigoUser = codigo;
         this.email = email;
@@ -41,7 +41,7 @@ public class Utilizador{
         this.totalVendido = calculaTotalVendido();
     }
 
-    public Utilizador(String email, String nome, String morada, int nif, List<Artigos> artigosParaVenda
+    public Utilizador(String email, String nome, String morada, long nif, List<Artigos> artigosParaVenda
             , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados) {
         this.codigoUser = Utilizador.getCodigo();
         Utilizador.setCodigo(Utilizador.getCodigo() + 1);
@@ -147,11 +147,11 @@ public class Utilizador{
     public void setMorada(String morada) {
         this.morada = morada;
     }
-    public int getNif() {
+    public long getNif() {
         return nif;
     }
 
-    public void setNif(int nif) {
+    public void setNif(long nif) {
         this.nif = nif;
     }
     public ArrayList<Artigos> getArtigosParaVenda() {

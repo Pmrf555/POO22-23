@@ -84,7 +84,7 @@ public class Parser implements IParser{
         String email = fileArq.readLine();
         String nome = fileArq.readLine();
         String morada = fileArq.readLine();
-        int nif = Integer.parseInt(fileArq.readLine());
+        long nif = Long.parseLong(fileArq.readLine());
 
         ArrayList<Artigos> aux1 = new ArrayList<>();
         Map<Date,List<Artigos>> aux2 = new HashMap<>();
