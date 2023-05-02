@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.Objects;
-
 public abstract class Malas extends Artigos{
     private int dimensao;
     private String material;
