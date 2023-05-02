@@ -20,26 +20,59 @@ public class View implements IView{
         menu.adicionaOpcao("Sair da simulação ❌");
         menu.show(true);
     }
+    public void mostraMenuPrincipalAdmin(){
+        clearScreen();
+        Menu menu = new Menu();
+        menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
+        menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDCE5");
+        menu.adicionaOpcao("Ver Artigos \uD83D\uDCE5");
+        menu.adicionaOpcao("Ver Transportadoras \uD83D\uDE9B");
+        menu.adicionaOpcao("Ver Encomendas \uD83D\uDCE6");
+        menu.adicionaOpcao("Ver Utilizadores \uD83D\uDC64");
+        menu.adicionaOpcao("Ver estatisticas \uD83D\uDC64");
+        menu.adicionaOpcao("Guardar estado do programa em ficheiro\uD83D\uDC64");
+        menu.adicionaOpcao("Obter estado do programa por ficheiro \uD83D\uDC64");
+        menu.adicionaOpcao("Voltar ");
+        menu.adicionaOpcao("Sair ❌");
+        menu.show(true);
+    }
+
+    public void mostraMenuPrincipalUser(){
+        clearScreen();
+        Menu menu = new Menu();
+        menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
+        menu.adicionaOpcao("Adicionar Artigo \uD83D\uDCE5");
+        menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
+        menu.adicionaOpcao("Ver Artigos \uD83D\uDCE5");
+        menu.adicionaOpcao("Ver Transportadoras \uD83D\uDE9B");
+        menu.adicionaOpcao("Ver Encomendas \uD83D\uDCE6");
+        menu.adicionaOpcao("Ver Utilizadores \uD83D\uDC64");
+        menu.adicionaOpcao("Ver estatisticas \uD83D\uDC64");
+        menu.adicionaOpcao("Guardar estado do programa em ficheiro\uD83D\uDC64");
+        menu.adicionaOpcao("Obter estado do programa por ficheiro \uD83D\uDC64");
+        menu.adicionaOpcao("Voltar ");
+        menu.adicionaOpcao("Sair ❌");
+        menu.show(true);
+    }
+    public void mostrarMenuUser(){
+        clearScreen();
+        Menu menu = new Menu();
+        menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
+        menu.adicionaOpcao("Entrar na conta \uD83D\uDCE5");
+        menu.adicionaOpcao("Criar conta \uD83D\uDCE5");
+        menu.adicionaOpcao("Sair ❌");
+        menu.show(true);
+    }
 
     public void mostrarMenuPrincipal(){
         clearScreen();
         Menu menu = new Menu();
         menu.setTitulo("marketplace Vintage \uD83C\uDFEA");
-        menu.adicionaOpcao("Adicionar Artigo \uD83D\uDCE5");
-        menu.adicionaOpcao("Adicionar Transportadora \uD83D\uDE9B");
-        menu.adicionaOpcao("Adicionar Encomenda \uD83D\uDCE6");
-        menu.adicionaOpcao("Adicionar Utilizador \uD83D\uDC64");
-        menu.adicionaOpcao("Ver Artigos \uD83D\uDCE5");
-        menu.adicionaOpcao("Ver Transportadoras \uD83D\uDE9B");
-        menu.adicionaOpcao("Ver Encomendas \uD83D\uDCE6");
-        menu.adicionaOpcao("Ver Utilizadores \uD83D\uDC64");
-        menu.adicionaOpcao("Avançar para a simulação \uD83D\uDC64");
-        menu.adicionaOpcao("Guardar estado do programa em ficheiro\uD83D\uDC64");
-        menu.adicionaOpcao("Obter estado do programa por ficheiro \uD83D\uDC64");
+        menu.adicionaOpcao("Entrar como Utilizador \uD83C\uDFEA");
+        menu.adicionaOpcao("Entrar como administrador \uD83D\uDCE5");
         menu.adicionaOpcao("Sair ❌");
         menu.show(true);
     }
-
     public void mostraMenuArtigos(){
         clearScreen();
         Menu menu = new Menu();
