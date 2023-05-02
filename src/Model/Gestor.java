@@ -94,7 +94,7 @@ public class Gestor implements IGestor{
     public List<Utilizador> maioresVendedoresSistema(Date inicio,Date fim, int quantosNoTop) {
         try{
             return this.utilizadorMap.values().stream()
-                    .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosVendidosEntreDatas(inicio, fim)))
+                    .sorted(Comparator.comparing(e -> -e.calculaValorartigosVendidosEntreDatas(inicio, fim)))
                     .limit(quantosNoTop).collect(Collectors.toList());
         }catch (IndexOutOfBoundsException e){
             System.out.println(e.getMessage());
@@ -106,7 +106,7 @@ public class Gestor implements IGestor{
     public List<Utilizador> maioresCompradoresSistema(Date inicio,Date fim, int quantosNoTop) {
         try {
             return this.utilizadorMap.values().stream()
-                .sorted(Comparator.comparingDouble(e -> e.calculaValorartigosCompradosEntreDatas(inicio, fim)))
+                .sorted(Comparator.comparingDouble(e -> -e.calculaValorartigosCompradosEntreDatas(inicio, fim)))
                 .limit(quantosNoTop).collect(Collectors.toList());
         }
         catch (IndexOutOfBoundsException e){
