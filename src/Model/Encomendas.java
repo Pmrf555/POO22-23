@@ -17,6 +17,7 @@ public class Encomendas{
     private String estado;
     private Date dataCriacao;
     private Date prazoLimite;
+    private Utilizador fezEncomenda;
 
     private Double calculaPrecoFinal(List<Artigos> artigos,Double custosExpedicao) throws NullPointerException{
         try {
@@ -37,6 +38,7 @@ public class Encomendas{
 
 
 
+
     public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = Encomendas.getNumeroEnc();
         Encomendas.setNumeroEnc(Encomendas.getNumeroEnc()+1);
@@ -47,6 +49,7 @@ public class Encomendas{
         this.dataCriacao = dataCriacao;
         this.prazoLimite = prazoLimite;
         this.precoFinal = calculaPrecoFinal(artigos,custosExpedicao);
+        this.fezEncomenda = new Utilizador();
     }
 
     public Encomendas(int numeroEnc, List<Artigos> artigos, String dimensaoEmbalagem, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
@@ -58,6 +61,7 @@ public class Encomendas{
         this.dataCriacao = dataCriacao;
         this.prazoLimite = prazoLimite;
         this.precoFinal = calculaPrecoFinal(artigos,custosExpedicao);
+        this.fezEncomenda = new Utilizador();
     }
     // Construtor da classe Encomenda
     public Encomendas(String dimensaoEmbalagem, double custosExpedicao) {
@@ -70,8 +74,15 @@ public class Encomendas{
         this.prazoLimite = new Date(dataCriacao.getTime() + (1000 * 60 * 60 * 24 * 2)); // prazo de 48 horas
         Encomendas.numeroEnc = getNumeroEnc();
         Encomendas.setNumeroEnc(getNumeroEnc()+1);
+        this.fezEncomenda = new Utilizador();
+    }
+    public Utilizador getFezEncomenda() {
+        return fezEncomenda;
     }
 
+    public void setFezEncomenda(Utilizador fezEncomenda) {
+        this.fezEncomenda = fezEncomenda;
+    }
     // Adiciona um artigo à encomenda
     public void adicionarArtigo(Artigos artigo) {
         artigos.add(artigo);
