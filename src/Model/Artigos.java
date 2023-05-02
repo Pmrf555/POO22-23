@@ -1,12 +1,14 @@
 package Model;
 
+import java.util.Objects;
+
 public abstract class Artigos {
-    private static Long codAlfaClasse;
+    private static Integer codAlfaClasse;
     private int numeroUtilizadores; //se for 0 é novo, se for maior é usado
     private Double estado; // de 0 a 1 em que 0 é gasta e 1 é como saiu de fábrica
     private String descricao;
     private String marca;
-    private Long codigoAlfa;
+    private Integer codigoAlfa;
     private Double precoBase;
     private Double correcaoPreco;
     private String nomeTransportadora; // ""
@@ -28,11 +30,11 @@ public abstract class Artigos {
 
     public abstract  Double preco();
 
-    public static Long getCodAlfaClasse() {
+    public static Integer getCodAlfaClasse() {
         return codAlfaClasse;
     }
 
-    public static void setCodAlfaClasse(Long codAlfaClasse) {
+    public static void setCodAlfaClasse(Integer codAlfaClasse) {
         Artigos.codAlfaClasse = codAlfaClasse;
     }
 
@@ -87,11 +89,11 @@ public abstract class Artigos {
         this.marca = marca;
     }
 
-    public Long getCodigoAlfa() {
+    public Integer getCodigoAlfa() {
         return codigoAlfa;
     }
 
-    public void setCodigoAlfa(Long codigoAlfa) {
+    public void setCodigoAlfa(Integer codigoAlfa) {
         this.codigoAlfa = codigoAlfa;
     }
 
@@ -111,17 +113,15 @@ public abstract class Artigos {
         this.correcaoPreco = correcaoPreco;
     }
 
-    public boolean equals(Object o){
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
-
-        if((o == null) || this.getClass() != o.getClass()) return false;
-
-        Artigos art = (Artigos) o;
-        return (this.numeroUtilizadores == art.getNumeroUtilizadores() && this.codigoAlfa == art.getCodigoAlfa()
-                && this.correcaoPreco == art.getCorrecaoPreco() && this.precoBase == art.getPrecoBase()
-                && this.estado == art.getEstado() && this.descricao.equals(art.getDescricao())
-                && this.marca.equals(art.getMarca()));
+        if (o == null) return false;
+        Artigos artigos = (Artigos) o;
+        return codigoAlfa == artigos.getCodigoAlfa();
     }
+
+
 
     public Artigos clone(){
         return new Artigos(this) {
