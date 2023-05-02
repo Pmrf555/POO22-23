@@ -1,11 +1,12 @@
 package Model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Encomendas{
+public class Encomendas implements Serializable {
     private static int numeroEnc;
     private int numeroEncomenda;
     private List<Artigos> artigos;
@@ -14,6 +15,7 @@ public class Encomendas{
     private static double taxaSatisfacaoServicoNovo;
     private static double taxaSatisfacaoServicoUsado;
     private double custosExpedicao;
+
     private String estado;
     private Date dataCriacao;
     private Date prazoLimite;
@@ -36,13 +38,23 @@ public class Encomendas{
         Encomendas.numeroEnc = numeroEnc;
     }
 
-
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
 
     public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = Encomendas.getNumeroEnc();
         Encomendas.setNumeroEnc(Encomendas.getNumeroEnc()+1);
+        System.out.println("\nAntes");
+        for (Artigos artigos2:artigos){
+            System.out.printf(artigos2.toString()+"\n");
+        }
         this.artigos = artigos;
+        System.out.println("\nDepois");
+        for (Artigos artigos1:this.artigos){
+            System.out.printf(artigos1.toString());
+        }
         this.dimensaoEmbalagem = dimensaoEmbalagem;
         this.custosExpedicao = custosExpedicao;
         this.estado = estado;
@@ -98,14 +110,12 @@ public class Encomendas{
     // Calcula o preço final da encomenda
     private void calcularPrecoFinal() {
         precoFinal = 0;
-
-
         for (Artigos artigo : artigos) {
             if (artigo.getEstado() == 1) {
-                precoFinal += taxaSatisfacaoServicoNovo;
+                precoFinal += artigo.preco() + taxaSatisfacaoServicoNovo;
 
             } else {
-                precoFinal += taxaSatisfacaoServicoUsado;
+                precoFinal += artigo.preco() + taxaSatisfacaoServicoUsado;
             }
         }
         precoFinal += custosExpedicao;
@@ -113,14 +123,12 @@ public class Encomendas{
 
     // Calcula a taxa de comissão que a ‘Vintage’ recebe
     public double calcularTaxaVintage() {
-        List<Artigos> art = this.getArtigos();
 
         double taxaVintage = 0;
 
-        for (Artigos artigo : art) {
-            if (artigo.getEstado() == 0) {
+        for (Artigos artigo : artigos) {
+            if (artigo.getEstado() == 1) {
                 taxaVintage += taxaSatisfacaoServicoNovo;
-
             } else {
                 taxaVintage += taxaSatisfacaoServicoUsado;
             }
@@ -147,7 +155,7 @@ public class Encomendas{
         this.numeroEncomenda = numeroEncomenda;
     }
     public List<Artigos> getArtigos() {
-        return artigos.stream().map(Artigos::clone).collect(Collectors.toList());
+        return artigos;
     }
 
     public String getDimensaoEmbalagem() {
