@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Gestor implements IGestor{
-    private Map<Long,Artigos> artigosMap; //key->codigo alfanumerico
+    private Map<Integer,Artigos> artigosMap; //key->codigo alfanumerico
     private Map<String ,Transportadora> transportadoraMap; // key-> nome
     private Map<Integer,Utilizador> utilizadorMap; //key->codigo
     private Map<Integer,Encomendas> encomendasMap; //key->numero de encomenda (variável de classe que incrementa sempre que se cria uma encomenda
@@ -16,7 +16,7 @@ public class Gestor implements IGestor{
         this.utilizadorMap = new HashMap<>();
         this.encomendasMap = new HashMap<>();
         this.dataAtual = new Date();
-        Artigos.setCodAlfaClasse(1L);
+        Artigos.setCodAlfaClasse(1);
         Encomendas.setNumeroEnc(0);
         Utilizador.setCodigo(1);
         Transportadora.setImposto(16.0);
@@ -26,7 +26,6 @@ public class Gestor implements IGestor{
         Encomendas.setTaxaSatisfacaoServicoNovo(0.5);
         Encomendas.setTaxaSatisfacaoServicoUsado(0.25);
     }
-
     public Utilizador vendedorQueMaisFaturouSempre(){
         try {
             List<Utilizador> utilizadors = this.utilizadorMap.values().stream().sorted((p1, p2) -> (int) (p1.getTotalVendido() - p2.getTotalVendido())).toList();
@@ -136,17 +135,17 @@ public class Gestor implements IGestor{
                 lucro += encs.calcularTaxaVintage();
             }
         }catch (IndexOutOfBoundsException e){
-            System.out.println(e.getMessage());
+            System.out.println("Lucro da vintage dá erro");
         }
         return lucro;
     }
 
 
-    public Map<Long, Artigos> getArtigosMap() {
+    public Map<Integer, Artigos> getArtigosMap() {
         return artigosMap;
     }
 
-    public void setArtigosMap(Map<Long, Artigos> artigosMap) {
+    public void setArtigosMap(Map<Integer, Artigos> artigosMap) {
         this.artigosMap = artigosMap;
     }
 
