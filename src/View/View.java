@@ -30,6 +30,7 @@ public class View implements IView{
         menu.adicionaOpcao("Ver Encomendas \uD83D\uDCE6");
         menu.adicionaOpcao("Ver Utilizadores \uD83D\uDC64");
         menu.adicionaOpcao("Ver estatisticas \uD83D\uDC64");
+        menu.adicionaOpcao("Avançar tempo \uD83D\uDC64");
         menu.adicionaOpcao("Guardar estado do programa em ficheiro\uD83D\uDC64");
         menu.adicionaOpcao("Obter estado do programa por ficheiro \uD83D\uDC64");
         menu.adicionaOpcao("Voltar ");
@@ -52,6 +53,7 @@ public class View implements IView{
         menu.adicionaOpcao("Obter estado do programa por ficheiro \uD83D\uDC64");
         menu.adicionaOpcao("Voltar ");
         menu.adicionaOpcao("Sair ❌");
+        menu.adicionaOpcao("Avança Tempo \uD83D\uDC64");
         menu.show(true);
     }
     public void mostrarMenuUser(){
