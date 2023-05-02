@@ -1,6 +1,7 @@
 package Model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class MalasPremium extends Malas{
     private double valorizacao;
@@ -20,6 +21,16 @@ public class MalasPremium extends Malas{
     public Double preco(){
         return getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno());
     }
+/*
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        MalasPremium that = (MalasPremium) o;
+        return valorizacao == that.getValorizacao();
+    }
+*/
 
     public MalasPremium(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano, double valorizacao) {
