@@ -147,6 +147,7 @@ public class Controller {
 
     private static void mostraUser(Utilizador user, IView view, IInput input, IGestor gestor) throws ParseException, IOException, ClassNotFoundException {
         view.mostraMenuPrincipalUser();
+        IParser p = new Parser();
         int escolha = input.InputInteger();
         switch (escolha){
             case 1:
@@ -180,7 +181,7 @@ public class Controller {
             case 8:
                 view.mostraMensagem("Insira o nome do ficheiro: ");
                 String filePath2 = input.InputString();
-                //p.guardaBin(filePath2, gestor);
+                p.guardaBin(filePath2, gestor);
                 view.mostraMensagem("Guardado em " + filePath2);
                 view.pressEnterToContinue(input);
                 mostraUser(user,view,input,gestor);
@@ -188,7 +189,7 @@ public class Controller {
             case 9:
                 view.mostraMensagem("Insira o nome do ficheiro: ");
                 String filePath = input.InputString();
-               // gestor = p.readBin(filePath);
+                gestor = p.readBin(filePath);
                 view.mostraMensagem(
                         "Lidos " + gestor.getArtigosMap().values().size() + " artigos de [" + filePath + "]");
                 view.mostraMensagem(
@@ -329,8 +330,8 @@ public class Controller {
         view.mostraMensagem("Introduza o código do utilizador:");
         Integer codAlfa = input.InputInteger();
         List<Encomendas> aux = gestor.encomendasEmitidasPorVendedor(codAlfa);
+        view.mostraMensagem("Encomendas");
         for(Encomendas encomendas:aux){
-            view.mostraMensagem("Encomendas");
             view.mostraMensagem(encomendas.toString());
         }
     }
@@ -554,7 +555,7 @@ public class Controller {
 
         String dimensaoEmbalagem = "";
         if(artigos.size()<3) {
-            dimensaoEmbalagem = "pequen1";
+            dimensaoEmbalagem = "pequena";
         } else if (artigos.size() <= 5) {
             dimensaoEmbalagem = "media";
         }else {
@@ -563,6 +564,8 @@ public class Controller {
         Date dataCriacao = new Date();
         String estado = "pendente";
         Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,0.0,estado,dataCriacao,prazoLimite1);
+        aux.setFezEncomenda(user);
+        System.out.println(user.getCodigoUser());
         try {
             Double custoExpedicao = gestor.getTransportadoraMap().get(artigos.get(0).getNomeTransportadora()).precoExpedicao(aux);
             aux.setCustosExpedicao(custoExpedicao);
