@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 public abstract class Sapatilhas extends Artigos{
     private Double tamanho;
@@ -51,7 +52,7 @@ public abstract class Sapatilhas extends Artigos{
         this.dataLancamento = dataLancamento;
     }
 
-
+/*
     public boolean equals(Object o){
         if (this == o) return true;
 
@@ -62,5 +63,5 @@ public abstract class Sapatilhas extends Artigos{
                 && this.tamanho == art.getTamanho() && this.cor == art.getCor()
                 && this.dataLancamento == art.getDataLancamento());
     }
-
+*/
 }
