@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.Objects;
-
 public class TShirt extends Artigos{
     private String tamanho;
     private String padrao; // se padrão for diferente de liso tem 50% desconto
@@ -38,13 +36,11 @@ public class TShirt extends Artigos{
         this.padrao = padrao;
     }
 
-    public void desconto(){
-        if(!this.padrao.equals("liso")) setCorrecaoPreco(50.0);
-        else setCorrecaoPreco(0.0);
-    }
-
     public Double preco(){
-        return getPrecoBase() * (getCorrecaoPreco() / 100);
+        System.out.println("OI6");
+        if(!this.padrao.equals("liso")) setCorrecaoPreco(0.5);
+        else setCorrecaoPreco(1.0);
+        return getPrecoBase() * (getCorrecaoPreco());
     }
 
     public String toString(){
