@@ -41,6 +41,19 @@ public class Utilizador{
         this.totalVendido = calculaTotalVendido();
     }
 
+    public Utilizador(String email, String nome, String morada, long nif) {
+        this.codigoUser = Utilizador.getCodigo();
+        Utilizador.setCodigo(Utilizador.getCodigo() + 1);
+        this.email = email;
+        this.nome = nome;
+        this.morada = morada;
+        this.nif = nif;
+        ArtigosParaVenda = new ArrayList<>();
+        ArtigosVendidos = new HashMap<>();
+        ArtigosComprados = new HashMap<>();
+        this.totalVendido = 0.0;
+    }
+
     public Utilizador(String email, String nome, String morada, long nif, List<Artigos> artigosParaVenda
             , Map<Date,List<Artigos>> artigosVendidos, Map<Date,List<Artigos>> artigosComprados) {
         this.codigoUser = Utilizador.getCodigo();
@@ -58,7 +71,7 @@ public class Utilizador{
     public Utilizador() {
     }
 
-    private Double calculaTotalVendido(){
+    public Double calculaTotalVendido(){
         Double total = 0.0;
         for(List<Artigos> artigos : this.ArtigosVendidos.values()){
             for (Artigos artigos1 : artigos){
@@ -154,22 +167,26 @@ public class Utilizador{
     public void setNif(long nif) {
         this.nif = nif;
     }
-    public ArrayList<Artigos> getArtigosParaVenda() {
-        return (ArrayList<Artigos>) ArtigosParaVenda.stream().map(Artigos::clone).collect(Collectors.toList());
+    public List<Artigos> getArtigosParaVenda() {
+        return ArtigosParaVenda;
     }
     public void setArtigosParaVenda(ArrayList<Artigos> ArtigosParaVenda) {
         this.ArtigosParaVenda = ArtigosParaVenda;
     }
     public Map<Date,List<Artigos>> getArtigosVendidos() {
-        return ArtigosVendidos.entrySet().stream()
+        /*return ArtigosVendidos.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().stream().map(Artigos::clone).collect(Collectors.toList())));
+    */
+        return ArtigosVendidos;
     }
     public void setArtigosVendidos(Map<Date,List<Artigos>> ArtigosVendidos) {
         this.ArtigosVendidos = ArtigosVendidos;
     }
     public Map<Date,List<Artigos>> getArtigosComprados() {
-        return ArtigosComprados.entrySet().stream()
+        /*return ArtigosComprados.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().stream().map(Artigos::clone).collect(Collectors.toList())));
+    */
+    return ArtigosComprados;
     }
     public void setArtigosComprados(Map<Date,List<Artigos>> ArtigosComprados) {
         this.ArtigosComprados = ArtigosComprados;
@@ -189,7 +206,7 @@ public class Utilizador{
             return false;
         }
         Utilizador utilizador = (Utilizador) obj;
-        return codigo == utilizador.codigo &&
+        return codigoUser == utilizador.codigoUser &&
                 nif == utilizador.nif &&
                 Objects.equals(email, utilizador.email) &&
                 Objects.equals(nome, utilizador.nome) &&
@@ -207,45 +224,48 @@ public class Utilizador{
 
     @Override
     public String toString() {
-        StringBuilder aux1 = null;
+        String aux1 = "\nArtigos Para Venda:\n";
+
         try{
         for(Artigos artigos : this.ArtigosParaVenda){
 
-                aux1.append(artigos.toString());
+                aux1 += "Código: "+ artigos.getCodigoAlfa().toString()+"\n";
         }
         }catch (NullPointerException e){
-            System.out.println("Não tem artigos");
+            System.out.println("Não tem artigos para venda");
         }
-        StringBuilder aux2 = null;
+
+        String aux2 = "Artigos Vendidos:\n";
         try{
         for(List<Artigos> artigos : this.ArtigosVendidos.values()){
             for (Artigos artigos1 : artigos){
 
-                    aux2.append(artigos1.toString());
+                    aux2+="Código: "+artigos1.getCodigoAlfa().toString()+"\n";
             }
         }
         }catch (NullPointerException e){
-            System.out.println("Não tem artigos");
+            System.out.println("Não tem artigos vendidos");
         }
-        StringBuilder aux3 = null;
+
+        String aux3 = "Artigos Comprados:\n";
         try{
         for(List<Artigos> artigos : this.ArtigosComprados.values()){
             for (Artigos artigos1 : artigos){
 
-                    aux3.append(artigos1.toString());
+                    aux3+="Código: "+artigos1.getCodigoAlfa().toString()+"\n";
             }
         }
         }catch (NullPointerException e){
-            System.out.println("Não tem artigos");
+            System.out.println("Não tem artigos comprados");
         }
-        return "Utilizador{" +
-                "codigoUser=" + codigoUser +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", morada='" + morada + '\'' +
-                ", nif=" + nif +
+        return "Utilizador{\n" +
+                "codigoUser=" + codigoUser +"\n"+
+                "email='" + email +"\n"+
+                "nome='" + nome +"\n"+
+                "morada='" + morada  +"\n"+
+                "nif=" + nif +"\n"+
                 aux1 + aux2 + aux3+
-                ", totalVendido=" + totalVendido +
+                "totalVendido=" + totalVendido +"\n"+
                 '}';
     }
 }
