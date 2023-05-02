@@ -1,9 +1,8 @@
 package Model;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class MalasNormais extends Malas {
+public class MalasNormais extends Malas  {
 
     public MalasNormais(int numeroUtilizadores, Double estado, String descricao, String marca
             , Double precoBase, Double correcaoPreco, int dimensao, String material, int ano) {
@@ -19,8 +18,16 @@ public class MalasNormais extends Malas {
     }
 
     public Double preco(){
-        return getPrecoBase() - (4 * LocalDateTime.now().getYear()-getAno()); //o valor decresce 4 euros por ano, o enunciado não diz nada de jeito aqui
-
+        System.out.println("OI2");
+        Double preco = 0.0;
+        Double dimensao = (double) getDimensao();
+        setCorrecaoPreco(1.0 /dimensao);
+        try {
+            preco = (getPrecoBase() - (LocalDateTime.now().getYear()-getAno())) * getCorrecaoPreco();
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+        return preco;
     }
 
     public String toString(){
