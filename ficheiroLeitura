@@ -4,7 +4,7 @@ Mala Normal
 bonita
 Marca1
 23
-5
+5.0
 2
 pele
 2011
@@ -14,7 +14,7 @@ Mala Normal
 casual
 Marca1
 66
-10
+10.0
 3
 pele
 2010
@@ -24,7 +24,7 @@ Mala Normal
 casual
 Marca1
 22
-2
+2.0
 3
 couro
 2019
@@ -34,7 +34,7 @@ Mala Premium
 cara
 Marca3
 333
-11
+11.0
 1
 ouro
 2010
@@ -45,7 +45,7 @@ Mala Premium
 cara
 Marca3
 333
-11
+11.0
 1
 ouro
 2010
@@ -56,7 +56,7 @@ Mala Premium
 luxuosa
 Marca4
 3334
-17
+17.0
 2
 diamante
 2020
@@ -67,7 +67,7 @@ Mala Premium
 deslumbrante
 Marca4
 3334
-172
+172.0
 1
 diamante
 2021
