@@ -203,26 +203,26 @@ public class Encomendas{
 
     @Override
     public String toString() {
-        StringBuilder aux = null;
+        String aux="";
         try {
             for(Artigos artigos : this.artigos){
-                aux.append(artigos.toString());
+                aux += "Código: "+ artigos.getCodigoAlfa().toString() + "\n";
             }
         }catch (NullPointerException e){
             System.out.println("Não tem artigos ;(");
         }
 
-        return "Encomendas{" +
+        return "Artigos:\n" +
                 aux+
-                ", dimensaoEmbalagem='" + dimensaoEmbalagem + '\'' +
+                ",Número encomenda = " + numeroEncomenda +
+                ", dimensaoEmbalagem=" + dimensaoEmbalagem  +
                 ", precoFinal=" + precoFinal +
                 ", taxaSatisfacaoServicoNovo=" + taxaSatisfacaoServicoNovo +
                 ", taxaSatisfacaoServicoUsado=" + taxaSatisfacaoServicoUsado +
                 ", custosExpedicao=" + custosExpedicao +
-                ", estado='" + estado + '\'' +
+                ", estado='" + estado +
                 ", dataCriacao=" + dataCriacao +
-                ", prazoLimite=" + prazoLimite +
-                '}';
+                ", prazoLimite=" + prazoLimite;
     }
 
 }
