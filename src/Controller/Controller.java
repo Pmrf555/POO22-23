@@ -585,14 +585,8 @@ public class Controller {
         //alterar os utilizadores que estavam associados a estes artigos
         for (Artigos artigos1: artigos){
             //try {
-                Utilizador userAux = new Utilizador();
-                for(Utilizador utilizador : gestor.getUtilizadorMap().values()){
-                    for(Artigos artigos2: utilizador.getArtigosParaVenda()){
-                        if (artigos2.getCodigoAlfa() == artigos1.getCodigoAlfa()) {
-                            userAux = utilizador;
-                        }
-                    }
-                }
+                Utilizador userAux = gestor.getUtilizadorMap().values().stream().filter(e->e.getArtigosParaVenda().contains(artigos1)).toList().get(0);
+
                 userAux.getArtigosParaVenda().remove(artigos1);
                 if(userAux.getArtigosVendidos().containsKey(dataCriacao)){
                     userAux.getArtigosVendidos().get(dataCriacao).add(artigos1);
