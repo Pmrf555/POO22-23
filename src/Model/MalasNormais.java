@@ -10,6 +10,10 @@ public class MalasNormais extends Malas {
         super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco, dimensao, material, ano);
     }
 
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
     public MalasNormais() {
         super();
     }
