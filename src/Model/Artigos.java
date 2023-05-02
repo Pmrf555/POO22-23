@@ -1,8 +1,8 @@
 package Model;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-public abstract class Artigos {
+public abstract class Artigos implements Serializable {
     private static Integer codAlfaClasse;
     private int numeroUtilizadores; //se for 0 é novo, se for maior é usado
     private Double estado; // de 0 a 1 em que 0 é gasta e 1 é como saiu de fábrica
