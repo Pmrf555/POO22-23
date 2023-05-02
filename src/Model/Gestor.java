@@ -17,7 +17,7 @@ public class Gestor implements IGestor{
         this.encomendasMap = new HashMap<>();
         this.dataAtual = new Date();
         Artigos.setCodAlfaClasse(1);
-        Encomendas.setNumeroEnc(0);
+        Encomendas.setNumeroEnc(1);
         Utilizador.setCodigo(1);
         Transportadora.setImposto(16.0);
         Transportadora.setPrecoBasePequena(10.0);
@@ -27,14 +27,20 @@ public class Gestor implements IGestor{
         Encomendas.setTaxaSatisfacaoServicoUsado(0.25);
     }
     public Utilizador vendedorQueMaisFaturouSempre(){
+        Utilizador aux = new Utilizador();
+        Double valorMax = 0.0;
         try {
-            List<Utilizador> utilizadors = this.utilizadorMap.values().stream().sorted((p1, p2) -> (int) (p1.getTotalVendido() - p2.getTotalVendido())).toList();
-            return utilizadors.get(0);
-        }
-        catch (IndexOutOfBoundsException e){
+            for (Utilizador user: utilizadorMap.values()){
+                if(user.getTotalVendido() > valorMax){
+                    aux = user;
+                    valorMax = user.getTotalVendido();
+                }
+            }
+        }catch (IndexOutOfBoundsException e){
             System.out.println(e.getMessage());
         }
-        return new Utilizador();
+
+        return aux;
     }
 
     // Função que determina qual é o vendedor que mais faturou num período ou desde sempre
@@ -81,25 +87,7 @@ public class Gestor implements IGestor{
 
     // Função para listar as encomendas emitidas por um vendedor
     public List<Encomendas> encomendasEmitidasPorVendedor(Integer codUtilizador) {
-        Utilizador user = utilizadorMap.get(codUtilizador);
-        List<Encomendas> aux = new ArrayList<Encomendas>();
-        try{
-            for (Encomendas enc : encomendasMap.values()) {
-                Boolean flag = false;
-                for (Artigos artigos : enc.getArtigos()) {
-                    if (user.temArtigoAssociado(artigos)) {
-                        flag = true;
-                    }
-                }
-                if(flag){
-                    aux.add(enc);
-                }
-            }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        return aux;
+        return encomendasMap.values().stream().filter(e->e.getFezEncomenda().getCodigoUser() == codUtilizador).collect(Collectors.toList());
     }
 
     // Função que irá fornecer uma ordenação dos maiores vendedores do sistema durante um período a determinar
