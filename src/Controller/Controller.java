@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import Model.*;
 import View.*;
@@ -18,7 +19,7 @@ public class Controller {
         try {
             p.lerFicheiro(gestor);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao ler ficheiro");
         }
 
         while (true) {
@@ -26,58 +27,12 @@ public class Controller {
             int escolha = input.InputInteger();
             switch (escolha) {
                 case 1:
-                    adicionaArtigo(view,input,gestor);
+                    entrarUser(view,input,gestor);
                     break;
                 case 2:
-                    adicionaTransportadora(view,input,gestor);
+                    entrarAdmin(view,input,gestor);
                     break;
                 case 3:
-                    adicionaEncomenda(view,input,gestor);
-                    break;
-                case 4:
-                    adicionaUtilizador(view,input,gestor);
-                    break;
-                case 5:
-                    showArtigos(view,input,gestor);
-                    view.pressEnterToContinue(input);
-                    break;
-                case 6:
-                    showTransportadora(view,input,gestor);
-                    view.pressEnterToContinue(input);
-                    break;
-                case 7:
-                    showEncomenda(view,input,gestor);
-                    view.pressEnterToContinue(input);
-                    break;
-                case 8:
-                    showUtilizador(view,input,gestor);
-                    view.pressEnterToContinue(input);
-                    break;
-                case 9://simulação
-                    iniciaSimulacao(view,input,gestor);
-                    break;
-                case 10:
-                    view.mostraMensagem("Insira o nome do ficheiro: ");
-                    String filePath2 = input.InputString();
-                    p.guardaBin(filePath2, gestor);
-                    view.mostraMensagem("Guardado em " + filePath2);
-                    view.pressEnterToContinue(input);
-                    break;
-                case 11:
-                    view.mostraMensagem("Insira o nome do ficheiro: ");
-                    String filePath = input.InputString();
-                    gestor = p.readBin(filePath);
-                    view.mostraMensagem(
-                            "Lidos " + gestor.getArtigosMap().values().size() + " artigos de [" + filePath + "]");
-                    view.mostraMensagem(
-                            "Lidos " + gestor.getUtilizadorMap().values().size() + " utilizadores de [" + filePath + "]");
-                    view.mostraMensagem(
-                            "Lidos " + gestor.getEncomendasMap().values().size() + " encomendas de [" + filePath + "]");
-                    view.mostraMensagem(
-                            "Lidos " + gestor.getTransportadoraMap().values().size() + " transportadoras de [" + filePath + "]");
-                    view.pressEnterToContinue(input);
-                    break;
-                case 12:
                     input.closeScanner();
                     System.exit(0);
                     break;
@@ -87,7 +42,174 @@ public class Controller {
         }
     }
 
+    private static void entrarAdmin(IView view, IInput input, IGestor gestor) throws ParseException, IOException, ClassNotFoundException {
+        view.mostraMenuPrincipalAdmin();
+        IParser p = new Parser();
+        int escolha = input.InputInteger();
+        switch (escolha){
+            case 1:
+                adicionaTransportadora(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 2:
+                showArtigos(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 3:
+                showTransportadora(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 4:
+                showEncomenda(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 5:
+                showUtilizador(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 6:
+                iniciaSimulacao(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 7:
+                view.mostraMensagem("Insira o nome do ficheiro: ");
+                String filePath2 = input.InputString();
+                p.guardaBin(filePath2, gestor);
+                view.mostraMensagem("Guardado em " + filePath2);
+                view.pressEnterToContinue(input);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 8:
+                view.mostraMensagem("Insira o nome do ficheiro: ");
+                String filePath = input.InputString();
+                gestor = p.readBin(filePath);
+                view.mostraMensagem(
+                        "Lidos " + gestor.getArtigosMap().values().size() + " artigos de [" + filePath + "]");
+                view.mostraMensagem(
+                        "Lidos " + gestor.getUtilizadorMap().values().size() + " utilizadores de [" + filePath + "]");
+                view.mostraMensagem(
+                        "Lidos " + gestor.getEncomendasMap().values().size() + " encomendas de [" + filePath + "]");
+                view.mostraMensagem(
+                        "Lidos " + gestor.getTransportadoraMap().values().size() + " transportadoras de [" + filePath + "]");
+                view.pressEnterToContinue(input);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 9:
+                return;
+            case 10:
+                input.closeScanner();
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+    }
 
+    private static void entrarUser(IView view, IInput input, IGestor gestor) throws ParseException, IOException, ClassNotFoundException {
+        view.mostrarMenuUser();
+        Utilizador user = new Utilizador();
+        int escolha = input.InputInteger();
+        switch (escolha){
+            case 1:
+                view.mostraMensagem("Introduza E-Mail");
+                String email = input.InputString();
+                try {
+                    user = gestor.getUtilizadorMap().values().stream().filter(e->e.getEmail().equals(email)).toList().get(0);
+                    System.out.println(user.getEmail());
+                    mostraUser(user,view,input,gestor);
+                } catch (IndexOutOfBoundsException e ){
+                    System.out.println("Erro no email introduzido");
+                }
+
+                break;
+            case 2:
+                view.mostraMensagem("Introduza o seu nome:");
+                String nome = input.InputString();
+                view.mostraMensagem("Introduza o seu email:");
+                String mail = input.InputString();
+                view.mostraMensagem("Introduza a sua morada:");
+                String morada = input.InputString();
+                view.mostraMensagem("Introduza o seu NIF:");
+                Long nif = input.InputLong();
+                Utilizador userAux = new Utilizador(mail,nome,morada,nif);
+                gestor.getUtilizadorMap().put(userAux.getCodigoUser(),userAux);
+                mostraUser(userAux,view,input,gestor);
+                break;
+            case 3:
+                input.closeScanner();
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private static void mostraUser(Utilizador user, IView view, IInput input, IGestor gestor) throws ParseException, IOException, ClassNotFoundException {
+        view.mostraMenuPrincipalUser();
+        int escolha = input.InputInteger();
+        switch (escolha){
+            case 1:
+                adicionaArtigo(user,view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 2:
+                adicionaEncomenda(user,view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 3:
+                showArtigos(view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 4:
+                showTransportadora(view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 5:
+                showEncomenda(view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 6:
+                showUtilizador(view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 7:
+                iniciaSimulacao(view,input,gestor);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 8:
+                view.mostraMensagem("Insira o nome do ficheiro: ");
+                String filePath2 = input.InputString();
+                //p.guardaBin(filePath2, gestor);
+                view.mostraMensagem("Guardado em " + filePath2);
+                view.pressEnterToContinue(input);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 9:
+                view.mostraMensagem("Insira o nome do ficheiro: ");
+                String filePath = input.InputString();
+               // gestor = p.readBin(filePath);
+                view.mostraMensagem(
+                        "Lidos " + gestor.getArtigosMap().values().size() + " artigos de [" + filePath + "]");
+                view.mostraMensagem(
+                        "Lidos " + gestor.getUtilizadorMap().values().size() + " utilizadores de [" + filePath + "]");
+                view.mostraMensagem(
+                        "Lidos " + gestor.getEncomendasMap().values().size() + " encomendas de [" + filePath + "]");
+                view.mostraMensagem(
+                        "Lidos " + gestor.getTransportadoraMap().values().size() + " transportadoras de [" + filePath + "]");
+                view.pressEnterToContinue(input);
+                mostraUser(user,view,input,gestor);
+                break;
+            case 10:
+                return;
+            case 11:
+                input.closeScanner();
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+    }
 
     public static void showArtigos(IView view,IInput input,IGestor gestor){
         for(Artigos artigos : gestor.getArtigosMap().values()){
@@ -112,7 +234,6 @@ public class Controller {
 
     public static void showUtilizador(IView view,IInput input,IGestor gestor){
         for(Utilizador artigos : gestor.getUtilizadorMap().values()){
-            view.mostraMensagem("Utilizador:");
             view.mostraMensagem(artigos.toString());
         }
     }
@@ -223,24 +344,24 @@ public class Controller {
         view.mostraMensagem(aux.toString());
     }
 
-    public static void adicionaArtigo(IView view,IInput input,IGestor gestor) throws ParseException, NullPointerException {
+    public static void adicionaArtigo(Utilizador user,IView view,IInput input,IGestor gestor) throws ParseException, NullPointerException {
         view.mostraMenuArtigos();
         int escolha = input.InputInteger();
         switch (escolha){
             case 1:
-                adicionarSapatilhaNormal(view,input,gestor);
+                adicionarSapatilhaNormal(user,view,input,gestor);
                 break;
             case 2:
-                adicionarSapatilhaPremium(view,input,gestor);
+                adicionarSapatilhaPremium(user,view,input,gestor);
                 break;
             case 3:
-                adicionaMalaNormal(view,input,gestor);
+                adicionaMalaNormal(user,view,input,gestor);
                 break;
             case 4:
-                adicionaMalaPremium(view,input,gestor);
+                adicionaMalaPremium(user,view,input,gestor);
                 break;
             case 5:
-                adicionaTShirt(view,input,gestor);
+                adicionaTShirt(user,view,input,gestor);
                 break;
             case 6:
                 return;
@@ -253,7 +374,7 @@ public class Controller {
         }
     }
 
-    public static void adicionarSapatilhaNormal(IView view,IInput input,IGestor gestor) throws ParseException,NullPointerException {
+    public static void adicionarSapatilhaNormal(Utilizador user,IView view,IInput input,IGestor gestor) throws ParseException,NullPointerException {
         view.mostraMensagem("Insira o número de utilizadores:(inteiro)");
         Integer numeroUtilizadores = input.InputInteger();
         view.mostraMensagem("Insira estado:(Double de 0 a 1 em que 0 é gasta e 1 é nova)");
@@ -285,9 +406,10 @@ public class Controller {
         SapatilhasNormais aux = new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco
                 ,dimensao,atacadores,cor,data1);
         gestor.getArtigosMap().put(aux.getCodigoAlfa(), aux);
+        user.getArtigosParaVenda().add(aux);
     }
 
-    public static void adicionarSapatilhaPremium(IView view,IInput input,IGestor gestor) throws ParseException {
+    public static void adicionarSapatilhaPremium(Utilizador user,IView view,IInput input,IGestor gestor) throws ParseException {
         view.mostraMensagem("Insira o número de utilizadores:(inteiro)");
         Integer numeroUtilizadores = input.InputInteger();
         view.mostraMensagem("Insira estado:(Double de 0 a 1 em que 0 é gasta e 1 é nova)");
@@ -319,9 +441,10 @@ public class Controller {
         SapatilhasPremium aux = new SapatilhasPremium(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco
                 ,dimensao,atacadores,cor,data1);
         gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
+        user.getArtigosParaVenda().add(aux);
     }
     // numeroUtilizadores, estado, descricao, marca, codigoAlfa, precoBase, correcaoPreco, desconto, dimensao, material, ano
-    public static void adicionaMalaNormal(IView view,IInput input,IGestor gestor){
+    public static void adicionaMalaNormal(Utilizador user,IView view,IInput input,IGestor gestor){
         view.mostraMensagem("Insira o número de utilizadores:(inteiro)");
         Integer numeroUtilizadores = input.InputInteger();
         view.mostraMensagem("Insira estado:(Double de 0 a 1 em que 0 é gasta e 1 é nova)");
@@ -342,9 +465,10 @@ public class Controller {
         Integer ano = input.InputInteger();
         MalasNormais aux = new MalasNormais(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco,dimensao,material,ano);
         gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
+        user.getArtigosParaVenda().add(aux);
     }
 
-    public static void adicionaMalaPremium(IView view,IInput input,IGestor gestor){
+    public static void adicionaMalaPremium(Utilizador user,IView view,IInput input,IGestor gestor){
         view.mostraMensagem("Insira o número de utilizadores:(inteiro)");
         Integer numeroUtilizadores = input.InputInteger();
         view.mostraMensagem("Insira estado:(Double de 0 a 1 em que 0 é gasta e 1 é nova)");
@@ -368,9 +492,10 @@ public class Controller {
         MalasPremium aux = new MalasPremium(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco,dimensao
                 ,material,ano,valorizacao);
         gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
+        user.getArtigosParaVenda().add(aux);
     }
 
-    public static void adicionaTShirt(IView view,IInput input,IGestor gestor){
+    public static void adicionaTShirt(Utilizador user,IView view,IInput input,IGestor gestor){
         view.mostraMensagem("Insira o número de utilizadores:(inteiro)");
         Integer numeroUtilizadores = input.InputInteger();
         view.mostraMensagem("Insira estado:(Double de 0 a 1 em que 0 é gasta e 1 é nova)");
@@ -389,6 +514,7 @@ public class Controller {
         String padrao = input.InputString();
         TShirt aux = new TShirt(numeroUtilizadores,estado,descricao,marca,precoBase,correcaoPreco,tamanho,padrao);
         gestor.getArtigosMap().put(aux.getCodigoAlfa(),aux);
+        user.getArtigosParaVenda().add(aux);
     }
 
     public static void adicionaTransportadora(IView view,IInput input,IGestor gestor){
@@ -399,31 +525,44 @@ public class Controller {
         gestor.getTransportadoraMap().put(nome,new Transportadora(nome,margemLucro));
     }
 
-    public static void adicionaEncomenda(IView view,IInput input,IGestor gestor) throws ParseException,NullPointerException {
+    public static void adicionaEncomenda(Utilizador user,IView view,IInput input,IGestor gestor) throws ParseException,NullPointerException {
         view.mostraMensagem("Quantos artigos vai ter a encomenda?");
         Integer numeroArtigos = input.InputInteger();
         view.mostraMensagem("Agora insira os códigos alfanuméricos dos " +numeroArtigos+ " artigos:");
         List<Artigos> artigos = new ArrayList<Artigos>();
         for (int i = 0; i<numeroArtigos;i++){
-            Long aux = (long) input.InputInteger();
+            Integer aux = input.InputInteger();
             try {
                 artigos.add(gestor.getArtigosMap().get(aux));
+                System.out.println(i + " " +gestor.getArtigosMap().get(aux).getClass());
+            }catch (NullPointerException e){System.out.println("Não tem os artigos no mapa");}
+        }
 
-            }catch (NullPointerException e){System.out.println("Não adicionei artigos :(");}
+        try {
+            view.mostraMensagem("Insira o nome da transportadora:");
+            String nomeTransportadora = input.InputString();
+
+            for (Artigos artigo : artigos) {
+                artigo.setNomeTransportadora(nomeTransportadora);
             }
-        view.mostraMensagem("Insira a dimensão da embalagem:(String)");
-        String dimensaoEmbalagem = input.InputString();
-        view.mostraMensagem("Insira o estado:");
-        String estado = input.InputString();
-        view.mostraMensagem("Insira a data de criação:");
-        String dataCriacao = input.InputString();
+        }catch (NullPointerException e){
+            System.out.println("Nome errado Transportadora");
+        }
         view.mostraMensagem("Insira o prazo limite:");
         String prazoLimite = input.InputString();
-
-        Date dataCriacao1 = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
         Date prazoLimite1 = new SimpleDateFormat("dd/MM/yyyy").parse(prazoLimite);
 
-        Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,0.0,estado,dataCriacao1,prazoLimite1);
+        String dimensaoEmbalagem = "";
+        if(artigos.size()<3) {
+            dimensaoEmbalagem = "pequen1";
+        } else if (artigos.size() <= 5) {
+            dimensaoEmbalagem = "media";
+        }else {
+            dimensaoEmbalagem = "grande";
+        }
+        Date dataCriacao = new Date();
+        String estado = "pendente";
+        Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,0.0,estado,dataCriacao,prazoLimite1);
         try {
             Double custoExpedicao = gestor.getTransportadoraMap().get(artigos.get(0).getNomeTransportadora()).precoExpedicao(aux);
             aux.setCustosExpedicao(custoExpedicao);
@@ -432,6 +571,44 @@ public class Controller {
         }
 
         gestor.getEncomendasMap().put(aux.getNumeroEncomenda(),aux);
+
+        //adiciona aos artigos comprados do utilizador logado
+        try {
+            if(user.getArtigosComprados().containsKey(dataCriacao)){
+                user.getArtigosComprados().get(dataCriacao).addAll(artigos);
+            }else {
+                user.getArtigosComprados().put(dataCriacao,artigos);
+            }
+        }catch (Exception e){System.out.println("Erro ao adicionar artigos comprados no utilizador");}
+
+
+        //alterar os utilizadores que estavam associados a estes artigos
+        for (Artigos artigos1: artigos){
+            //try {
+                Utilizador userAux = new Utilizador();
+                for(Utilizador utilizador : gestor.getUtilizadorMap().values()){
+                    for(Artigos artigos2: utilizador.getArtigosParaVenda()){
+                        if (artigos2.getCodigoAlfa() == artigos1.getCodigoAlfa()) {
+                            userAux = utilizador;
+                        }
+                    }
+                }
+                userAux.getArtigosParaVenda().remove(artigos1);
+                if(userAux.getArtigosVendidos().containsKey(dataCriacao)){
+                    userAux.getArtigosVendidos().get(dataCriacao).add(artigos1);
+                }else {
+                    List<Artigos> aux11 = new ArrayList<>();
+                    aux11.add(artigos1);
+                    userAux.getArtigosVendidos().put(dataCriacao,aux11);
+                }
+                userAux.setTotalVendido(userAux.calculaTotalVendido());
+            /*}catch (NullPointerException e){
+                System.out.println("Artigo comprado não existe");
+            }*/
+
+        }
+
+
     }
 
     public static void adicionaUtilizador(IView view,IInput input,IGestor gestor) throws ParseException {
