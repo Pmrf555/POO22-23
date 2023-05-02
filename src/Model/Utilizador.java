@@ -1,9 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Utilizador{
+public class Utilizador implements Serializable {
     private static int codigo;
     private int codigoUser;
     private String email;
@@ -75,7 +76,10 @@ public class Utilizador{
         Double total = 0.0;
         for(List<Artigos> artigos : this.ArtigosVendidos.values()){
             for (Artigos artigos1 : artigos){
+                System.out.println("User: "+getCodigoUser());
+                System.out.println(artigos1.toString());
                 total += artigos1.preco();
+                System.out.println("Preço: " + artigos1.preco());
             }
         }
         return total;
