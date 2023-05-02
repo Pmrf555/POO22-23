@@ -1,7 +1,5 @@
 package Model;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class SapatilhasPremium extends Sapatilhas{ //nunca tem desconto mas aumenta o preço consoante os anos que ele tem
@@ -12,6 +10,7 @@ public class SapatilhasPremium extends Sapatilhas{ //nunca tem desconto mas aume
     }
 
     public Double preco(){
+        System.out.println("OI5");
         Date now = new Date();
         return super.getPrecoBase() + (10 * (now.getYear() - super.getDataLancamento().getYear())); // o 10 foi inventado não sei se é preciso um número especifico
     }
