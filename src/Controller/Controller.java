@@ -1,12 +1,13 @@
 package Controller;
+
+import Model.*;
+import View.IView;
+import View.View;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import Model.*;
-import View.*;
 
 public class Controller {
 
@@ -72,6 +73,10 @@ public class Controller {
                 entrarAdmin(view,input,gestor);
                 break;
             case 7:
+                avancarTempo(view,input,gestor);
+                entrarAdmin(view,input,gestor);
+                break;
+            case 8:
                 view.mostraMensagem("Insira o nome do ficheiro: ");
                 String filePath2 = input.InputString();
                 p.guardaBin(filePath2, gestor);
@@ -79,7 +84,7 @@ public class Controller {
                 view.pressEnterToContinue(input);
                 entrarAdmin(view,input,gestor);
                 break;
-            case 8:
+            case 9:
                 view.mostraMensagem("Insira o nome do ficheiro: ");
                 String filePath = input.InputString();
                 gestor = p.readBin(filePath);
@@ -94,15 +99,55 @@ public class Controller {
                 view.pressEnterToContinue(input);
                 entrarAdmin(view,input,gestor);
                 break;
-            case 9:
-                return;
             case 10:
+                return;
+            case 11:
                 input.closeScanner();
                 System.exit(0);
                 break;
             default:
                 break;
         }
+    }
+
+    private static void avancarTempo(IView view,IInput input,IGestor gestor) throws ParseException {
+        view.mostraMensagem("Insira a data para qual pretende avançar:(formato dd/MM/yyyy)");
+        Date data2 = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
+        gestor.setDataAtual(data2);
+        for(Encomendas encomendas: gestor.getEncomendasMap().values()){
+            List<Artigos> artigosEncomenda = encomendas.getArtigos();
+            if(encomendas.getPrazoLimite().before(data2)){
+                encomendas.setEstado("Entregue");
+                Utilizador user = encomendas.getFezEncomenda();
+
+                //adiciona aos artigos comprados do utilizador logado
+                try {
+                    if(user.getArtigosComprados().containsKey(data2)){
+                        user.getArtigosComprados().get(data2).addAll(artigosEncomenda);
+                    }else {
+                        user.getArtigosComprados().put(data2,artigosEncomenda);
+                    }
+                }catch (Exception e){System.out.println("Erro ao adicionar artigos comprados no utilizador");}
+
+
+                //alterar os utilizadores que estavam associados a estes artigos
+                for (Artigos artigos1: artigosEncomenda){
+                    Utilizador userAux = gestor.getUtilizadorMap().values().stream().filter(e->e.getArtigosParaVenda().contains(artigos1)).toList().get(0);
+
+                    userAux.getArtigosParaVenda().remove(artigos1);
+                    if(userAux.getArtigosVendidos().containsKey(data2)){
+                        userAux.getArtigosVendidos().get(data2).add(artigos1);
+                    }else {
+                        List<Artigos> aux11 = new ArrayList<>();
+                        aux11.add(artigos1);
+                        userAux.getArtigosVendidos().put(data2,aux11);
+                    }
+
+                    userAux.setTotalVendido(userAux.calculaTotalVendido());
+                }
+            }
+        }
+
     }
 
     private static void entrarUser(IView view, IInput input, IGestor gestor) throws ParseException, IOException, ClassNotFoundException {
@@ -178,6 +223,7 @@ public class Controller {
                 iniciaSimulacao(view,input,gestor);
                 mostraUser(user,view,input,gestor);
                 break;
+
             case 8:
                 view.mostraMensagem("Insira o nome do ficheiro: ");
                 String filePath2 = input.InputString();
@@ -207,6 +253,9 @@ public class Controller {
                 input.closeScanner();
                 System.exit(0);
                 break;
+            case 12:
+                avancarTempo(view,input,gestor);
+                mostraUser(user,view,input,gestor);
             default:
                 break;
         }
@@ -301,8 +350,12 @@ public class Controller {
         List<Utilizador> aux = gestor.maioresVendedoresSistema(data1,data2,topX);
 
         try{
+            int i= 1;
             for(Utilizador utilizador:aux){
-                view.mostraMensagem(utilizador.toString());
+                view.mostraMensagem(i +"º lugar:");
+                view.mostraMensagem("Código User "+utilizador.getCodigoUser()+"\n");
+                view.mostraMensagem("Total Vendido  "+utilizador.calculaValorartigosVendidosEntreDatas(data1,data2)+"\n");
+                i++;
             }
         }catch (IndexOutOfBoundsException e){
             System.out.println(e.getMessage());
@@ -318,8 +371,12 @@ public class Controller {
         Integer topX = input.InputInteger();
         List<Utilizador> aux = gestor.maioresCompradoresSistema(data1,data2,topX);
         try{
+            int i= 1;
             for(Utilizador utilizador:aux){
-                view.mostraMensagem(utilizador.toString());
+                view.mostraMensagem(i +"º lugar:");
+                view.mostraMensagem("Código User "+utilizador.getCodigoUser()+"\n");
+                view.mostraMensagem("Total Comprado  "+utilizador.calculaValorartigosCompradosEntreDatas(data1,data2)+"\n");
+                i++;
             }
         }catch (IndexOutOfBoundsException e){
             System.out.println(e.getMessage());
@@ -533,22 +590,17 @@ public class Controller {
         List<Artigos> artigos = new ArrayList<Artigos>();
         for (int i = 0; i<numeroArtigos;i++){
             Integer aux = input.InputInteger();
-            try {
-                artigos.add(gestor.getArtigosMap().get(aux));
-                System.out.println(i + " " +gestor.getArtigosMap().get(aux).getClass());
-            }catch (NullPointerException e){System.out.println("Não tem os artigos no mapa");}
+            artigos.add(gestor.getArtigosMap().get(aux));
+            System.out.println(gestor.getArtigosMap().get(aux));
         }
 
-        try {
-            view.mostraMensagem("Insira o nome da transportadora:");
-            String nomeTransportadora = input.InputString();
+        view.mostraMensagem("Insira o nome da transportadora:");
+        String nomeTransportadora = input.InputString();
 
-            for (Artigos artigo : artigos) {
-                artigo.setNomeTransportadora(nomeTransportadora);
-            }
-        }catch (NullPointerException e){
-            System.out.println("Nome errado Transportadora");
+        for (Artigos artigo : artigos) {
+            artigo.setNomeTransportadora(nomeTransportadora);
         }
+
         view.mostraMensagem("Insira o prazo limite:");
         String prazoLimite = input.InputString();
         Date prazoLimite1 = new SimpleDateFormat("dd/MM/yyyy").parse(prazoLimite);
@@ -563,48 +615,22 @@ public class Controller {
         }
         Date dataCriacao = new Date();
         String estado = "pendente";
+
         Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,0.0,estado,dataCriacao,prazoLimite1);
+        System.out.println("\nIsto é o aux:\n");
+        for(Artigos artigos1:aux.getArtigos()){
+            System.out.println(artigos1.toString());
+        }
         aux.setFezEncomenda(user);
-        System.out.println(user.getCodigoUser());
+
         try {
-            Double custoExpedicao = gestor.getTransportadoraMap().get(artigos.get(0).getNomeTransportadora()).precoExpedicao(aux);
+            Double custoExpedicao = gestor.getTransportadoraMap().get(nomeTransportadora).precoExpedicao(aux);
             aux.setCustosExpedicao(custoExpedicao);
         }catch (NullPointerException e){
             System.out.println("Custo de Expedição fica a 0");
         }
 
         gestor.getEncomendasMap().put(aux.getNumeroEncomenda(),aux);
-
-        //adiciona aos artigos comprados do utilizador logado
-        try {
-            if(user.getArtigosComprados().containsKey(dataCriacao)){
-                user.getArtigosComprados().get(dataCriacao).addAll(artigos);
-            }else {
-                user.getArtigosComprados().put(dataCriacao,artigos);
-            }
-        }catch (Exception e){System.out.println("Erro ao adicionar artigos comprados no utilizador");}
-
-
-        //alterar os utilizadores que estavam associados a estes artigos
-        for (Artigos artigos1: artigos){
-            //try {
-                Utilizador userAux = gestor.getUtilizadorMap().values().stream().filter(e->e.getArtigosParaVenda().contains(artigos1)).toList().get(0);
-
-                userAux.getArtigosParaVenda().remove(artigos1);
-                if(userAux.getArtigosVendidos().containsKey(dataCriacao)){
-                    userAux.getArtigosVendidos().get(dataCriacao).add(artigos1);
-                }else {
-                    List<Artigos> aux11 = new ArrayList<>();
-                    aux11.add(artigos1);
-                    userAux.getArtigosVendidos().put(dataCriacao,aux11);
-                }
-                userAux.setTotalVendido(userAux.calculaTotalVendido());
-            /*}catch (NullPointerException e){
-                System.out.println("Artigo comprado não existe");
-            }*/
-
-        }
-
 
     }
 
