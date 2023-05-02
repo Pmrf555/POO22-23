@@ -18,12 +18,12 @@ public interface IParser extends Serializable {
 
     public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException;
 
-    public TShirt lerTShirt(BufferedReader fileArq) throws IOException;
+    public Artigos lerTShirt(BufferedReader fileArq) throws IOException;
 
-    public MalasNormais lerMalaNormal(BufferedReader fileArq) throws IOException;
+    public Artigos lerMalaNormal(BufferedReader fileArq) throws IOException;
 
-    public MalasPremium lerMalaPremium(BufferedReader fileArq) throws IOException;
+    public Artigos lerMalaPremium(BufferedReader fileArq) throws IOException;
 
-    public Sapatilhas lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException;
+    public Artigos lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException;
 
 }
