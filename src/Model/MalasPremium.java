@@ -1,9 +1,8 @@
 package Model;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public class MalasPremium extends Malas{
+public class MalasPremium extends Malas {
     private double valorizacao;
 
     public MalasPremium() {
@@ -19,7 +18,10 @@ public class MalasPremium extends Malas{
     }
 
     public Double preco(){
-        return getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno());
+        System.out.println("OI3");
+        Double dimensao = (double) getDimensao();
+        setCorrecaoPreco(1.0 /dimensao);
+        return (getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno())) * getCorrecaoPreco();
     }
 /*
     @Override
