@@ -17,4 +17,5 @@ public interface IGestor extends Serializable {
     public Map<Integer, Utilizador> getUtilizadorMap();
     public Map<Integer, Encomendas> getEncomendasMap();
     public Map<String, Transportadora> getTransportadoraMap();
+    public void setDataAtual(Date dataAtual);
 }
