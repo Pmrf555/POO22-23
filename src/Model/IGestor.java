@@ -12,7 +12,7 @@ public interface IGestor extends Serializable {
     public List<Utilizador> maioresCompradoresSistema(Date inicio,Date fim, int quantosNoTop);
     public List<Encomendas> encomendasEmitidasPorVendedor(Integer codUtilizador);
     public Utilizador vendedorQueMaisFaturouEntreDatas(Date inicio, Date fim);
-    public Map<Long, Artigos> getArtigosMap();
+    public Map<Integer, Artigos> getArtigosMap();
     public Transportadora transportadoraComMaiorFaturacao();
     public Map<Integer, Utilizador> getUtilizadorMap();
     public Map<Integer, Encomendas> getEncomendasMap();
