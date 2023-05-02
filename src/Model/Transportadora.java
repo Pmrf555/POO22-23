@@ -1,8 +1,8 @@
 package Model;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-public class Transportadora {
+public class Transportadora implements Serializable {
     private static Double imposto;
     private static Double precoBasePequena;
     private static Double precoBaseMedia;
