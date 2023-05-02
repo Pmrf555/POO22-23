@@ -29,8 +29,6 @@ public class Parser implements IParser{
         this.nomeFicheiro = "ficheiroLeitura";
     }
     public void lerFicheiro(IGestor ges) throws IOException, ParseException {
-        int estado = 0; // 0 se estiver a ler malasNormais,1 malasPremium,2 sapatilhasNormais,3 sapatilhasPremium,4 t-Shirts, 5 utilizadores, 6 encomendas e 7 trasportadoras
-        int aux = 0;
         FileReader arq = new FileReader(nomeFicheiro);
         BufferedReader fileArq = new BufferedReader(arq);
         String linha;
@@ -39,23 +37,23 @@ public class Parser implements IParser{
         while (linha != null) {
             switch (linha) {
                 case "Mala Normal":
-                    MalasNormais malasNormais = lerMalaNormal(fileArq);
+                    Artigos malasNormais = lerMalaNormal(fileArq);
                     ges.getArtigosMap().put(malasNormais.getCodigoAlfa(), malasNormais);
                     break;
                 case "Mala Premium":
-                    MalasPremium malasPremium = lerMalaPremium(fileArq);
+                    Artigos malasPremium = lerMalaPremium(fileArq);
                     ges.getArtigosMap().put(malasPremium.getCodigoAlfa(), malasPremium);
                     break;
                 case "Sapatilha Normal":
-                    Sapatilhas sapatilhasNormais = lerSapatilhas(fileArq);
+                    Artigos sapatilhasNormais = lerSapatilhas(fileArq);
                     ges.getArtigosMap().put(sapatilhasNormais.getCodigoAlfa(), sapatilhasNormais);
                     break;
                 case "Sapatilha Premium":
-                    Sapatilhas sapatilhasPremium = lerSapatilhas(fileArq);
+                    Artigos sapatilhasPremium = lerSapatilhas(fileArq);
                     ges.getArtigosMap().put(sapatilhasPremium.getCodigoAlfa(), sapatilhasPremium);
                     break;
                 case "T-Shirt":
-                    TShirt tShirt = lerTShirt(fileArq);
+                    Artigos tShirt = lerTShirt(fileArq);
                     ges.getArtigosMap().put(tShirt.getCodigoAlfa(), tShirt);
                     break;
                 case "Utilizador":
@@ -92,13 +90,13 @@ public class Parser implements IParser{
 
         int numeroArtigosParaVenda = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosParaVenda;i++){
-            Long codAlfanumerico = Long.parseLong(fileArq.readLine());
+            Integer codAlfanumerico = Integer.parseInt(fileArq.readLine());
             aux1.add(ges.getArtigosMap().get(codAlfanumerico));
         }
 
         int numeroArtigosVendidos = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosVendidos;i++){
-            Long codAlfanumerico = Long.parseLong(fileArq.readLine());
+            Integer codAlfanumerico = Integer.parseInt(fileArq.readLine());
             Date data = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
             if(aux2.containsKey(data)){
                 aux2.get(data).add(ges.getArtigosMap().get(codAlfanumerico));
@@ -112,7 +110,7 @@ public class Parser implements IParser{
 
         int numeroArtigosComprados = Integer.parseInt(fileArq.readLine());
         for(int i = 0;i<numeroArtigosComprados;i++){
-            Long codAlfanumerico = Long.parseLong(fileArq.readLine());
+            Integer codAlfanumerico = Integer.parseInt(fileArq.readLine());
             Date data = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
             if(aux3.containsKey(data)){
                 aux3.get(data).add(ges.getArtigosMap().get(codAlfanumerico));
@@ -148,7 +146,7 @@ public class Parser implements IParser{
         return new Transportadora(nome,margemLucro);
     }
 
-    public TShirt lerTShirt(BufferedReader fileArq) throws IOException {
+    public Artigos lerTShirt(BufferedReader fileArq) throws IOException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
@@ -160,7 +158,7 @@ public class Parser implements IParser{
         return new TShirt(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,tamanho,padrao);
     }
 
-    public MalasNormais lerMalaNormal(BufferedReader fileArq) throws IOException {
+    public Artigos lerMalaNormal(BufferedReader fileArq) throws IOException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
@@ -173,7 +171,7 @@ public class Parser implements IParser{
         return new MalasNormais(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,dimensao,material,ano);
     }
 
-    public MalasPremium lerMalaPremium(BufferedReader fileArq) throws IOException {
+    public Artigos lerMalaPremium(BufferedReader fileArq) throws IOException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
@@ -187,7 +185,7 @@ public class Parser implements IParser{
         return new MalasPremium(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,dimensao,material,ano,valorizacao);
     }
 
-    public Sapatilhas lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException {
+    public Artigos lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
