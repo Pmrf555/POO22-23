@@ -2,7 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 
-public class MalasPremium extends Malas {
+public class MalasPremium extends Malas implements ProdutosPremium {
     private double valorizacao;
 
     public MalasPremium() {
@@ -18,7 +18,6 @@ public class MalasPremium extends Malas {
     }
 
     public Double preco(){
-        System.out.println("OI3");
         Double dimensao = (double) getDimensao();
         setCorrecaoPreco(1.0 /dimensao);
         return (getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno())) * getCorrecaoPreco();
@@ -40,7 +39,7 @@ public class MalasPremium extends Malas {
         this.valorizacao = valorizacao;
     }
     public String toString(){
-        return "Número Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
+        return "\nMalas Premium:\nNúmero Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
                 +getEstado()+ "\nDescricao: " +getDescricao()+ "\nMarca: "+getMarca()+ "\nCodigo Alfanumerico: "
                 +getCodigoAlfa()+"\nPreço Base: "+getPrecoBase()+"\nCorreção Preço: "+getCorrecaoPreco()+"\nDimensão: "
                 +getDimensao()+ "\nMaterial: " +getMaterial()+"\nAno: "+getAno()+"\nValorização: "+getValorizacao();
