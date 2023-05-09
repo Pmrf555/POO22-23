@@ -141,9 +141,16 @@ public class Parser implements IParser{
     }
 
     public Transportadora lerTransportadoras(BufferedReader fileArq) throws IOException {
+        int i = Integer.parseInt(fileArq.readLine());
         String nome = fileArq.readLine();
         Double margemLucro = Double.parseDouble(fileArq.readLine());
-        return new Transportadora(nome,margemLucro);
+        Transportadora transportadora;
+        if(i == 1){
+            transportadora = new TransportadoraPremium(nome,margemLucro);
+        }else {
+            transportadora = new TransportadoraNormal(nome,margemLucro);
+        }
+        return transportadora;
     }
 
     public Artigos lerTShirt(BufferedReader fileArq) throws IOException {
