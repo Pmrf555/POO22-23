@@ -160,7 +160,6 @@ public class Controller {
                 String email = input.InputString();
                 try {
                     user = gestor.getUtilizadorMap().values().stream().filter(e->e.getEmail().equals(email)).toList().get(0);
-                    System.out.println(user.getEmail());
                     mostraUser(user,view,input,gestor);
                 } catch (IndexOutOfBoundsException e ){
                     System.out.println("Erro no email introduzido");
@@ -263,21 +262,18 @@ public class Controller {
 
     public static void showArtigos(IView view,IInput input,IGestor gestor){
         for(Artigos artigos : gestor.getArtigosMap().values()){
-            view.mostraMensagem(artigos.getClass().toString());
             view.mostraMensagem(artigos.toString());
         }
     }
 
     public static void showEncomenda(IView view,IInput input,IGestor gestor){
         for(Encomendas artigos : gestor.getEncomendasMap().values()){
-            view.mostraMensagem("Encomenda:");
             view.mostraMensagem(artigos.toString());
         }
     }
 
     public static void showTransportadora(IView view,IInput input,IGestor gestor){
         for(Transportadora artigos : gestor.getTransportadoraMap().values()){
-            view.mostraMensagem("Transportadora:");
             view.mostraMensagem(artigos.toString());
         }
     }
@@ -576,26 +572,57 @@ public class Controller {
     }
 
     public static void adicionaTransportadora(IView view,IInput input,IGestor gestor){
+        view.mostraMensagem("1-É Premium\n2-É normal");
+        Integer i = input.InputInteger();
         view.mostraMensagem("Insira o nome:");
         String nome = input.InputString();
         view.mostraMensagem("Insira a margem de lucro:");
         Double margemLucro = input.InputDouble();
-        gestor.getTransportadoraMap().put(nome,new Transportadora(nome,margemLucro));
+        if(i == 1){
+            gestor.getTransportadoraMap().put(nome,new TransportadoraPremium(nome,margemLucro));
+        }else {
+            gestor.getTransportadoraMap().put(nome,new TransportadoraNormal(nome,margemLucro));
+        }
+
     }
 
     public static void adicionaEncomenda(Utilizador user,IView view,IInput input,IGestor gestor) throws ParseException,NullPointerException {
+        view.mostraMensagem("Quer usar uma transportadora Premium?(Só pode transportar produtos premium)");
+        view.mostraMensagem("1-Sim");
+        view.mostraMensagem("2-Não");
+        Integer premium = input.InputInteger();
         view.mostraMensagem("Quantos artigos vai ter a encomenda?");
         Integer numeroArtigos = input.InputInteger();
         view.mostraMensagem("Agora insira os códigos alfanuméricos dos " +numeroArtigos+ " artigos:");
         List<Artigos> artigos = new ArrayList<Artigos>();
-        for (int i = 0; i<numeroArtigos;i++){
-            Integer aux = input.InputInteger();
-            artigos.add(gestor.getArtigosMap().get(aux));
-            System.out.println(gestor.getArtigosMap().get(aux));
+        if(premium == 1){
+            for (int i = 0; i<numeroArtigos;i++){
+                Integer aux = input.InputInteger();
+                if(gestor.getArtigosMap().get(aux) instanceof ProdutosPremium){
+                    artigos.add(gestor.getArtigosMap().get(aux));
+                }else{
+                    i--;
+                    view.mostraMensagem("Este Artigos não é premium, introduza o código denovo.");
+                }
+            }
+        }else {
+            for (int i = 0; i<numeroArtigos;i++){
+                Integer aux = input.InputInteger();
+                artigos.add(gestor.getArtigosMap().get(aux));
+            }
         }
+
+
 
         view.mostraMensagem("Insira o nome da transportadora:");
         String nomeTransportadora = input.InputString();
+        if(premium == 1){
+            while(!(gestor.getTransportadoraMap().get(nomeTransportadora) instanceof TransportadoraPremium)){
+                view.mostraMensagem("Esta Transportadora não é premium, introduza uma premium.");
+                nomeTransportadora = input.InputString();
+            }
+        }
+
 
         for (Artigos artigo : artigos) {
             artigo.setNomeTransportadora(nomeTransportadora);
@@ -617,17 +644,13 @@ public class Controller {
         String estado = "pendente";
 
         Encomendas aux = new Encomendas(artigos,dimensaoEmbalagem,0.0,estado,dataCriacao,prazoLimite1);
-        System.out.println("\nIsto é o aux:\n");
-        for(Artigos artigos1:aux.getArtigos()){
-            System.out.println(artigos1.toString());
-        }
         aux.setFezEncomenda(user);
 
         try {
             Double custoExpedicao = gestor.getTransportadoraMap().get(nomeTransportadora).precoExpedicao(aux);
             aux.setCustosExpedicao(custoExpedicao);
         }catch (NullPointerException e){
-            System.out.println("Custo de Expedição fica a 0");
+            System.out.println(e.getMessage());
         }
 
         gestor.getEncomendasMap().put(aux.getNumeroEncomenda(),aux);
@@ -658,7 +681,7 @@ public class Controller {
         Integer numeroArtigosVendidos = input.InputInteger();
         for(int i = 0;i<numeroArtigosVendidos;i++){
             view.mostraMensagem("Insira o código alfanumérico do artigo:");
-            Long codAlfanumerico = input.InputLong();
+            Integer codAlfanumerico = input.InputInteger();
             view.mostraMensagem("Insira a data de venda do produto (formato dd/MM/yyyy):");
             Date data = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
             if(aux2.containsKey(data)){
@@ -676,7 +699,7 @@ public class Controller {
         Integer numeroArtigosComprados = input.InputInteger();
         for(int i = 0;i<numeroArtigosVendidos;i++){
             view.mostraMensagem("Insira o código alfanumérico do artigo:");
-            Long codAlfanumerico = input.InputLong();
+            Integer codAlfanumerico = input.InputInteger();
             view.mostraMensagem("Insira a data de compra do produto (formato dd/MM/yyyy):");
             Date data = new SimpleDateFormat("dd/MM/yyyy").parse(input.InputString());
             if(aux2.containsKey(data)){
