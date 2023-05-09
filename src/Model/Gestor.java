@@ -63,7 +63,7 @@ public class Gestor implements IGestor{
 
     // Função que determina qual o transportador com maior volume de faturação
     public Transportadora transportadoraComMaiorFaturacao(){
-        Transportadora maiorFatura = new Transportadora();
+        Transportadora maiorFatura = new TransportadoraNormal();
         Double faturacao = 0.0;
         Double max = 0.0;
         try {
