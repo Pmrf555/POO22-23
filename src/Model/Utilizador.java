@@ -76,10 +76,7 @@ public class Utilizador implements Serializable {
         Double total = 0.0;
         for(List<Artigos> artigos : this.ArtigosVendidos.values()){
             for (Artigos artigos1 : artigos){
-                System.out.println("User: "+getCodigoUser());
-                System.out.println(artigos1.toString());
                 total += artigos1.preco();
-                System.out.println("Preço: " + artigos1.preco());
             }
         }
         return total;
@@ -262,15 +259,14 @@ public class Utilizador implements Serializable {
         }catch (NullPointerException e){
             System.out.println("Não tem artigos comprados");
         }
-        return "Utilizador{\n" +
+        return "\nUtilizador:\n" +
                 "codigoUser=" + codigoUser +"\n"+
                 "email='" + email +"\n"+
                 "nome='" + nome +"\n"+
                 "morada='" + morada  +"\n"+
-                "nif=" + nif +"\n"+
+                "nif=" + nif +
                 aux1 + aux2 + aux3+
-                "totalVendido=" + totalVendido +"\n"+
-                '}';
+                "totalVendido=" + totalVendido +"\n";
     }
 }
 
