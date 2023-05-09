@@ -18,7 +18,6 @@ public class MalasNormais extends Malas  {
     }
 
     public Double preco(){
-        System.out.println("OI2");
         Double preco = 0.0;
         Double dimensao = (double) getDimensao();
         setCorrecaoPreco(1.0 /dimensao);
@@ -31,7 +30,7 @@ public class MalasNormais extends Malas  {
     }
 
     public String toString(){
-        return "Número Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
+        return "\nMalas Normais:\nNúmero Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
                 +getEstado()+ "\nDescricao: " +getDescricao()+ "\nMarca: "+getMarca()+ "\nCodigo Alfanumerico: "
                 +getCodigoAlfa()+"\nPreço Base: "+getPrecoBase()+"\nCorreção Preço: "+getCorrecaoPreco()+"\nDimensão: "
                 +getDimensao()+ "\nMaterial: " +getMaterial()+"\nAno: "+getAno();
