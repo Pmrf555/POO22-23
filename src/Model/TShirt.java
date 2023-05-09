@@ -37,14 +37,13 @@ public class TShirt extends Artigos{
     }
 
     public Double preco(){
-        System.out.println("OI6");
         if(!this.padrao.equals("liso")) setCorrecaoPreco(0.5);
         else setCorrecaoPreco(1.0);
         return getPrecoBase() * (getCorrecaoPreco());
     }
 
     public String toString(){
-        return "Número Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
+        return "\nTShirt:\nNúmero Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
                 +getEstado()+ "\nDescricao: " +getDescricao()+ "\nMarca: "+getMarca()+ "\nCodigo Alfanumerico: "
                 +getCodigoAlfa()+"\nPreço Base: "+getPrecoBase()+"\nCorreção Preço: "+getCorrecaoPreco()+"\nTamanho: "
                 +getTamanho()+ "\nPadrão: " +getPadrao();
