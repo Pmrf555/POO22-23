@@ -46,15 +46,7 @@ public class Encomendas implements Serializable {
     public Encomendas(List<Artigos> artigos, String dimensaoEmbalagem, double custosExpedicao, String estado, Date dataCriacao, Date prazoLimite) {
         this.numeroEncomenda = Encomendas.getNumeroEnc();
         Encomendas.setNumeroEnc(Encomendas.getNumeroEnc()+1);
-        System.out.println("\nAntes");
-        for (Artigos artigos2:artigos){
-            System.out.printf(artigos2.toString()+"\n");
-        }
         this.artigos = artigos;
-        System.out.println("\nDepois");
-        for (Artigos artigos1:this.artigos){
-            System.out.printf(artigos1.toString());
-        }
         this.dimensaoEmbalagem = dimensaoEmbalagem;
         this.custosExpedicao = custosExpedicao;
         this.estado = estado;
@@ -231,17 +223,17 @@ public class Encomendas implements Serializable {
             System.out.println("Não tem artigos ;(");
         }
 
-        return "Artigos:\n" +
+        return "\nEncomenda:\nArtigos:\n" +
                 aux+
-                ",Número encomenda = " + numeroEncomenda +
-                ", dimensaoEmbalagem=" + dimensaoEmbalagem  +
-                ", precoFinal=" + precoFinal +
-                ", taxaSatisfacaoServicoNovo=" + taxaSatisfacaoServicoNovo +
-                ", taxaSatisfacaoServicoUsado=" + taxaSatisfacaoServicoUsado +
-                ", custosExpedicao=" + custosExpedicao +
-                ", estado='" + estado +
-                ", dataCriacao=" + dataCriacao +
-                ", prazoLimite=" + prazoLimite;
+                "Número encomenda = " + numeroEncomenda +
+                "\n dimensaoEmbalagem=" + dimensaoEmbalagem  +
+                "\n precoFinal=" + precoFinal +
+                "\n taxaSatisfacaoServicoNovo=" + taxaSatisfacaoServicoNovo +
+                "\n taxaSatisfacaoServicoUsado=" + taxaSatisfacaoServicoUsado +
+                "\n custosExpedicao=" + custosExpedicao +
+                "\n estado=" + estado +
+                "\n dataCriacao=" + dataCriacao +
+                "\n prazoLimite=" + prazoLimite;
     }
 
 }
