@@ -10,13 +10,12 @@ public class SapatilhasNormais extends Sapatilhas{
         super(numeroUtilizadores, estado, descricao, marca, precoBase, correcaoPreco, tamanho, atacadores, cor, dataLancamento);
     }
     public Double preco(){
-        System.out.println("OI4");
         if(getNumeroUtilizadores() == 0 || getTamanho() < 45) setCorrecaoPreco(1.0);
         return (getPrecoBase() + (getPrecoBase() / getNumeroUtilizadores() * getEstado())) * getCorrecaoPreco();
     }
 
     public String toString(){
-        return "Número Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
+        return "\nSapatilhas Normais:\nNúmero Utilizadores: " + getNumeroUtilizadores() + "\nEstado: "
                 +getEstado()+ "\nDescricao: " +getDescricao()+ "\nMarca: "+getMarca()+ "\nCodigo Alfanumerico: "
                 +getCodigoAlfa()+"\nPreço Base: "+getPrecoBase()+"\nCorreção Preço: "+getCorrecaoPreco()+"\nTamanho: "
                 +getTamanho()+ "\nAtacadores: " +getAtacadores()+"\nCor: "+getCor();
