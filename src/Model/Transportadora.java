@@ -2,7 +2,7 @@ package Model;
 
 import java.io.Serializable;
 
-public class Transportadora implements Serializable {
+public abstract class Transportadora implements Serializable {
     private static Double imposto;
     private static Double precoBasePequena;
     private static Double precoBaseMedia;
@@ -13,11 +13,7 @@ public class Transportadora implements Serializable {
     public Transportadora() {
     }
 
-    public String toString(){
-        return "Imposto: " + getImposto() + "\nPreço Base Pequena: "
-                +getPrecoBasePequena()+ "\nPreço Base Média: " +getPrecoBaseMedia()+ "\nPreço Base Grande: "+getPrecoBaseGrande()
-                + "\nNome: "+getNome()+"\nMargem Lucro: "+getMargemLucro();
-    }
+
 
     public Transportadora(String nome, Double margemLucro){
         this.nome = nome;
@@ -28,17 +24,8 @@ public class Transportadora implements Serializable {
         this.nome = t.getNome();
         this.margemLucro = t.getMargemLucro();
     }
-
     // Funcção que cria a fórmula de cálculo do preço de expedição
-    public Double precoExpedicao(Encomendas encomendas){
-        if (encomendas.getDimensaoEmbalagem().equals("pequena")) {
-            return (precoBasePequena * margemLucro * (1 + imposto)) * 0.9;
-        } else if(encomendas.getDimensaoEmbalagem().equals("media")){
-            return (precoBaseMedia * margemLucro * (1 + imposto)) * 0.9;
-        }else {
-            return (precoBaseGrande * margemLucro * (1 + imposto)) * 0.9;
-        }
-    }
+    public abstract Double precoExpedicao(Encomendas encomendas);
 
     //getters e setters
     public String getNome() {
