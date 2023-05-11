@@ -11,7 +11,7 @@ public class SapatilhasNormais extends Sapatilhas{
     }
     public Double preco(){
         if(getNumeroUtilizadores() == 0 || getTamanho() < 45) setCorrecaoPreco(1.0);
-        return (getPrecoBase() + (getPrecoBase() / getNumeroUtilizadores() * getEstado())) * getCorrecaoPreco();
+        return (getPrecoBase() + (getPrecoBase() / getNumeroUtilizadores() * getEstado())) * (getCorrecaoPreco()/100);
     }
 
     public String toString(){
