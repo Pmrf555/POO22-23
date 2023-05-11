@@ -22,7 +22,7 @@ public class MalasNormais extends Malas  {
         Double dimensao = (double) getDimensao();
         setCorrecaoPreco(1.0 /dimensao);
         try {
-            preco = (getPrecoBase() - (LocalDateTime.now().getYear()-getAno())) * getCorrecaoPreco();
+            preco = (getPrecoBase() - ((LocalDateTime.now().getYear()-getAno()) * 0.1)) * (getCorrecaoPreco()/100);
         }catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
