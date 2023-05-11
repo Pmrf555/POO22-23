@@ -20,7 +20,7 @@ public class MalasPremium extends Malas implements ProdutosPremium {
     public Double preco(){
         Double dimensao = (double) getDimensao();
         setCorrecaoPreco(1.0 /dimensao);
-        return (getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno())) * getCorrecaoPreco();
+        return (getPrecoBase() + (this.valorizacao * LocalDateTime.now().getYear()-getAno())) * (getCorrecaoPreco()/100);
     }
 /*
     @Override
