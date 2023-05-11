@@ -657,7 +657,7 @@ public class Controller {
         String morada = input.InputString();
         view.mostraMensagem("Insira o NIF:");
         int nif = input.InputInteger();
-
+/*
         view.mostraMensagem("Quantos artigos para venda vai ter o utilizador?");
         Integer numeroArtigosparaVenda = input.InputInteger();
         List<Artigos> artigosVenda = new ArrayList<Artigos>();
@@ -701,8 +701,8 @@ public class Controller {
                 aux.add(gestor.getArtigosMap().get(codAlfanumerico));
                 aux3.put(data,aux);
             }
-        }
-        Utilizador utilizador = new Utilizador(email,nome,morada,nif,artigosVenda,aux2,aux3);
+        }*/
+        Utilizador utilizador = new Utilizador(email,nome,morada,nif);
         gestor.getUtilizadorMap().put(utilizador.getCodigoUser(),utilizador);
         mostraUser(utilizador,view,input,gestor);
     }
