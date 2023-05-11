@@ -24,6 +24,7 @@ public interface IParser extends Serializable {
 
     public Artigos lerMalaPremium(BufferedReader fileArq) throws IOException;
 
-    public Artigos lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException;
+    public Artigos lerSapatilhasNormais(BufferedReader fileArq) throws IOException, ParseException;
+    public Artigos lerSapatilhasPremium(BufferedReader fileArq) throws IOException, ParseException;
 
 }
