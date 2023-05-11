@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import View.IView;
 import View.View;
+import jdk.jshell.execution.Util;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -167,17 +168,7 @@ public class Controller {
 
                 break;
             case 2:
-                view.mostraMensagem("Introduza o seu nome:");
-                String nome = input.InputString();
-                view.mostraMensagem("Introduza o seu email:");
-                String mail = input.InputString();
-                view.mostraMensagem("Introduza a sua morada:");
-                String morada = input.InputString();
-                view.mostraMensagem("Introduza o seu NIF:");
-                Long nif = input.InputLong();
-                Utilizador userAux = new Utilizador(mail,nome,morada,nif);
-                gestor.getUtilizadorMap().put(userAux.getCodigoUser(),userAux);
-                mostraUser(userAux,view,input,gestor);
+                adicionaUtilizador(view,input,gestor);
                 break;
             case 3:
                 input.closeScanner();
@@ -657,7 +648,7 @@ public class Controller {
 
     }
 
-    public static void adicionaUtilizador(IView view,IInput input,IGestor gestor) throws ParseException {
+    public static void adicionaUtilizador(IView view,IInput input,IGestor gestor) throws ParseException, IOException, ClassNotFoundException {
         view.mostraMensagem("Insira o email:");
         String email = input.InputString();
         view.mostraMensagem("Insira o nome:");
@@ -672,7 +663,7 @@ public class Controller {
         List<Artigos> artigosVenda = new ArrayList<Artigos>();
         for (int i = 0; i<numeroArtigosparaVenda;i++){
             view.mostraMensagem("Insira o código alfanumérico do artigo:");
-            Long aux = input.InputLong();
+            Integer aux = input.InputInteger();
             artigosVenda.add(gestor.getArtigosMap().get(aux));
         }
 
@@ -697,7 +688,7 @@ public class Controller {
         Map<Date,List<Artigos>> aux3 = new HashMap<>();
         view.mostraMensagem("Quantos artigos comprados vai ter o utilizador?");
         Integer numeroArtigosComprados = input.InputInteger();
-        for(int i = 0;i<numeroArtigosVendidos;i++){
+        for(int i = 0;i<numeroArtigosComprados;i++){
             view.mostraMensagem("Insira o código alfanumérico do artigo:");
             Integer codAlfanumerico = input.InputInteger();
             view.mostraMensagem("Insira a data de compra do produto (formato dd/MM/yyyy):");
@@ -713,6 +704,7 @@ public class Controller {
         }
         Utilizador utilizador = new Utilizador(email,nome,morada,nif,artigosVenda,aux2,aux3);
         gestor.getUtilizadorMap().put(utilizador.getCodigoUser(),utilizador);
+        mostraUser(utilizador,view,input,gestor);
     }
 
 }
