@@ -11,7 +11,7 @@ public class SapatilhasPremium extends Sapatilhas implements ProdutosPremium { /
 
     public Double preco(){
         Date now = new Date();
-        return super.getPrecoBase() + (10 * (now.getYear() - super.getDataLancamento().getYear())); // o 10 foi inventado não sei se é preciso um número especifico
+        return super.getPrecoBase() + (0.5 * (now.getYear() - super.getDataLancamento().getYear()));
     }
 
     public String toString(){
