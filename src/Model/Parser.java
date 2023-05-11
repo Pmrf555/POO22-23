@@ -45,11 +45,11 @@ public class Parser implements IParser{
                     ges.getArtigosMap().put(malasPremium.getCodigoAlfa(), malasPremium);
                     break;
                 case "Sapatilha Normal":
-                    Artigos sapatilhasNormais = lerSapatilhas(fileArq);
+                    Artigos sapatilhasNormais = lerSapatilhasNormais(fileArq);
                     ges.getArtigosMap().put(sapatilhasNormais.getCodigoAlfa(), sapatilhasNormais);
                     break;
                 case "Sapatilha Premium":
-                    Artigos sapatilhasPremium = lerSapatilhas(fileArq);
+                    Artigos sapatilhasPremium = lerSapatilhasPremium(fileArq);
                     ges.getArtigosMap().put(sapatilhasPremium.getCodigoAlfa(), sapatilhasPremium);
                     break;
                 case "T-Shirt":
@@ -191,7 +191,7 @@ public class Parser implements IParser{
         return new MalasPremium(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,dimensao,material,ano,valorizacao);
     }
 
-    public Artigos lerSapatilhas(BufferedReader fileArq) throws IOException, ParseException {
+    public Artigos lerSapatilhasNormais(BufferedReader fileArq) throws IOException, ParseException {
         int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
         Double estado = Double.parseDouble(fileArq.readLine());
         String descricao = fileArq.readLine();
@@ -203,6 +203,20 @@ public class Parser implements IParser{
         String cor = fileArq.readLine();
         Date dataLancamento = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
         return new SapatilhasNormais(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,tamanho,atacadore,cor,dataLancamento);
+    }
+
+    public Artigos lerSapatilhasPremium(BufferedReader fileArq) throws IOException, ParseException {
+        int numeroUtilizadores = Integer.parseInt(fileArq.readLine());
+        Double estado = Double.parseDouble(fileArq.readLine());
+        String descricao = fileArq.readLine();
+        String marca = fileArq.readLine();
+        Double precobase = Double.parseDouble(fileArq.readLine());
+        Double correcaoPreco = Double.parseDouble(fileArq.readLine());
+        Double tamanho = Double.parseDouble(fileArq.readLine());
+        Boolean atacadore = Boolean.parseBoolean(fileArq.readLine());
+        String cor = fileArq.readLine();
+        Date dataLancamento = new SimpleDateFormat("dd/MM/yyyy").parse(fileArq.readLine());
+        return new SapatilhasPremium(numeroUtilizadores,estado,descricao,marca,precobase,correcaoPreco,tamanho,atacadore,cor,dataLancamento);
     }
 
 }
