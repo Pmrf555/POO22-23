@@ -58,7 +58,7 @@ public class Parser implements IParser{
                     break;
                 case "Utilizador":
                     Utilizador utilizador = lerUtilizador(ges,fileArq);
-                    ges.getUtilizadorMap().put(utilizador.getCodigo(), utilizador);
+                    ges.getUtilizadorMap().put(Utilizador.getCodigo()-1, utilizador);
                     break;
                 case "Encomendas":
                     Encomendas encomendas = lerEncomendas(ges,fileArq);
@@ -78,7 +78,6 @@ public class Parser implements IParser{
     }
 
     public Utilizador lerUtilizador(IGestor ges,BufferedReader fileArq) throws IOException, ParseException {
-        int codigo = Integer.parseInt(fileArq.readLine());
         String email = fileArq.readLine();
         String nome = fileArq.readLine();
         String morada = fileArq.readLine();
@@ -129,7 +128,7 @@ public class Parser implements IParser{
         int numeroArtigos = Integer.parseInt(fileArq.readLine());
         ArrayList<Artigos> aux = new ArrayList<>();
         for(int i = 0;i<numeroArtigos;i++){
-            Long codAlfanumerico = Long.parseLong(fileArq.readLine());
+            Integer codAlfanumerico = Integer.parseInt(fileArq.readLine());
             aux.add(ges.getArtigosMap().get(codAlfanumerico));
         }
         String dimensaoEmbalagem = fileArq.readLine();
