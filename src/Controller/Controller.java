@@ -117,7 +117,7 @@ public class Controller {
         gestor.setDataAtual(data2);
         for(Encomendas encomendas: gestor.getEncomendasMap().values()){
             List<Artigos> artigosEncomenda = encomendas.getArtigos();
-            if(encomendas.getPrazoLimite().before(data2)){
+            if(encomendas.getPrazoLimite().before(data2) && encomendas.getEstado().equals("pendente")){
                 encomendas.setEstado("Entregue");
                 Utilizador user = encomendas.getFezEncomenda();
 
